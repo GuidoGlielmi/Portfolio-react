@@ -1,0 +1,35 @@
+.infoAndTechs {
+  padding-top: 20vh;
+}
+.personalInfo {
+}
+.personalInfoTitle {
+}
+.aboutMe {
+}
+.techsContainer {
+  display: flex;
+  height: max(10vh, 10vw);
+  overflow: auto;
+  scrollbar-width: none;
+  scroll-behavior: smooth;
+  overscroll-behavior-block: contain;
+}
+.techContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  height: 100%;
+  width: max(10vw, 10vh);
+}
+.techImageContainer {
+  margin: 10px;
+  padding: 30px;
+  border-radius: 50%;
+  box-shadow: 0 0 5px black;
+}
+.techImg {
+  max-height: 100%;
+  max-width: 100%;
+}
