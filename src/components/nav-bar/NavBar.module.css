@@ -1,0 +1,37 @@
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  height: 10vh;
+  background-color: violet;
+}
+.navLeftContainer,
+.navRightContainer {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+.navElementContainer {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+.navImg,
+.navButton,
+.yoProgramoLink {
+  margin: 0 8px;
+}
+.imgLink,
+.navButton {
+  height: 50%;
+}
+.navImg {
+  max-height: 100%;
+  max-width: 100%;
+}
+.social {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
