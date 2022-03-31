@@ -1,0 +1,80 @@
+.educationContainer {
+  position: relative;
+  width: 70%;
+  padding-bottom: 30px;
+  margin: 10vh 0;
+}
+.educationContainerRight {
+  align-self: flex-end;
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 7%;
+}
+.educationContainerLeft {
+  align-self: flex-start;
+  display: flex;
+  justify-content: flex-start;
+  margin-left: 7%;
+}
+.educationContainerRight::before {
+  content: '';
+  position: absolute;
+  right: 2vw;
+  bottom: 0;
+  width: 100%;
+  border-bottom: 2px solid #363636;
+  border-image: linear-gradient(to left, #202020, rgba(0, 0, 0, 0)) 0 0 1%;
+}
+.educationContainerLeft::before {
+  content: '';
+  position: absolute;
+  left: 2vw;
+  bottom: 0;
+  width: 100%;
+  border-bottom: 2px solid #363636;
+  border-image: linear-gradient(to right, #202020, rgba(0, 0, 0, 0)) 0 0 1%;
+}
+.educationRight,
+.educationLeft {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+.educationRight {
+  flex-direction: row-reverse;
+}
+.educationImgContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: max(20vw, 20vh);
+  height: max(20vw, 20vh);
+  margin: 0 3vw;
+}
+.educationImg {
+  max-width: 100%;
+  max-height: 100%;
+}
+.educationInfoContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 60%;
+}
+.educationDegree,
+.educationDescription {
+  text-align: center;
+}
+.educationDegree {
+  padding: 10px 5vw;
+  margin: 10px;
+  font-weight: 400;
+  font-size: x-large;
+  border-bottom: 2px solid rgb(37, 37, 37);
+  border-image: linear-gradient(to right, rgba(0, 0, 0, 0), #202020 20% 80%, rgba(0, 0, 0, 0)) 0 0
+    1%;
+  text-shadow: 0px 0px 1px #131313;
+}
+.educationSchool {
+  font-size: large;
+}

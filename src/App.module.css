@@ -5,17 +5,22 @@
   display: flex;
   justify-content: space-around;
   width: 50%;
-  padding: 30px 20px;
+  padding: 0 20px;
 }
 
 .sectionLink {
+  line-height: 70px;
   transform: scale(1);
   transition: transform 0.2s ease, color 0.2s ease;
   cursor: pointer;
+  flex-grow: 1;
+  text-align: center;
+  border: none;
 }
 .sectionLink:hover {
   transform: scale(1.02);
   color: rgb(59, 20, 75);
+  border-bottom: 1.5px solid black;
 }
 .sectionsContainer {
   display: flex;

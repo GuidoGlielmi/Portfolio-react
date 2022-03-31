@@ -4,6 +4,7 @@ import Header from 'components/header/Header';
 import TechsAndInfo from 'components/techs-and-info/TechsAndInfo';
 import Projects from 'components/projects/Projects';
 import styles from './App.module.css';
+import Education from 'components/education/Education';
 export const InfoContext = React.createContext();
 const App = () => {
   const [user, setUser] = useState('');
@@ -19,7 +20,7 @@ const App = () => {
   const [skillsLoading, setSkillsLoading] = useState(true);
   const [techsLoading, setTechsLoading] = useState(true);
   const [loggedIn, setLoggedIn] = useState(false);
-  const sections = [<TechsAndInfo />, <Projects />];
+  const sections = [<TechsAndInfo />, <Projects />, '', <Education />];
   const sectionsNames = [
     'Personal info',
     'Projects',
