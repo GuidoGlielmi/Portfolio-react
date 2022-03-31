@@ -1,0 +1,65 @@
+.bottomPart {
+  background-image: linear-gradient(rgba(81, 59, 82, 0.1), 80%, rgba(19, 12, 39, 0.8));
+}
+.sectionLinks {
+  display: flex;
+  justify-content: space-around;
+  width: 50%;
+  padding: 30px 20px;
+}
+
+.sectionLink {
+  transform: scale(1);
+  transition: transform 0.2s ease, color 0.2s ease;
+  cursor: pointer;
+}
+.sectionLink:hover {
+  transform: scale(1.02);
+  color: rgb(59, 20, 75);
+}
+.sectionsContainer {
+  display: flex;
+  padding: 20vh 0;
+}
+.section {
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+  position: relative;
+}
+.previousArrowContainer,
+.nextArrowContainer {
+  position: absolute;
+  height: 100%;
+}
+.nextArrowContainer {
+  right: 0;
+}
+.previousArrow,
+.nextArrow {
+  position: sticky;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 50%;
+  padding: 15px;
+  margin: 5px;
+  border-radius: 50%;
+  background-color: wheat;
+  box-shadow: 0.5px 0.5px 5px black;
+  cursor: pointer;
+}
+/* 
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+} */

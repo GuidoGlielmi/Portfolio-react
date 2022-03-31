@@ -1,8 +1,5 @@
-section {
-  background-image: linear-gradient(rgba(81, 59, 82, 0.1), 95%, rgba(19, 12, 39, 0.8));
-}
-.infoAndTechs {
-  padding-top: 20vh;
+.techsAndInfoSection {
+  width: 100%;
 }
 .personalInfo {
   display: flex;
