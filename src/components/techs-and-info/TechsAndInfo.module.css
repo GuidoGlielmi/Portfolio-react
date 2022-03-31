@@ -1,11 +1,55 @@
+section {
+  background-image: linear-gradient(rgba(81, 59, 82, 0.1), 95%, rgba(19, 12, 39, 0.8));
+}
 .infoAndTechs {
   padding-top: 20vh;
 }
 .personalInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  width: 50%;
+  margin: 0 0 20vh 3vw;
 }
 .personalInfoTitle {
+  margin-bottom: 20px;
+  padding-top: 1vh;
+  font-size: x-large;
+}
+.personalInfoTitle::before {
+  content: '';
+  position: absolute;
+  width: 60%;
+  left: 0;
+  top: 0;
+  border-top: 3px solid black;
 }
 .aboutMe {
+  width: 90%;
+  text-align: justify;
+}
+.techsSection {
+  display: flex;
+  flex-direction: column;
+}
+.techsTitle {
+  align-self: flex-end;
+  position: relative;
+  width: 55%;
+  margin: 0 30px 30px 0;
+  text-align: left;
+  margin-bottom: 20px;
+  padding-top: 1vh;
+  font-size: x-large;
+}
+.techsTitle::before {
+  content: '';
+  position: absolute;
+  width: 97%;
+  right: 0;
+  top: 0;
+  border-top: 3px solid black;
 }
 .techsContainer {
   display: flex;
@@ -14,7 +58,11 @@
   scrollbar-width: none;
   scroll-behavior: smooth;
   overscroll-behavior-block: contain;
+  margin: 0 2vw 5vh 2vw;
+  border-left: 2px solid black;
+  border-right: 2px solid black;
 }
+
 .techContainer {
   display: flex;
   justify-content: center;

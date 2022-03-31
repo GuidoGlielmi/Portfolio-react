@@ -52,9 +52,17 @@ export default function TechsAndInfo() {
     <section className={styles.infoAndTechs}>
       <div className={styles.personalInfo}>
         <h2 className={styles.personalInfoTitle}>I'm a web developer</h2>
-        {user ? <p className={styles.aboutMe}>{user.aboutMe}</p> : loading}
+        {user ? (
+          !loggedIn ? (
+            <p className={styles.aboutMe}>{user.aboutMe}</p>
+          ) : (
+            <input type='text' />
+          )
+        ) : (
+          loading
+        )}
       </div>
-      <div>
+      <div className={styles.techsSection}>
         <p className={styles.techsTitle}>Some technologies i'm familiar with</p>
         <div ref={techsContainer} onWheel={(e) => onWheel(e)} className={styles.techsContainer}>
           {techs
