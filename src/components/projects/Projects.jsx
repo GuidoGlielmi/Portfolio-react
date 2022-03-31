@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { InfoContext } from 'App';
 import styles from './Projects.module.css';
+import ProjectItem from './ProjectItem';
 export default function Projects() {
   const projects = useContext(InfoContext).projects;
   const loggedIn = useContext(InfoContext).loggedIn;
@@ -11,41 +12,7 @@ export default function Projects() {
         <p className={styles.title}>Projects i've worked on</p>
       </div>
       <div className={styles.projects}>
-        {projects
-          ? projects.map((p, i) => (
-              <div
-                className={`${styles.projectContainer} ${
-                  i % 2 === 0 ? styles.projectContainerRight : styles.projectContainerLeft
-                }`}
-              >
-                <div className={i % 2 === 0 ? styles.projectRight : styles.projectLeft}>
-                  <div className={styles.projectImgContainer}>
-                    <img className={styles.projectImg} src={p.projectImg} alt={`${p.title} logo`} />
-                  </div>
-                  <div className={styles.projectInfoContainer}>
-                    <h3 className={styles.projectTitle}>{p.title}</h3>
-                    <p className={styles.projectDescription}>{p.description}</p>
-                    <div className={styles.urls}>
-                      {p.urls.map((u) => (
-                        <a className={styles.url} href={u.url} target='_blank' rel='noreferrer'>
-                          {u.name}
-                        </a>
-                      ))}
-                    </div>
-                    <div className={styles.techs}>
-                      {p.techs.map((t, i) => {
-                        return i !== p.techs.length - 1 ? (
-                          <span className={styles.tech}>{t.name} - </span>
-                        ) : (
-                          <span className={styles.tech}>{t.name}</span>
-                        );
-                      })}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))
-          : loading}
+        {projects ? projects.map((p, i) => <ProjectItem p={p} i={i} />) : loading}
       </div>
     </section>
   );
