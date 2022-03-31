@@ -5,6 +5,7 @@ import TechsAndInfo from 'components/techs-and-info/TechsAndInfo';
 import Projects from 'components/projects/Projects';
 import styles from './App.module.css';
 import Education from 'components/education/Education';
+import Experiences from 'components/experiences/Experiences';
 export const InfoContext = React.createContext();
 const App = () => {
   const [user, setUser] = useState('');
@@ -20,7 +21,7 @@ const App = () => {
   const [skillsLoading, setSkillsLoading] = useState(true);
   const [techsLoading, setTechsLoading] = useState(true);
   const [loggedIn, setLoggedIn] = useState(false);
-  const sections = [<TechsAndInfo />, <Projects />, '', <Education />];
+  const sections = [<TechsAndInfo />, <Projects />, <Experiences />, <Education />];
   const sectionsNames = [
     'Personal info',
     'Projects',
@@ -87,7 +88,12 @@ const App = () => {
       <div className={styles.bottomPart}>
         <div className={styles.sectionLinks}>
           {sectionsNames.map((sn, i) => (
-            <span onClick={() => setIndex(i)} className={styles.sectionLink}>
+            <span
+              onClick={() => {
+                setIndex(i);
+              }}
+              className={`${styles.sectionLink} ${index === i ? styles.clickedSectionLink : ''}`}
+            >
               {sn}
             </span>
           ))}

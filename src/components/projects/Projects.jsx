@@ -5,6 +5,7 @@ import ProjectItem from './ProjectItem';
 export default function Projects() {
   const projects = useContext(InfoContext).projects;
   const loggedIn = useContext(InfoContext).loggedIn;
+  const isLoading = useContext(InfoContext).projectsLoading;
   const loading = 'loading...';
   return (
     <section className={styles.projectsSection}>

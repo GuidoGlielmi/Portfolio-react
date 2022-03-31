@@ -1,0 +1,31 @@
+.experiencesSection {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.titleContainer {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 10vh;
+}
+.title {
+  position: relative;
+  width: 55%;
+  margin: 0 30px 30px 0;
+  text-align: left;
+  margin-bottom: 20px;
+  padding-top: 1vh;
+  font-size: x-large;
+}
+.title::before {
+  content: '';
+  position: absolute;
+  width: 97%;
+  right: 0;
+  top: 0;
+  border-top: 3px solid black;
+}
+.experiences {
+  display: flex;
+  flex-direction: column;
+}
