@@ -21,3 +21,6 @@ code {
 .darkFont {
   color: rgb(19, 19, 19);
 }
+.rounded {
+  border-radius: 50%;
+}

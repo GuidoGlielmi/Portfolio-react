@@ -20,6 +20,8 @@
 .sectionLink:hover {
   transform: scale(1.02);
   color: rgb(59, 20, 75);
+}
+.clickedSectionLink {
   border-bottom: 1.5px solid black;
 }
 .sectionsContainer {

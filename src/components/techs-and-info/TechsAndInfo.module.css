@@ -13,6 +13,7 @@
   margin-bottom: 20px;
   padding-top: 1vh;
   font-size: x-large;
+  font-weight: 500;
 }
 .personalInfoTitle::before {
   content: '';
@@ -20,7 +21,7 @@
   width: 60%;
   left: 0;
   top: 0;
-  border-top: 3px solid black;
+  border-top: 2px solid black;
 }
 .aboutMe {
   width: 90%;
@@ -46,7 +47,7 @@
   width: 97%;
   right: 0;
   top: 0;
-  border-top: 3px solid black;
+  border-top: 2px solid black;
 }
 .techsContainer {
   display: flex;
