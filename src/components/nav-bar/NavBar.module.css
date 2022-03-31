@@ -7,6 +7,8 @@ nav {
   width: 100%;
   background-color: violet;
   z-index: 1;
+  box-shadow: 0 -10px 20px 1px #363636;
+  background: rgb(97, 67, 121);
 }
 .navLeftContainer,
 .navRightContainer {

@@ -49,7 +49,7 @@ export default function TechsAndInfo() {
     }
   }
   return (
-    <section className={styles.infoAndTechs}>
+    <section className={styles.techsAndInfoSection}>
       <div className={styles.personalInfo}>
         <h2 className={styles.personalInfoTitle}>I'm a web developer</h2>
         {user ? (

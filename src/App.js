@@ -1,8 +1,9 @@
-import './App.css';
 import NavBar from './components/nav-bar/NavBar';
 import React, { useEffect, useState } from 'react';
 import Header from 'components/header/Header';
 import TechsAndInfo from 'components/techs-and-info/TechsAndInfo';
+import Projects from 'components/projects/Projects';
+import styles from './App.module.css';
 export const InfoContext = React.createContext();
 const App = () => {
   const [user, setUser] = useState('');
@@ -18,6 +19,15 @@ const App = () => {
   const [skillsLoading, setSkillsLoading] = useState(true);
   const [techsLoading, setTechsLoading] = useState(true);
   const [loggedIn, setLoggedIn] = useState(false);
+  const sections = [<TechsAndInfo />, <Projects />];
+  const sectionsNames = [
+    'Personal info',
+    'Projects',
+    'My experiences',
+    'My education',
+    'My skills',
+  ];
+  const [index, setIndex] = useState(0);
   useEffect(() => getInfo(), []);
   async function getInfo() {
     const rawUser = await fetch('http://localhost:8080/users');
@@ -45,6 +55,14 @@ const App = () => {
     setSkills(skills);
     setSkillsLoading(false);
   }
+  function previousSection() {
+    if (index === 0) setIndex(sections.length - 1);
+    else setIndex(index - 1);
+  }
+  function nextSection() {
+    if (index === sections.length - 1) setIndex(0);
+    else setIndex(index + 1);
+  }
   return (
     <InfoContext.Provider
       value={{
@@ -65,7 +83,32 @@ const App = () => {
     >
       <NavBar />
       <Header />
-      <TechsAndInfo />
+      <div className={styles.bottomPart}>
+        <div className={styles.sectionLinks}>
+          {sectionsNames.map((sn, i) => (
+            <span onClick={() => setIndex(i)} className={styles.sectionLink}>
+              {sn}
+            </span>
+          ))}
+        </div>
+        <div className={styles.sectionsContainer}>
+          <div className={styles.section}>
+            <div className={styles.previousArrowContainer}>
+              <div onClick={() => previousSection()} className={styles.previousArrow}>
+                &lt;
+              </div>
+            </div>
+            {sections[index]}
+            <div className={styles.nextArrowContainer}>
+              <div onClick={() => nextSection()} className={styles.nextArrow}>
+                &gt;
+              </div>
+            </div>
+          </div>
+          <footer></footer>
+        </div>
+      </div>
+      {/* log in component to edit or to enter as a guest */}
     </InfoContext.Provider>
   );
 };

@@ -37,14 +37,15 @@ header {
   align-items: center;
   flex: 1;
   position: relative;
-  top: min(23vw, 23vh);
+  top: min(25vw, 25vh);
 }
 .profileImg {
-  width: min(25vw, 25vh);
-  height: min(25vw, 25vh);
+  width: min(30vw, 30vh);
+  height: min(30vw, 30vh);
   border-radius: 50%;
 }
 .fullName {
   line-height: min(10vw, 10vh);
-  font-size: larger;
+  font-size: x-large;
+  font-weight: lighter;
 }
