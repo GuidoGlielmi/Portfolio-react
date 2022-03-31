@@ -2,9 +2,11 @@ nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  position: sticky;
+  position: fixed;
   height: 10vh;
+  width: 100%;
   background-color: violet;
+  z-index: 1;
 }
 .navLeftContainer,
 .navRightContainer {

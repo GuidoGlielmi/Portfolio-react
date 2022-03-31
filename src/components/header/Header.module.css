@@ -1,0 +1,50 @@
+header {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  height: 60vh;
+  background-image: url('../../../public/assets/img/banner2.jpg');
+}
+.containerContainer {
+  position: relative;
+}
+.infoContainer {
+  display: flex;
+}
+.headerTitleContainer {
+  display: flex;
+  justify-content: center;
+  width: 60%;
+}
+.headerTitle {
+  align-self: center;
+  position: relative;
+  padding-top: 2vh;
+  font-size: xx-large;
+  color: white;
+}
+.headerTitle::before {
+  content: '';
+  position: absolute;
+  width: 117%;
+  right: 5%;
+  top: 0;
+  border-top: 3px solid white;
+}
+.userInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  position: relative;
+  top: min(23vw, 23vh);
+}
+.profileImg {
+  width: min(25vw, 25vh);
+  height: min(25vw, 25vh);
+  border-radius: 50%;
+}
+.fullName {
+  line-height: min(10vw, 10vh);
+  font-size: larger;
+}
