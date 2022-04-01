@@ -51,7 +51,7 @@
 }
 .techsContainer {
   display: flex;
-  height: max(10vh, 10vw);
+  height: max(13vw, 13vh);
   overflow: auto;
   scrollbar-width: none;
   scroll-behavior: smooth;
@@ -67,7 +67,7 @@
   align-items: center;
   flex-shrink: 0;
   height: 100%;
-  width: max(10vw, 10vh);
+  width: max(13vw, 13vh);
 }
 .techImageContainer {
   margin: 10px;

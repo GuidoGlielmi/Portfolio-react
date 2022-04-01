@@ -15,36 +15,21 @@ export default function TechsAndInfo() {
     let totalWidth = techsContainer.current.scrollWidth;
     if (e.deltaY > 0) {
       if (maxValue - currentValue < scrollUnit) {
-        techsContainer.current.scrollTo({
-          left: (techsContainer.current.scrollLeft = currentValue - totalWidth / 2),
-          behavior: 'auto',
-        });
-        techsContainer.current.scrollTo({
-          left: (techsContainer.current.scrollLeft = currentValue - totalWidth / 2 + scrollUnit),
-          behavior: 'smooth',
-        });
+        techsContainer.current.style['scroll-behavior'] = 'auto';
+        techsContainer.current.scrollLeft = currentValue - totalWidth / 2;
+        techsContainer.current.style['scroll-behavior'] = 'smooth';
+        techsContainer.current.scrollLeft = currentValue - totalWidth / 2 + scrollUnit;
       } else {
-        techsContainer.current.scrollTo({
-          left: techsContainer.current.scrollLeft + scrollUnit,
-          behavior: 'smooth',
-        });
+        techsContainer.current.scrollLeft = currentValue + scrollUnit;
       }
     } else {
       if (currentValue - scrollUnit < scrollUnit) {
-        techsContainer.current.scrollTo({
-          left: (techsContainer.current.scrollLeft = currentValue - totalWidth / 2),
-          behavior: 'auto',
-        });
-        techsContainer.current.scrollTo({
-          left: (techsContainer.current.scrollLeft =
-            totalWidth / 2 + Math.abs(currentValue - scrollUnit)),
-          behavior: 'smooth',
-        });
+        techsContainer.current.style['scroll-behavior'] = 'auto';
+        techsContainer.current.scrollLeft = currentValue - totalWidth / 2;
+        techsContainer.current.style['scroll-behavior'] = 'smooth';
+        techsContainer.current.scrollLeft = totalWidth / 2 + Math.abs(currentValue - scrollUnit);
       } else {
-        techsContainer.current.scrollTo({
-          left: techsContainer.current.scrollLeft - scrollUnit,
-          behavior: 'smooth',
-        });
+        techsContainer.current.scrollLeft = currentValue - scrollUnit;
       }
     }
   }

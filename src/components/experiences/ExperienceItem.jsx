@@ -12,11 +12,18 @@ export default function ExperienceItem({ e, i, isLastItem }) {
             </div>
             <div className={styles.experienceInfoContainerRight}>
               <h3 className={styles.experienceTitle}>{e.title}</h3>
-              <div>
+              <div className={styles.dates}>
                 <span>{e.startDate} -</span>
                 <span>{e.endDate}</span>
               </div>
               <p className={styles.experienceDescription}>{e.description}</p>
+              {e.certificate ? (
+                <a href={e.certificate} target='_blank' rel='noreferrer'>
+                  Certificate
+                </a>
+              ) : (
+                ''
+              )}
             </div>
           </div>
         </div>

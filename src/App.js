@@ -6,6 +6,7 @@ import Projects from 'components/projects/Projects';
 import styles from './App.module.css';
 import Education from 'components/education/Education';
 import Experiences from 'components/experiences/Experiences';
+import Skills from 'components/skills/Skills';
 export const InfoContext = React.createContext();
 const App = () => {
   const [user, setUser] = useState('');
@@ -21,7 +22,7 @@ const App = () => {
   const [skillsLoading, setSkillsLoading] = useState(true);
   const [techsLoading, setTechsLoading] = useState(true);
   const [loggedIn, setLoggedIn] = useState(false);
-  const sections = [<TechsAndInfo />, <Projects />, <Experiences />, <Education />];
+  const sections = [<TechsAndInfo />, <Projects />, <Experiences />, <Education />, <Skills />];
   const sectionsNames = [
     'Personal info',
     'Projects',
@@ -69,12 +70,19 @@ const App = () => {
     <InfoContext.Provider
       value={{
         user,
+        setUser,
         education,
+        setEducation,
         experiences,
+        setExperiences,
         projects,
+        setProjects,
         techs,
+        setTechs,
         skills,
+        setSkills,
         loggedIn,
+        setLoggedIn,
         userLoading,
         educationLoading,
         experiencesLoading,
@@ -121,3 +129,14 @@ const App = () => {
 };
 
 export default App;
+async function save(url, item) {
+  const token = sessionStorage.getItem('accessToken');
+  const options = {
+    headers: {
+      Authorization: token,
+    },
+    method: 'PUT',
+    body: item,
+  };
+  fetch(url, options);
+}
