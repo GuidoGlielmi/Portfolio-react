@@ -4,8 +4,8 @@ import styles from './Experiences.module.css';
 import ExperienceItem from './ExperienceItem';
 export default function Experiences() {
   const experiences = useContext(InfoContext).experiences;
-  const loggedIn = useContext(InfoContext).loggedIn;
-  const isLoading = useContext(InfoContext).experiencesLoading;
+  const loggedIn = true;
+  // const loggedIn = useContext(InfoContext).loggedIn;
   const loading = 'loading...';
   return (
     <section className={styles.experiencesSection}>

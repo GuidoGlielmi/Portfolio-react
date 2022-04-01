@@ -2,11 +2,9 @@ import React, { useContext } from 'react';
 import SkillItem from './SkillItem';
 import { InfoContext } from 'App';
 import styles from './Skills.module.css';
-import FormSelector from 'components/form-selector/FormSelector';
 export default function Skills() {
   const skills = useContext(InfoContext).skills;
-  const loggedIn = useContext(InfoContext).loggedIn;
-  const isLoading = useContext(InfoContext).skillsLoading;
+  // const loggedIn = useContext(InfoContext).loggedIn;
   const loading = 'loading...';
   return (
     <section className={styles.skillsSection}>
@@ -14,18 +12,9 @@ export default function Skills() {
         <div className={styles.titleContainer}>
           <p className={styles.title}>Soft and Hard Skills</p>
         </div>
-        {!isLoading ? (
+        {skills ? (
           <div className={styles.skills}>
-            {skills.map((s, i) => {
-              console.log(s);
-              if (s.type === 'HardAndSoft') {
-                if (!loggedIn) {
-                  return <SkillItem s={s} i={i} />;
-                }
-                return <FormSelector />;
-              }
-              return '';
-            })}
+            {skills.map((s, i) => s.type === 'HardAndSoft' && <SkillItem s={s} i={i} />)}
           </div>
         ) : (
           loading
@@ -35,17 +24,9 @@ export default function Skills() {
         <div className={styles.titleContainer}>
           <p className={styles.title}>Languages</p>
         </div>
-        {!isLoading ? (
+        {skills ? (
           <div className={styles.skills}>
-            {skills.map((s, i) => {
-              if (s.type === 'language') {
-                if (!loggedIn) {
-                  return <SkillItem s={s} i={i} />;
-                }
-                return <FormSelector item={s} form={''} />;
-              }
-              return '';
-            })}
+            {skills.map((s, i) => s.type === 'language' && <SkillItem s={s} i={i} />)}
           </div>
         ) : (
           loading

@@ -5,7 +5,6 @@ import styles from './Education.module.css';
 export default function Education() {
   const education = useContext(InfoContext).education;
   const loggedIn = useContext(InfoContext).loggedIn;
-  const isLoading = useContext(InfoContext).educationLoading;
   const loading = 'loading...';
   return (
     <section className={styles.educationSection}>
