@@ -38,6 +38,7 @@
 .nextArrowContainer {
   position: absolute;
   height: 100%;
+  z-index: 1;
 }
 .nextArrowContainer {
   right: 0;
