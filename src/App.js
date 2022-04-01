@@ -1,5 +1,5 @@
 import NavBar from './components/nav-bar/NavBar';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Header from 'components/header/Header';
 import TechsAndInfo from 'components/techs-and-info/TechsAndInfo';
 import Projects from 'components/projects/Projects';
@@ -7,8 +7,10 @@ import styles from './App.module.css';
 import Education from 'components/education/Education';
 import Experiences from 'components/experiences/Experiences';
 import Skills from 'components/skills/Skills';
+import Footer from 'components/footer/Footer';
 export const InfoContext = React.createContext();
 const App = () => {
+  const section = useRef('');
   const [user, setUser] = useState('');
   const [education, setEducation] = useState('');
   const [experiences, setExperiences] = useState('');
@@ -58,13 +60,18 @@ const App = () => {
     setSkills(skills);
     setSkillsLoading(false);
   }
+  function scrollToSection() {
+    section.current.scrollIntoView();
+  }
   function previousSection() {
     if (index === 0) setIndex(sections.length - 1);
     else setIndex(index - 1);
+    scrollToSection();
   }
   function nextSection() {
     if (index === sections.length - 1) setIndex(0);
     else setIndex(index + 1);
+    scrollToSection();
   }
   return (
     <InfoContext.Provider
@@ -93,7 +100,7 @@ const App = () => {
     >
       <NavBar />
       <Header />
-      <div className={styles.bottomPart}>
+      <div ref={section} className={styles.bottomPart}>
         <div className={styles.sectionLinks}>
           {sectionsNames.map((sn, i) => (
             <span
@@ -120,9 +127,9 @@ const App = () => {
               </div>
             </div>
           </div>
-          <footer></footer>
         </div>
       </div>
+      <Footer setLinkIndex={setIndex} scrollToSection={scrollToSection} />
       {/* log in component to edit or to enter as a guest */}
     </InfoContext.Provider>
   );
