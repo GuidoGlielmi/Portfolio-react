@@ -1,10 +1,14 @@
-import React, { useContext, useRef } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 import { InfoContext } from 'App';
 import styles from './TechsAndInfo.module.css';
+import TechItem from './TechItem';
+import CloseAndEdit from 'components/close-icon/CloseAndEdit';
 export default function TechsAndInfo() {
+  const loggedIn = true;
+  const [editAboutMe, setEditAboutMe] = useState(false);
   const user = useContext(InfoContext).user[0];
   const techs = useContext(InfoContext).techs;
-  const loggedIn = useContext(InfoContext).loggedIn;
+  // const loggedIn = useContext(InfoContext).loggedIn;
   const techImg = useRef('');
   const techsContainer = useRef('');
   const loading = 'loading...';
@@ -39,9 +43,17 @@ export default function TechsAndInfo() {
         <h2 className={styles.personalInfoTitle}>I'm a web developer</h2>
         {user ? (
           !loggedIn ? (
-            <p className={styles.aboutMe}>{user.aboutMe}</p>
+            <>
+              <p className={styles.aboutMe}>{user.aboutMe}</p>
+            </>
           ) : (
-            <input type='text' />
+            <>
+              {loggedIn && <CloseAndEdit toggleEdit={() => setEditAboutMe(!editAboutMe)} />}
+              {editAboutMe && (
+                <textarea defaultValue={user.aboutMe} className={styles.aboutMeInput} />
+              )}
+              {!editAboutMe && <p className={styles.aboutMe}>{user.aboutMe}</p>}
+            </>
           )
         ) : (
           loading
@@ -51,28 +63,16 @@ export default function TechsAndInfo() {
         <p className={styles.techsTitle}>Some technologies i'm familiar with</p>
         <div ref={techsContainer} onWheel={(e) => onWheel(e)} className={styles.techsContainer}>
           {techs
-            ? techs.map((tech) => (
-                <div ref={techImg} key={tech.id} className={styles.techContainer}>
-                  <div className={styles.techImageContainer}>
-                    <img
-                      className={styles.techImg}
-                      src={tech.techImg}
-                      alt={`${tech.techName} logo`}
-                    />
-                  </div>
+            ? techs.map((t) => (
+                <div ref={techImg}>
+                  <TechItem t={t} />
                 </div>
               ))
             : loading}
           {techs
-            ? techs.map((tech, i) => (
-                <div ref={techImg} key={i} className={styles.techContainer}>
-                  <div className={styles.techImageContainer}>
-                    <img
-                      className={styles.techImg}
-                      src={tech.techImg}
-                      alt={`${tech.techName} logo`}
-                    />
-                  </div>
+            ? techs.map((t, i) => (
+                <div ref={techImg}>
+                  <TechItem t={t} />
                 </div>
               ))
             : loading}

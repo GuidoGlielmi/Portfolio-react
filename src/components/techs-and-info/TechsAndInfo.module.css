@@ -51,7 +51,6 @@
 }
 .techsContainer {
   display: flex;
-  height: max(13vw, 13vh);
   overflow: auto;
   scrollbar-width: none;
   scroll-behavior: smooth;
@@ -67,15 +66,24 @@
   align-items: center;
   flex-shrink: 0;
   height: 100%;
-  width: max(13vw, 13vh);
 }
 .techImageContainer {
-  margin: 10px;
-  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+  margin: 1vw;
+  padding: max(3vw, 4vh);
   border-radius: 50%;
-  box-shadow: 0 0 5px black;
+  box-shadow: 0 0 5px #08001e;
 }
 .techImg {
-  max-height: 100%;
-  max-width: 100%;
+  height: 8.55vw;
+}
+.aboutMeInput {
+  height: 80px;
+  width: 100%;
+  padding: 2px;
+  font-size: larger;
+  resize: vertical;
 }

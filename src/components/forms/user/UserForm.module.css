@@ -1,15 +1,13 @@
-.techForm {
+.userInfoForm {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-
-.techInputs {
+.userInputs {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
 }
 .inputLabel {
   display: flex;
   flex-direction: column;
-  margin: 2%;
 }

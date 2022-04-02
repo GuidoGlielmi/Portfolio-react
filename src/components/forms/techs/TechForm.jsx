@@ -2,7 +2,7 @@ import Button from 'components/button/Button';
 import React, { useRef } from 'react';
 import styles from './TechForm.module.css';
 
-export default function TechForm({ s }) {
+export default function TechForm({ t }) {
   const name = useRef('');
   const techImg = useRef(0);
   function submit(e) {
@@ -16,7 +16,7 @@ export default function TechForm({ s }) {
             Name
           </label>
           <input
-            defaultValue={s.name}
+            defaultValue={t.name}
             className={styles.techInput}
             ref={name}
             name='name'
@@ -28,7 +28,7 @@ export default function TechForm({ s }) {
             Technology image
           </label>
           <input
-            defaultValue={s.techImg}
+            defaultValue={t.techImg}
             className={styles.techInput}
             ref={techImg}
             name='techImg'

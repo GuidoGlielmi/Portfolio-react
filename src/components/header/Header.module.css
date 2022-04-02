@@ -39,9 +39,14 @@ header {
   position: relative;
   top: min(25vw, 25vh);
 }
-.profileImg {
+.profileImgContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   width: min(30vw, 30vh);
-  height: min(30vw, 30vh);
+}
+.profileImg {
+  max-width: 100%;
   border-radius: 50%;
 }
 .fullName {
