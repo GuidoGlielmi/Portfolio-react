@@ -1,0 +1,77 @@
+.responseMsgContainer,
+.responseMsgErrorContainer {
+  display: flex;
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  padding: 10px;
+  color: white;
+  border-radius: 2px;
+  box-shadow: 0.5px 0.5px 2px 1px #202020;
+}
+.responseMsgContainer {
+  background-color: #19a819;
+}
+.responseMsgErrorContainer {
+  background-color: #df2a2a;
+}
+.bottomPart {
+  background-image: linear-gradient(rgba(81, 59, 82, 0.1), 75%, rgba(19, 12, 39, 0.8));
+}
+.sectionLinks {
+  display: flex;
+  justify-content: space-around;
+  width: 50%;
+  padding: 0 20px;
+}
+
+.sectionLink {
+  line-height: 70px;
+  transform: scale(1);
+  transition: transform 0.2s ease, color 0.2s ease, text-shadow 0.2s ease;
+  cursor: pointer;
+  flex-grow: 1;
+  text-align: center;
+  border: none;
+}
+.sectionLink:hover {
+  transform: scale(1.02);
+  color: rgb(59, 20, 75);
+  text-shadow: 0 0 0.5px rgb(59, 20, 75);
+}
+.clickedSectionLink {
+  border-bottom: 1.5px solid black;
+}
+.sectionsContainer {
+  display: flex;
+  padding: 15vh 0;
+}
+.section {
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+  position: relative;
+}
+.previousArrowContainer,
+.nextArrowContainer {
+  position: absolute;
+  height: 100%;
+  z-index: 1;
+}
+.nextArrowContainer {
+  right: 0;
+}
+.previousArrow,
+.nextArrow {
+  position: sticky;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 50%;
+  padding: 15px;
+  margin: 5px;
+  border-radius: 50%;
+  background-color: wheat;
+  box-shadow: 0.5px 0.5px 5px black;
+  cursor: pointer;
+}
