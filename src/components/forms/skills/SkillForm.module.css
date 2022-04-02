@@ -1,0 +1,16 @@
+.skillForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 17vw;
+}
+
+.skillInputs {
+  display: flex;
+  flex-direction: column;
+}
+.inputLabel {
+  display: flex;
+  flex-direction: column;
+  margin: 2%;
+}

@@ -1,0 +1,20 @@
+.techContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  height: 100%;
+}
+.techImageContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+  margin: 1vw;
+  padding: max(3vw, 4vh);
+  border-radius: 50%;
+  box-shadow: 0 0 5px #08001e;
+}
+.techImg {
+  height: 8.55vw;
+}
