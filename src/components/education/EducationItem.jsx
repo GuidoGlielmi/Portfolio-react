@@ -1,18 +1,30 @@
+import { InfoContext } from 'App';
 import CloseAndEdit from 'components/close-icon/CloseAndEdit';
 import EducationForm from 'components/forms/education/EducationForm';
-import React, { useState } from 'react';
+import { adminApi } from 'index';
+import React, { useContext, useState } from 'react';
 import styles from './EducationItem.module.css';
 
 export default function EducationItem({ e, i }) {
   const [showForm, setShowForm] = useState(false);
-  const loggedIn = true;
+  const loggedIn = useContext(InfoContext).loggedIn;
+  const education = useContext(InfoContext).education;
+  const setEducation = useContext(InfoContext).setEducation;
+  async function deleteEducation() {
+    await adminApi.delete(`/education/${e.id}`);
+    education.splice(i, 1);
+    const newEducation = [...education];
+    setEducation(newEducation);
+  }
   return (
     <div
       className={`${styles.educationContainer} ${
         i % 2 === 0 ? styles.educationContainerRight : styles.educationContainerLeft
       }`}
     >
-      {loggedIn && <CloseAndEdit toggleEdit={() => setShowForm(!showForm)} />}
+      {loggedIn && (
+        <CloseAndEdit toggleEdit={() => setShowForm(!showForm)} deleteItem={deleteEducation} />
+      )}
       {!showForm ? (
         <div className={i % 2 === 0 ? styles.educationRight : styles.educationLeft}>
           <div className={styles.educationImgContainer}>
@@ -26,7 +38,7 @@ export default function EducationItem({ e, i }) {
           </div>
         </div>
       ) : (
-        <EducationForm e={e} />
+        <EducationForm e={e} i={i} hideForm={() => setShowForm(!showForm)} />
       )}
     </div>
   );

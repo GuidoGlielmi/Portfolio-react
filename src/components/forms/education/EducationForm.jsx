@@ -1,18 +1,51 @@
+import { InfoContext } from 'App';
 import Button from 'components/button/Button';
-import React, { useRef } from 'react';
+import { adminApi } from 'index';
+import React, { useContext, useRef } from 'react';
 import styles from './EducationForm.module.css';
 
-export default function EducationForm({ e }) {
+export default function EducationForm({
+  e = { degree: '', school: '', startDate: '', endDate: '', educationImg: '' },
+  i,
+  hideForm,
+}) {
   const degree = useRef('');
   const school = useRef('');
   const startDate = useRef('');
   const endDate = useRef('');
   const educationImg = useRef('');
-  function submit(e) {
-    e.preventDefault();
+  const education = useContext(InfoContext).education;
+  const setEducation = useContext(InfoContext).setEducation;
+  async function submitHandler(event) {
+    event.preventDefault();
+    const newEducation = {
+      ...e,
+      degree: degree.current.value,
+      school: school.current.value,
+      startDate: startDate.current.value,
+      endDate: endDate.current.value,
+      educationImg: educationImg.current.value,
+    };
+    if (!!e.id) {
+      await adminApi.put('/education', newEducation);
+      education[i] = newEducation;
+      hideForm();
+    } else {
+      const generatedId = await adminApi.post('/education', newEducation);
+      newEducation.id = generatedId;
+      education.push(newEducation);
+      education.sort((a, b) => a.degree > b.degree);
+      degree.current.value = '';
+      school.current.value = '';
+      startDate.current.value = '';
+      endDate.current.value = '';
+      educationImg.current.value = '';
+    }
+    const newEducationList = [...education];
+    setEducation(newEducationList);
   }
   return (
-    <form onSubmit={submit} className={styles.educationForm}>
+    <form onSubmit={submitHandler} className={styles.educationForm}>
       <div className={styles.educationInputs}>
         <div className={styles.inputLabel}>
           <label className={styles.educationLabel} htmlFor='degree'>
@@ -76,7 +109,7 @@ export default function EducationForm({ e }) {
         </div>
       </div>
       <div>
-        <Button onClick={(e) => submit(e)}>Save</Button>
+        <Button onClick={(e) => submitHandler(e)}>Save</Button>
       </div>
     </form>
   );

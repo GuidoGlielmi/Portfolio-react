@@ -1,4 +1,4 @@
-label {
+.label {
   margin: 5px;
 }
 .modal {
@@ -9,7 +9,7 @@ label {
   max-width: 85%;
   /*   width: 40vw;
   height: 40vh; */
-  z-index: 2;
+  z-index: 3;
   padding: max(15px, 3vw);
   margin: 5px;
   background: rgb(160, 172, 170);
@@ -36,8 +36,13 @@ label {
   align-items: center;
   margin: 5px;
 }
-.logInButton {
+.logInButton,
+.unexistentUser {
   align-self: center;
+  margin: 10px 0;
+}
+.unexistentUser {
+  color: red;
 }
 @media (max-width: 850px) {
   .modal {

@@ -4,6 +4,23 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
+import axios from 'axios';
+export const userApi = axios.create({
+  baseURL: 'http://localhost:8080',
+});
+export const adminApi = axios.create({
+  baseURL: 'http://localhost:8080',
+});
+export const loginApi = axios.create({
+  baseURL: 'http://localhost:8080',
+});
+adminApi.interceptors.request.use((req) => {
+  const token = sessionStorage.getItem('accessToken');
+  req.headers['Authorization'] = `Bearer ${token}`;
+  console.log(req);
+  return req;
+});
+
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>

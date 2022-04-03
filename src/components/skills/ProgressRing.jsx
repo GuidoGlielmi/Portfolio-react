@@ -45,7 +45,7 @@ export default function ProgressRing({ percentage = 100 }) {
       <svg className={styles.circleContainer}>
         <circle
           className={styles.grayCircle}
-          stroke-width={`${strokeWidth}${vwh}`}
+          strokeWidth={`${strokeWidth}${vwh}`}
           fill='transparent'
           r={`${radius}${vwh}`}
           cx={`${cxy}${vwh}`}
@@ -53,13 +53,13 @@ export default function ProgressRing({ percentage = 100 }) {
         />
         <circle
           className={styles.circle}
-          stroke-width={`${strokeWidth}${vwh}`}
+          strokeWidth={`${strokeWidth}${vwh}`}
           fill='transparent'
           r={`${radius}${vwh}`}
           cx={`${cxy}${vwh}`}
           cy={`${cxy}${vwh}`}
-          stroke-dasharray={`${circumference}px`}
-          stroke-dashoffset={`${offset}px`}
+          strokeDasharray={`${circumference}px`}
+          strokeDashoffset={`${offset}px`}
         />
       </svg>
     </div>

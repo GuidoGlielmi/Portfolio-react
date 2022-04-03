@@ -1,4 +1,6 @@
 .techsAndInfoSection {
+  display: flex;
+  flex-direction: column;
   width: 100%;
 }
 .personalInfo {
@@ -86,4 +88,8 @@
   padding: 2px;
   font-size: larger;
   resize: vertical;
+}
+.addButton {
+  align-self: center;
+  margin: 20px 0;
 }

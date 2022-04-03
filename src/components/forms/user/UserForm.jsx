@@ -1,11 +1,9 @@
-import { useRef } from 'react';
+import { InfoContext } from 'App';
+import { useContext } from 'react';
 import styles from './UserForm.module.css';
-export default function UserForm({ u }) {
-  // const loggedIn = useContext(InfoContext).loggedIn;
-  const loggedIn = true;
-  const firstName = useRef('');
-  const lastName = useRef('');
-  const profileImg = useRef('');
+export default function UserForm({ u, i }) {
+  const users = useContext(InfoContext).users;
+  const setUsers = useContext(InfoContext).setUsers;
   return (
     <form className={styles.userInfoForm}>
       <div className={styles.inputLabel}>
@@ -15,7 +13,13 @@ export default function UserForm({ u }) {
         <input
           defaultValue={u.firstName}
           className={styles.userInput}
-          ref={firstName}
+          onInput={({ target: { value } }) => {
+            users[i] = {
+              ...u,
+              firstName: value,
+            };
+            setUsers([...users]);
+          }}
           name='firstName'
           id='firstName'
         />
@@ -27,7 +31,13 @@ export default function UserForm({ u }) {
         <input
           defaultValue={u.lastName}
           className={styles.userInput}
-          ref={lastName}
+          onInput={({ target: { value } }) => {
+            users[i] = {
+              ...u,
+              lastName: value,
+            };
+            setUsers([...users]);
+          }}
           name='lastName'
           id='lastName'
         />
@@ -39,7 +49,13 @@ export default function UserForm({ u }) {
         <input
           defaultValue={u.profileImg}
           className={styles.userInput}
-          ref={profileImg}
+          onInput={({ target: { value } }) => {
+            users[i] = {
+              ...u,
+              profileImg: value,
+            };
+            setUsers([...users]);
+          }}
           name='profileImg'
           id='profileImg'
         />

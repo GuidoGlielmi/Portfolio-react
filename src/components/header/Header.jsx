@@ -1,13 +1,11 @@
-import React, { useContext, useState, useRef } from 'react';
+import React, { useContext, useState } from 'react';
 import { InfoContext } from 'App';
 import styles from './Header.module.css';
 import CloseAndEdit from 'components/close-icon/CloseAndEdit';
 import UserForm from 'components/forms/user/UserForm';
-export default function Header() {
-  const user = useContext(InfoContext).user[0];
-  const loggedIn = true;
+export default function Header({ user, i }) {
   const [editUserInfo, setEditUserInfo] = useState(false);
-  // const loggedIn = useContext(InfoContext).loggedIn;
+  const loggedIn = useContext(InfoContext).loggedIn;
   const loading = 'loading...';
   return (
     <header>
@@ -22,13 +20,13 @@ export default function Header() {
               <div className={styles.profileImgContainer}>
                 {!editUserInfo ? (
                   <>
-                    <img className={styles.profileImg} src={user?.profileImg} alt='profile' />
+                    <img className={styles.profileImg} src={user.profileImg} alt='profile' />
                     <h1 className={`${styles.fullName} darkFont`}>
-                      {user?.firstName + ' ' + user?.lastName}
+                      {user.firstName + ' ' + user.lastName}
                     </h1>
                   </>
                 ) : (
-                  <UserForm u={user} />
+                  <UserForm u={user} i={i} />
                 )}
               </div>
             </div>
