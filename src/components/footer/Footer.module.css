@@ -23,3 +23,15 @@ footer {
 .link:hover {
   opacity: 0.6;
 }
+/* .initialEnteringSectionStyle,
+.initialExitingSectionStyle {
+  position: absolute;
+  width: 200px;
+  transition: opacity 300ms ease, transform 300ms ease;
+}
+.initialEnteringSectionStyle {
+  opacity: 0;
+}
+.initialExitingSectionStyle {
+  opacity: 1;
+} */

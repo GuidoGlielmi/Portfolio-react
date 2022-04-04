@@ -1,16 +1,47 @@
+import { InfoContext } from 'App';
 import Button from 'components/button/Button';
-import React, { useRef } from 'react';
+import { adminApi } from 'index';
+import React, { useContext, useRef } from 'react';
 import styles from './SkillForm.module.css';
 
-export default function SkillForm({ s }) {
-  const name = useRef('');
-  const abilityPercentage = useRef(0);
-  const type = useRef('');
-  function submit(e) {
-    e.preventDefault();
+export default function SkillForm({
+  s = { name: '', abilityPercentage: 0, type: '' },
+  i,
+  hideForm,
+}) {
+  const skills = useContext(InfoContext).skills;
+  const setSkills = useContext(InfoContext).setSkills;
+
+  const name = useRef(s.name);
+  const abilityPercentage = useRef(s.abilityPercentage);
+  const type = useRef(s.type);
+
+  async function submitHandler(event) {
+    event.preventDefault();
+    const newSkill = {
+      ...s,
+      name: name.current.value,
+      abilityPercentage: abilityPercentage.current.value,
+      type: type.current.value,
+    };
+    if (!!s.id) {
+      await adminApi.put('/skills', newSkill);
+      skills[i] = newSkill;
+      hideForm();
+    } else {
+      const generatedId = await adminApi.post('/skills', newSkill);
+      newSkill.id = generatedId;
+      skills.push(newSkill);
+      skills.sort((a, b) => a.name > b.name);
+      name.current.value = '';
+      abilityPercentage.current.value = '';
+      type.current.value = '';
+    }
+    const newSkillList = [...skills];
+    setSkills(newSkillList);
   }
   return (
-    <form onSubmit={submit} className={styles.skillForm}>
+    <form onSubmit={submitHandler} className={styles.skillForm}>
       <div className={styles.skillInputs}>
         <div className={styles.inputLabel}>
           <label className={styles.skillLabel} htmlFor='name'>
@@ -50,7 +81,7 @@ export default function SkillForm({ s }) {
         </div>
       </div>
       <div>
-        <Button onClick={(e) => submit(e)}>Save</Button>
+        <Button onClick={(e) => submitHandler(e)}>Save</Button>
       </div>
     </form>
   );

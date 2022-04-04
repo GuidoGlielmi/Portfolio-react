@@ -1,17 +1,26 @@
-import React, { useContext, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { InfoContext } from 'App';
 import styles from './TechsAndInfo.module.css';
 import TechItem from './TechItem';
 import CloseAndEdit from 'components/close-icon/CloseAndEdit';
-export default function TechsAndInfo() {
-  const loggedIn = true;
+import TechForm from 'components/forms/techs/TechForm';
+import Button from 'components/button/Button';
+import LoadingIcon from 'components/loading-icon/LoadingIcon';
+export default function TechsAndInfo({ user, i }) {
+  const loggedIn = useContext(InfoContext).loggedIn;
   const [editAboutMe, setEditAboutMe] = useState(false);
-  const user = useContext(InfoContext).user[0];
+  const [showNewForm, setShowNewForm] = useState(false);
   const techs = useContext(InfoContext).techs;
-  // const loggedIn = useContext(InfoContext).loggedIn;
+  const users = useContext(InfoContext).users;
+  const setUsers = useContext(InfoContext).setUsers;
   const techImg = useRef('');
   const techsContainer = useRef('');
-  const loading = 'loading...';
+  useEffect(() => {
+    if (!loggedIn) {
+      setEditAboutMe(false);
+      setShowNewForm(false);
+    }
+  }, [loggedIn]);
   function onWheel(e) {
     let scrollUnit = techImg.current.offsetWidth;
     let currentValue = techsContainer.current.scrollLeft;
@@ -50,34 +59,54 @@ export default function TechsAndInfo() {
             <>
               {loggedIn && <CloseAndEdit toggleEdit={() => setEditAboutMe(!editAboutMe)} />}
               {editAboutMe && (
-                <textarea defaultValue={user.aboutMe} className={styles.aboutMeInput} />
+                <textarea
+                  defaultValue={user.aboutMe}
+                  className={styles.aboutMeInput}
+                  onInput={({ target: { value } }) => {
+                    users[i] = {
+                      ...user,
+                      aboutMe: value,
+                    };
+                    setUsers([...users]);
+                  }}
+                />
               )}
               {!editAboutMe && <p className={styles.aboutMe}>{user.aboutMe}</p>}
             </>
           )
         ) : (
-          loading
+          <LoadingIcon />
         )}
       </div>
       <div className={styles.techsSection}>
         <p className={styles.techsTitle}>Some technologies i'm familiar with</p>
         <div ref={techsContainer} onWheel={(e) => onWheel(e)} className={styles.techsContainer}>
-          {techs
-            ? techs.map((t) => (
-                <div ref={techImg}>
-                  <TechItem t={t} />
-                </div>
-              ))
-            : loading}
-          {techs
-            ? techs.map((t, i) => (
-                <div ref={techImg}>
-                  <TechItem t={t} />
-                </div>
-              ))
-            : loading}
+          {techs ? (
+            techs.map((t, i) => (
+              <div key={t.id} ref={techImg}>
+                <TechItem t={t} i={i} />
+              </div>
+            ))
+          ) : (
+            <LoadingIcon />
+          )}
+          {techs ? (
+            techs.map((t, i) => (
+              <div key={t.id} ref={techImg}>
+                <TechItem t={t} i={i} />
+              </div>
+            ))
+          ) : (
+            <LoadingIcon />
+          )}
         </div>
       </div>
+      {showNewForm && <TechForm />}
+      {loggedIn && (
+        <div onClick={() => setShowNewForm(!showNewForm)} className={styles.addButton}>
+          <Button>Add tech</Button>
+        </div>
+      )}
     </section>
   );
 }

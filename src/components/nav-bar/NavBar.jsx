@@ -1,40 +1,60 @@
-import { useContext, useRef, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { InfoContext } from 'App';
 import styles from './NavBar.module.css';
 import Button from 'components/button/Button';
 import CloseAndEdit from 'components/close-icon/CloseAndEdit';
+import { adminApi } from 'index';
+import LoadingIcon from 'components/loading-icon/LoadingIcon';
 
-const NavBar = () => {
-  const user = useContext(InfoContext).user[0];
-  const loggedIn = true;
-  const loading = 'loading...';
-  const linkedInUrl = useRef('');
-  const githubUrl = useRef('');
+const NavBar = ({ showLoginModal, setShowLoginModal, u, i }) => {
+  const users = useContext(InfoContext).users;
+  const setUsers = useContext(InfoContext).setUsers;
+  const loggedIn = useContext(InfoContext).loggedIn;
+  const setLoggedIn = useContext(InfoContext).setLoggedIn;
+
   const [editLinks, setEditLinks] = useState('');
+
+  useEffect(() => {
+    if (!loggedIn) {
+      setEditLinks(false);
+    }
+  }, [loggedIn]);
+
+  async function saveUser() {
+    await adminApi.put('/users', users[i]);
+  }
+  function logout() {
+    sessionStorage.removeItem('accessToken');
+    setLoggedIn(false);
+  }
   return (
-    (
-      <nav>
-        <div className={styles.navLeftContainer}>
-          <div className={styles.navElementContainer}>
-            <img className={styles.navImg} src='assets/logos/AP.png' alt='AP logo' />
-          </div>
-          <a className={styles.yoProgramoLink} href='http://www.yoprogramo.org.ar/'>
-            #YoProgramo
-          </a>
-          <div className={styles.navButton}>{loggedIn && <Button>Save user</Button>}</div>
+    <nav>
+      <div className={styles.navLeftContainer}>
+        <div className={styles.navElementContainer}>
+          <img className={styles.navImg} src='assets/logos/AP.png' alt='AP logo' />
         </div>
-        <div className={styles.navRightContainer}>
-          {loggedIn && <CloseAndEdit toggleEdit={() => setEditLinks(!editLinks)} />}
-          {!editLinks ? (
+        <a className={styles.yoProgramoLink} href='http://www.yoprogramo.org.ar/'>
+          #YoProgramo
+        </a>
+        {loggedIn && (
+          <div onClick={() => saveUser()} className={styles.navButton}>
+            <Button>Save user</Button>
+          </div>
+        )}
+      </div>
+      <div className={styles.navRightContainer}>
+        {loggedIn && <CloseAndEdit toggleEdit={() => setEditLinks(!editLinks)} />}
+        {u ? (
+          !editLinks ? (
             <div className={styles.social}>
-              <a className={styles.imgLink} href={user?.linkedInUrl}>
+              <a className={styles.imgLink} href={u.linkedInUrl}>
                 <img
                   className={styles.navImg}
                   src='/assets/logos/GitHub-Mark-64px.png'
                   alt='AP logo'
                 />
               </a>
-              <a className={styles.imgLink} href={user?.githubUrl}>
+              <a className={styles.imgLink} href={u.githubUrl}>
                 <img className={styles.navImg} src='/assets/logos/linkedin.png' alt='AP logo' />
               </a>
             </div>
@@ -45,9 +65,16 @@ const NavBar = () => {
                   Linkedin Url
                 </label>
                 <input
-                  defaultValue={user.g}
+                  defaultValue={u.linkedInUrl}
                   className={styles.linksInput}
-                  ref={linkedInUrl}
+                  onInput={({ target: { value } }) => {
+                    users[i] = {
+                      ...u,
+                      linkedInUrl: value,
+                    };
+                    console.log(users[i].linkedInUrl);
+                    setUsers([...users]);
+                  }}
                   name='linkedInUrl'
                   id='linkedInUrl'
                 />
@@ -57,22 +84,33 @@ const NavBar = () => {
                   Github Url
                 </label>
                 <input
-                  defaultValue={user.githubUrl}
+                  defaultValue={u.githubUrl}
                   className={styles.linksInput}
-                  ref={githubUrl}
+                  onInput={({ target: { value } }) => {
+                    users[i] = {
+                      ...u,
+                      githubUrl: value,
+                    };
+                    setUsers([...users]);
+                  }}
                   name='githubUrl'
                   id='githubUrl'
                 />
               </div>
             </div>
-          )}
+          )
+        ) : (
+          <LoadingIcon />
+        )}
 
-          <div className={styles.navButton}>
-            <Button>Log in</Button>
-          </div>
+        <div
+          onClick={() => (!loggedIn ? setShowLoginModal(!showLoginModal) : logout())}
+          className={styles.navButton}
+        >
+          <Button>{loggedIn ? 'Log out' : 'Log in'}</Button>
         </div>
-      </nav>
-    ) || loading
+      </div>
+    </nav>
   );
 };
 export default NavBar;

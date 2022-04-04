@@ -1,18 +1,53 @@
+import { InfoContext } from 'App';
 import Button from 'components/button/Button';
-import React, { useRef } from 'react';
+import { adminApi } from 'index';
+import React, { useContext, useRef } from 'react';
 import styles from './ExperienceForm.module.css';
 
-export default function ExperienceForm({ e }) {
+export default function ExperienceForm({
+  e = { title: '', description: '', startDate: '', endDate: '', experienceImg: '' },
+  i,
+  hideForm,
+}) {
+  const experiences = useContext(InfoContext).experiences;
+  const setExperiences = useContext(InfoContext).setExperiences;
+
   const title = useRef('');
   const description = useRef('');
   const startDate = useRef('');
   const endDate = useRef('');
   const experienceImg = useRef('');
-  function submit(e) {
-    e.preventDefault();
+
+  async function submitHandler(event) {
+    event.preventDefault();
+    const newExperience = {
+      ...e,
+      title: title.current.value,
+      description: description.current.value,
+      startDate: startDate.current.value,
+      endDate: endDate.current.value,
+      experienceImg: experienceImg.current.value,
+    };
+    if (!!e.id) {
+      await adminApi.put('/experience', newExperience);
+      experiences[i] = newExperience;
+      hideForm();
+    } else {
+      const generatedId = await adminApi.post('/experiences', newExperience);
+      newExperience.id = generatedId;
+      experiences.push(newExperience);
+      experiences.sort((a, b) => a.title > b.title);
+      title.current.value = '';
+      description.current.value = '';
+      startDate.current.value = '';
+      endDate.current.value = '';
+      experienceImg.current.value = '';
+    }
+    const newExperienceList = [...experiences];
+    setExperiences(newExperienceList);
   }
   return (
-    <form onSubmit={submit} className={styles.experienceForm}>
+    <form onSubmit={submitHandler} className={styles.experienceForm}>
       <div className={styles.experienceInputs}>
         <div className={styles.inputLabel}>
           <label className={styles.experienceLabel} htmlFor='title'>
@@ -76,7 +111,7 @@ export default function ExperienceForm({ e }) {
         </div>
       </div>
       <div>
-        <Button onClick={(e) => submit(e)}>Save</Button>
+        <Button onClick={(e) => submitHandler(e)}>Save</Button>
       </div>
     </form>
   );

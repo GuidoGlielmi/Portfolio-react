@@ -8,8 +8,8 @@
   display: flex;
   flex-direction: column;
 }
-.projectInput {
-}
+/* .projectInput {
+} */
 .inputLabel {
   display: flex;
   flex-direction: column;
@@ -41,30 +41,34 @@
   display: flex;
   flex-direction: column;
 }
+.urlItem {
+  display: flex;
+  align-items: center;
+}
 .urlContainer {
   display: flex;
   flex-direction: column;
+  flex: 1;
   margin: 4px 0;
-  padding-left: 4px;
   border-left: 2px solid black;
   border-image: linear-gradient(to bottom, #202020 80%, rgba(0, 0, 0, 0)) 1%;
 }
 .urlInputContainer {
+  display: flex;
+  align-items: center;
   margin: 2px 0;
 }
 .urlInput {
-  width: 80%;
+  flex: 1;
 }
 .urlLabel {
-  display: inline-block;
-  width: 20%;
+  margin: 0 10px;
+  min-width: 60px;
 }
 .toggleAddUrlButton {
   align-self: center;
 }
-.addUrlButton {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.addButton {
+  align-self: center;
   transform: rotate(45deg);
 }

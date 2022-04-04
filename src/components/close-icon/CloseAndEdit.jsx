@@ -2,10 +2,12 @@ import React from 'react';
 import CloseIcon from './CloseIcon';
 import styles from './CloseAndEdit.module.css';
 
-export default function CloseAndEdit({ toggleEdit }) {
+export default function CloseAndEdit({ toggleEdit, deleteItem }) {
   return (
     <div className={styles.CloseAndEditContainer}>
-      <CloseIcon />
+      <div onClick={() => deleteItem()}>
+        <CloseIcon />
+      </div>
       <img
         className={styles.editIcon}
         onClick={() => toggleEdit()}

@@ -1,17 +1,37 @@
+import { InfoContext } from 'App';
 import CloseAndEdit from 'components/close-icon/CloseAndEdit';
 import ExperienceForm from 'components/forms/experiences/ExperienceForm';
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { adminApi } from 'index';
 import styles from './ExperienceItem.module.css';
 
 export default function ExperienceItem({ e, i, isLastItem }) {
+  const loggedIn = useContext(InfoContext).loggedIn;
+  const experiences = useContext(InfoContext).experiences;
+  const setExperiences = useContext(InfoContext).setExperiences;
+
   const [showForm, setShowForm] = useState(false);
-  const loggedIn = true;
+
+  useEffect(() => {
+    if (!loggedIn) setShowForm(false);
+  }, [loggedIn]);
+  async function deleteExperience() {
+    await adminApi.delete(`/experiences/${e.id}`);
+    experiences.splice(i, 1);
+    const newEducation = [...experiences];
+    setExperiences(newEducation);
+  }
   return i % 2 === 0 ? (
     <div className={!isLastItem ? styles.experienceSectionRight : styles.lastSection}>
       <div className={styles.experienceContainerRight}>
         <div className={styles.experiencePadding}>
           <div className={styles.experienceRight}>
-            {loggedIn && <CloseAndEdit toggleEdit={() => setShowForm(!showForm)} />}
+            {loggedIn && (
+              <CloseAndEdit
+                toggleEdit={() => setShowForm(!showForm)}
+                deleteItem={deleteExperience}
+              />
+            )}
             <div className={styles.experienceImgContainer}>
               <img className={styles.experienceImg} src={e.experienceImg} alt={`${e.title} logo`} />
             </div>
@@ -32,7 +52,7 @@ export default function ExperienceItem({ e, i, isLastItem }) {
                 )}
               </div>
             ) : (
-              <ExperienceForm e={e} />
+              <ExperienceForm e={e} i={i} hideForm={() => setShowForm(!showForm)} />
             )}
           </div>
         </div>
@@ -64,7 +84,7 @@ export default function ExperienceItem({ e, i, isLastItem }) {
                 )}
               </div>
             ) : (
-              <ExperienceForm e={e} />
+              <ExperienceForm e={e} i={i} hideForm={() => setShowForm(!showForm)} />
             )}
           </div>
         </div>

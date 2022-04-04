@@ -1,0 +1,10 @@
+.loginBackground {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: #402e4f;
+}
+.enterAsGuest {
+  margin: 8px 0;
+}
