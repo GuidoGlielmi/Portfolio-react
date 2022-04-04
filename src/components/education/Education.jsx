@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import EducationItem from './EducationItem';
 import { InfoContext } from 'App';
 import styles from './Education.module.css';
@@ -9,6 +9,11 @@ export default function Education() {
   const loggedIn = useContext(InfoContext).loggedIn;
   const [showNewForm, setShowNewForm] = useState(false);
   const loading = 'loading...';
+  useEffect(() => {
+    if (!loggedIn) {
+      setShowNewForm(false);
+    }
+  }, [loggedIn]);
   return (
     <section className={styles.educationSection}>
       <div className={styles.titleContainer}>

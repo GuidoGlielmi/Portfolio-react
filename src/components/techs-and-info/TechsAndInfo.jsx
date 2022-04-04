@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { InfoContext } from 'App';
 import styles from './TechsAndInfo.module.css';
 import TechItem from './TechItem';
@@ -15,6 +15,12 @@ export default function TechsAndInfo({ user, i }) {
   const techImg = useRef('');
   const techsContainer = useRef('');
   const loading = 'loading...';
+  useEffect(() => {
+    if (!loggedIn) {
+      setEditAboutMe(false);
+      setShowNewForm(false);
+    }
+  }, [loggedIn]);
   function onWheel(e) {
     let scrollUnit = techImg.current.offsetWidth;
     let currentValue = techsContainer.current.scrollLeft;

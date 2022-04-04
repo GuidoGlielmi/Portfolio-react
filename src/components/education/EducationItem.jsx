@@ -2,7 +2,7 @@ import { InfoContext } from 'App';
 import CloseAndEdit from 'components/close-icon/CloseAndEdit';
 import EducationForm from 'components/forms/education/EducationForm';
 import { adminApi } from 'index';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import styles from './EducationItem.module.css';
 
 export default function EducationItem({ e, i }) {
@@ -10,6 +10,9 @@ export default function EducationItem({ e, i }) {
   const loggedIn = useContext(InfoContext).loggedIn;
   const education = useContext(InfoContext).education;
   const setEducation = useContext(InfoContext).setEducation;
+  useEffect(() => {
+    if (!loggedIn) setShowForm(false);
+  }, [loggedIn]);
   async function deleteEducation() {
     await adminApi.delete(`/education/${e.id}`);
     education.splice(i, 1);

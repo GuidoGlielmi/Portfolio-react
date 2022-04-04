@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { InfoContext } from 'App';
 import styles from './Projects.module.css';
 import ProjectItem from './ProjectItem';
@@ -9,6 +9,11 @@ export default function Projects() {
   const loggedIn = useContext(InfoContext).loggedIn;
   const [showNewForm, setShowNewForm] = useState(false);
   const loading = 'loading...';
+  useEffect(() => {
+    if (!loggedIn) {
+      setShowNewForm(false);
+    }
+  }, [loggedIn]);
   return (
     <section className={styles.projectsSection}>
       <div className={styles.titleContainer}>

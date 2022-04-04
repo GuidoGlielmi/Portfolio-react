@@ -2,13 +2,16 @@ import { InfoContext } from 'App';
 import CloseAndEdit from 'components/close-icon/CloseAndEdit';
 import ProjectForm from 'components/forms/projects/ProjectForm';
 import { adminApi } from 'index';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import styles from './ProjectItem.module.css';
 export default function ProjectItem({ p, i }) {
-  const [showForm, setShowForm] = useState(false);
   const loggedIn = useContext(InfoContext).loggedIn;
   const projects = useContext(InfoContext).projects;
   const setProject = useContext(InfoContext).setProject;
+  const [showForm, setShowForm] = useState(loggedIn);
+  useEffect(() => {
+    if (!loggedIn) setShowForm(false);
+  }, [loggedIn]);
   async function deleteProject() {
     await adminApi.delete(`/projects/${p.id}`);
     projects.splice(i, 1);

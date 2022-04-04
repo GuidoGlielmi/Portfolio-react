@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { InfoContext } from 'App';
 import styles from './Header.module.css';
 import CloseAndEdit from 'components/close-icon/CloseAndEdit';
@@ -7,6 +7,11 @@ export default function Header({ user, i }) {
   const [editUserInfo, setEditUserInfo] = useState(false);
   const loggedIn = useContext(InfoContext).loggedIn;
   const loading = 'loading...';
+  useEffect(() => {
+    if (!loggedIn) {
+      setEditUserInfo(false);
+    }
+  }, [loggedIn]);
   return (
     <header>
       <div className={styles.containerContainer}>

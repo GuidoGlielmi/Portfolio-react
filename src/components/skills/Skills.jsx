@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import SkillItem from './SkillItem';
 import { InfoContext } from 'App';
 import styles from './Skills.module.css';
@@ -9,6 +9,11 @@ export default function Skills() {
   const [showNewForm, setShowNewForm] = useState(false);
   const loggedIn = useContext(InfoContext).loggedIn;
   const loading = 'loading...';
+  useEffect(() => {
+    if (!loggedIn) {
+      setShowNewForm(false);
+    }
+  }, [loggedIn]);
   return (
     <section className={styles.skillsSection}>
       <div className={styles.softAndHard}>

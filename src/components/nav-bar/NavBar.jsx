@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { InfoContext } from 'App';
 import styles from './NavBar.module.css';
 import Button from 'components/button/Button';
@@ -12,6 +12,11 @@ const NavBar = ({ showLoginModal, setShowLoginModal, u, i }) => {
   const setLoggedIn = useContext(InfoContext).setLoggedIn;
   const loading = 'loading...';
   const [editLinks, setEditLinks] = useState('');
+  useEffect(() => {
+    if (!loggedIn) {
+      setEditLinks(false);
+    }
+  }, [loggedIn]);
   async function saveUser() {
     await adminApi.put('/users', users[i]);
   }

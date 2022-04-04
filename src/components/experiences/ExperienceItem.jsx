@@ -1,7 +1,7 @@
 import { InfoContext } from 'App';
 import CloseAndEdit from 'components/close-icon/CloseAndEdit';
 import ExperienceForm from 'components/forms/experiences/ExperienceForm';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { adminApi } from 'index';
 import styles from './ExperienceItem.module.css';
 
@@ -10,6 +10,9 @@ export default function ExperienceItem({ e, i, isLastItem }) {
   const loggedIn = useContext(InfoContext).loggedIn;
   const experiences = useContext(InfoContext).experiences;
   const setExperiences = useContext(InfoContext).setExperiences;
+  useEffect(() => {
+    if (!loggedIn) setShowForm(false);
+  }, [loggedIn]);
   async function deleteExperience() {
     await adminApi.delete(`/experiences/${e.id}`);
     experiences.splice(i, 1);
