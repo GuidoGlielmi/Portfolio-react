@@ -8,17 +8,15 @@ import Education from 'components/education/Education';
 import Experiences from 'components/experiences/Experiences';
 import Skills from 'components/skills/Skills';
 import styles from './Admin.module.css';
+import './Admin.css';
 import { adminApi, loginApi, userApi } from 'index';
 import { InfoContext } from 'App';
 import LoginModal from 'components/login-modal/LoginModal';
+import { CSSTransition } from 'react-transition-group';
 export default function Admin() {
-  const [responseMsg, setResponseMsg] = useState('');
-  const [error, setError] = useState(false);
-  const [showResponseMsg, setShowResponseMsg] = useState(false);
-  const [showLoginModal, setShowLoginModal] = useState(false);
-  const modalBackground = useRef();
   const setLoggedIn = useContext(InfoContext).setLoggedIn;
   const user = useContext(InfoContext).users[0];
+
   const sections = [
     <TechsAndInfo user={user} i={0} />,
     <Projects />,
@@ -26,27 +24,42 @@ export default function Admin() {
     <Education />,
     <Skills />,
   ];
-  const sectionsNames = [
-    'Personal info',
-    'Projects',
-    'My experiences',
-    'My education',
-    'My skills',
-  ];
+  const sectionsNames = ['Who am I', 'Projects', 'Experiences', 'My education', 'My skills'];
+
+  const [responseMsg, setResponseMsg] = useState('');
+  const [error, setError] = useState(false);
+  const [showResponseMsg, setShowResponseMsg] = useState(false);
+  const [showLoginModal, setShowLoginModal] = useState(false);
   const [index, setIndex] = useState(0);
+  // const [previousIndex, setPreviousIndex] = useState(0);
+
+  const modalBackground = useRef();
   const section = useRef('');
+  const previousIndex = useRef(0);
+  useEffect(() => (previousIndex.current = index), [index]);
   function scrollToSection() {
     section.current.scrollIntoView();
   }
   function previousSection() {
-    if (index === 0) setIndex(sections.length - 1);
-    else setIndex(index - 1);
-    scrollToSection();
+    if (index === 0) {
+      // setPreviousIndex(index);
+      setIndex(sections.length - 1);
+      // previousIndex.current = sections.length;
+    } else {
+      // setPreviousIndex(index);
+      setIndex(index - 1);
+      // previousIndex.current = index;
+    }
+    // scrollToSection();
   }
   function nextSection() {
-    if (index === sections.length - 1) setIndex(0);
-    else setIndex(index + 1);
-    scrollToSection();
+    if (index === sections.length - 1) {
+      // setPreviousIndex(index);
+      setIndex(0);
+    } else {
+      // setPreviousIndex(index);
+      setIndex(index + 1);
+    }
   }
   function showResponseMsgSuccess(data) {
     setResponseMsg(data);
@@ -61,6 +74,7 @@ export default function Admin() {
     setError(true);
     setShowResponseMsg(true);
   }
+
   useEffect(() => {
     loginApi.interceptors.response.use((res) => {
       showResponseMsgSuccess(res.data.msg);
@@ -101,6 +115,7 @@ export default function Admin() {
       },
     );
   }, [setResponseMsg, setLoggedIn]);
+
   return (
     <>
       <div
@@ -129,37 +144,57 @@ export default function Admin() {
         setShowLoginModal={setShowLoginModal}
       />
       <Header user={user} i={0} />
-      <div ref={section} className={styles.bottomPart}>
-        <div className={styles.sectionLinks}>
-          {sectionsNames.map((sn, i) => (
-            <span
-              key={i}
-              onClick={() => {
-                setIndex(i);
-              }}
-              className={`${styles.sectionLink} ${index === i && styles.clickedSectionLink}`}
-            >
-              {sn}
-            </span>
-          ))}
+      <div style={{ position: 'relative' }}>
+        <div className={styles.previousArrowContainer}>
+          <div onClick={() => previousSection()} className={styles.previousArrow}>
+            &lt;
+          </div>
         </div>
-        <div className={styles.sectionsContainer}>
-          <div className={styles.section}>
-            <div className={styles.previousArrowContainer}>
-              <div onClick={() => previousSection()} className={styles.previousArrow}>
-                &lt;
-              </div>
-            </div>
-            {sections[index]}
-            <div className={styles.nextArrowContainer}>
-              <div onClick={() => nextSection()} className={styles.nextArrow}>
-                &gt;
-              </div>
+        <div className={styles.nextArrowContainer}>
+          <div onClick={() => nextSection()} className={styles.nextArrow}>
+            &gt;
+          </div>
+        </div>
+        <div ref={section} className={styles.bottomPart}>
+          <div className={styles.sectionLinks}>
+            {sectionsNames.map((sn, i) => (
+              <span
+                key={i}
+                onClick={() => {
+                  // setPreviousIndex(index);
+                  setIndex(i);
+                }}
+                className={`${styles.sectionLink} ${index === i && styles.clickedSectionLink}`}
+              >
+                {sn}
+              </span>
+            ))}
+          </div>
+          <div className={styles.sectionsContainer}>
+            <div className={styles.section}>
+              {sections.map((s, i) => {
+                // console.log(previousIndex.current, 'prev', index, 'current');
+                // console.log(i, index === i);
+                return (
+                  <CSSTransition
+                    in={index === i}
+                    timeout={1000}
+                    classNames={previousIndex.current > index ? 'next-section' : 'previous-section'}
+                    unmountOnExit
+                  >
+                    {s}
+                  </CSSTransition>
+                );
+              })}
             </div>
           </div>
         </div>
+        <Footer
+          sections={sectionsNames}
+          setLinkIndex={setIndex}
+          scrollToSection={scrollToSection}
+        />
       </div>
-      <Footer setLinkIndex={setIndex} scrollToSection={scrollToSection} />
     </>
   );
 }

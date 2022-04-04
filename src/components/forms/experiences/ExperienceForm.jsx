@@ -9,13 +9,15 @@ export default function ExperienceForm({
   i,
   hideForm,
 }) {
+  const experiences = useContext(InfoContext).experiences;
+  const setExperiences = useContext(InfoContext).setExperiences;
+
   const title = useRef('');
   const description = useRef('');
   const startDate = useRef('');
   const endDate = useRef('');
   const experienceImg = useRef('');
-  const experiences = useContext(InfoContext).experiences;
-  const setExperiences = useContext(InfoContext).setExperiences;
+
   async function submitHandler(event) {
     event.preventDefault();
     const newExperience = {

@@ -1,0 +1,37 @@
+.next-section-enter {
+  opacity: 0;
+  transform: translate(-100%);
+}
+.next-section-enter-active {
+  transform: translate(0);
+  opacity: 1;
+  transition: opacity 1000ms, transform 1000ms ease;
+}
+.next-section-exit {
+  transform: translate(-100%);
+  opacity: 1;
+}
+.next-section-exit-active {
+  transform: translate(0%);
+  opacity: 0;
+  transition: opacity 1000ms, transform 1000ms ease;
+}
+
+.previous-section-enter {
+  opacity: 0;
+  transform: translate(0);
+}
+.previous-section-enter-active {
+  opacity: 1;
+  transition: opacity 1000ms, transform 1000ms ease;
+  transform: translate(-100%);
+}
+.previous-section-exit {
+  opacity: 1;
+  transform: translate(0);
+}
+.previous-section-exit-active {
+  transform: translate(-100%);
+  opacity: 0;
+  transition: opacity 1000ms, transform 1000ms ease;
+}

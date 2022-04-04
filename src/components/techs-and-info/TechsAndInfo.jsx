@@ -5,6 +5,7 @@ import TechItem from './TechItem';
 import CloseAndEdit from 'components/close-icon/CloseAndEdit';
 import TechForm from 'components/forms/techs/TechForm';
 import Button from 'components/button/Button';
+import LoadingIcon from 'components/loading-icon/LoadingIcon';
 export default function TechsAndInfo({ user, i }) {
   const loggedIn = useContext(InfoContext).loggedIn;
   const [editAboutMe, setEditAboutMe] = useState(false);
@@ -14,7 +15,6 @@ export default function TechsAndInfo({ user, i }) {
   const setUsers = useContext(InfoContext).setUsers;
   const techImg = useRef('');
   const techsContainer = useRef('');
-  const loading = 'loading...';
   useEffect(() => {
     if (!loggedIn) {
       setEditAboutMe(false);
@@ -75,26 +75,30 @@ export default function TechsAndInfo({ user, i }) {
             </>
           )
         ) : (
-          loading
+          <LoadingIcon />
         )}
       </div>
       <div className={styles.techsSection}>
         <p className={styles.techsTitle}>Some technologies i'm familiar with</p>
         <div ref={techsContainer} onWheel={(e) => onWheel(e)} className={styles.techsContainer}>
-          {techs
-            ? techs.map((t, i) => (
-                <div key={t.id} ref={techImg}>
-                  <TechItem t={t} i={i} />
-                </div>
-              ))
-            : loading}
-          {techs
-            ? techs.map((t, i) => (
-                <div key={t.id} ref={techImg}>
-                  <TechItem t={t} i={i} />
-                </div>
-              ))
-            : loading}
+          {techs ? (
+            techs.map((t, i) => (
+              <div key={t.id} ref={techImg}>
+                <TechItem t={t} i={i} />
+              </div>
+            ))
+          ) : (
+            <LoadingIcon />
+          )}
+          {techs ? (
+            techs.map((t, i) => (
+              <div key={t.id} ref={techImg}>
+                <TechItem t={t} i={i} />
+              </div>
+            ))
+          ) : (
+            <LoadingIcon />
+          )}
         </div>
       </div>
       {showNewForm && <TechForm />}

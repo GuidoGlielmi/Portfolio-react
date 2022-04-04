@@ -4,6 +4,7 @@ import styles from './UserForm.module.css';
 export default function UserForm({ u, i }) {
   const users = useContext(InfoContext).users;
   const setUsers = useContext(InfoContext).setUsers;
+
   return (
     <form className={styles.userInfoForm}>
       <div className={styles.inputLabel}>

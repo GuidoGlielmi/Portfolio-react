@@ -78,9 +78,9 @@
 }
 .section {
   display: flex;
-  align-items: flex-start;
   width: 100%;
   position: relative;
+  overflow-x: hidden;
 }
 .previousArrowContainer,
 .nextArrowContainer {

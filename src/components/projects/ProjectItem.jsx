@@ -6,18 +6,30 @@ import React, { useContext, useEffect, useState } from 'react';
 import styles from './ProjectItem.module.css';
 export default function ProjectItem({ p, i }) {
   const loggedIn = useContext(InfoContext).loggedIn;
+  const techs = useContext(InfoContext).techs;
   const projects = useContext(InfoContext).projects;
   const setProject = useContext(InfoContext).setProject;
-  const [showForm, setShowForm] = useState(loggedIn);
+
+  const [showForm, setShowForm] = useState(false);
+
+  for (let i = p.techs.length - 1; i >= 0; i--) {
+    //make sure when deleting a tech it doesn't appear in the projects
+    if (!techs.find(({ id }) => id === p.techs[i].id)) {
+      p.techs.splice(i, 1);
+    }
+  }
+
   useEffect(() => {
     if (!loggedIn) setShowForm(false);
   }, [loggedIn]);
+
   async function deleteProject() {
     await adminApi.delete(`/projects/${p.id}`);
     projects.splice(i, 1);
     const newProject = [...projects];
     setProject(newProject);
   }
+
   return (
     <div
       className={`${styles.projectContainer} ${

@@ -9,13 +9,15 @@ export default function EducationForm({
   i,
   hideForm,
 }) {
+  const education = useContext(InfoContext).education;
+  const setEducation = useContext(InfoContext).setEducation;
+
   const degree = useRef('');
   const school = useRef('');
   const startDate = useRef('');
   const endDate = useRef('');
   const educationImg = useRef('');
-  const education = useContext(InfoContext).education;
-  const setEducation = useContext(InfoContext).setEducation;
+
   async function submitHandler(event) {
     event.preventDefault();
     const newEducation = {

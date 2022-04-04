@@ -3,15 +3,18 @@ import { InfoContext } from 'App';
 import styles from './Header.module.css';
 import CloseAndEdit from 'components/close-icon/CloseAndEdit';
 import UserForm from 'components/forms/user/UserForm';
+import LoadingIcon from 'components/loading-icon/LoadingIcon';
 export default function Header({ user, i }) {
   const [editUserInfo, setEditUserInfo] = useState(false);
+
   const loggedIn = useContext(InfoContext).loggedIn;
-  const loading = 'loading...';
+
   useEffect(() => {
     if (!loggedIn) {
       setEditUserInfo(false);
     }
   }, [loggedIn]);
+
   return (
     <header>
       <div className={styles.containerContainer}>
@@ -37,7 +40,7 @@ export default function Header({ user, i }) {
             </div>
           </div>
         ) : (
-          loading
+          <LoadingIcon />
         )}
       </div>
     </header>

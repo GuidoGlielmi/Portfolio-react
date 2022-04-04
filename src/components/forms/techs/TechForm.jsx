@@ -5,10 +5,12 @@ import React, { useContext, useRef } from 'react';
 import styles from './TechForm.module.css';
 
 export default function TechForm({ t = { name: '', techImg: '' }, i, hideForm }) {
-  const name = useRef(t.name);
-  const techImg = useRef(t.techImg);
   const techs = useContext(InfoContext).techs;
   const setTechs = useContext(InfoContext).setTechs;
+
+  const name = useRef(t.name);
+  const techImg = useRef(t.techImg);
+
   async function submitHandler(event) {
     event.preventDefault();
     const newTech = {

@@ -6,10 +6,12 @@ import React, { useContext, useEffect, useState } from 'react';
 import styles from './EducationItem.module.css';
 
 export default function EducationItem({ e, i }) {
-  const [showForm, setShowForm] = useState(false);
   const loggedIn = useContext(InfoContext).loggedIn;
   const education = useContext(InfoContext).education;
   const setEducation = useContext(InfoContext).setEducation;
+
+  const [showForm, setShowForm] = useState(false);
+
   useEffect(() => {
     if (!loggedIn) setShowForm(false);
   }, [loggedIn]);

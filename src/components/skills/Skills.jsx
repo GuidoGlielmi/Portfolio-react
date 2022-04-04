@@ -4,11 +4,11 @@ import { InfoContext } from 'App';
 import styles from './Skills.module.css';
 import SkillForm from 'components/forms/skills/SkillForm';
 import Button from 'components/button/Button';
+import LoadingIcon from 'components/loading-icon/LoadingIcon';
 export default function Skills() {
   const skills = useContext(InfoContext).skills;
   const [showNewForm, setShowNewForm] = useState(false);
   const loggedIn = useContext(InfoContext).loggedIn;
-  const loading = 'loading...';
   useEffect(() => {
     if (!loggedIn) {
       setShowNewForm(false);
@@ -22,10 +22,10 @@ export default function Skills() {
         </div>
         {skills ? (
           <div className={styles.skills}>
-            {skills.map((s, i) => s.type === 'HardAndSoft' && <SkillItem s={s} i={i} />)}
+            {skills.map((s, i) => s.type === 'HardAndSoft' && <SkillItem s={s} i={i} key={s.id} />)}
           </div>
         ) : (
-          loading
+          <LoadingIcon />
         )}
       </div>
       <div className={styles.languages}>
@@ -34,10 +34,10 @@ export default function Skills() {
         </div>
         {skills ? (
           <div className={styles.skills}>
-            {skills.map((s, i) => s.type === 'language' && <SkillItem s={s} i={i} />)}
+            {skills.map((s, i) => s.type === 'language' && <SkillItem s={s} i={i} key={s.id} />)}
           </div>
         ) : (
-          loading
+          <LoadingIcon />
         )}
       </div>
       {showNewForm && <SkillForm />}

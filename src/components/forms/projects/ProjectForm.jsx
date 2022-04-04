@@ -13,20 +13,23 @@ export default function ProjectForm({
   const projects = useContext(InfoContext).projects;
   const setProjects = useContext(InfoContext).setProjects;
   const techs = useContext(InfoContext).techs;
+
   const remainingTechs = [];
+
+  const title = useRef(p.title);
+  const description = useRef(p.description);
+  const projectImg = useRef(p.projectImg);
+  const newUrl = useRef('');
+  const newUrlName = useRef('');
+  const selectedTech = useRef('');
+
+  const [showNewUrl, setShowNewUrl] = useState(false);
+
   for (const tech of techs) {
     if (!p.techs.find((pt) => tech.id === pt.id)) {
       remainingTechs.push(tech);
     }
   }
-  const newUrl = useRef('');
-  const newUrlName = useRef('');
-  const title = useRef(p.title);
-  const description = useRef(p.description);
-  const projectImg = useRef(p.projectImg);
-  const selectedTech = useRef('');
-  const [showNewUrl, setShowNewUrl] = useState(false);
-
   async function submitHandler(event) {
     event.preventDefault();
     const newProject = {
@@ -35,7 +38,6 @@ export default function ProjectForm({
       description: description.current.value,
       projectImg: projectImg.current.value,
     };
-    console.log(newProject);
     if (!!p.id) {
       await adminApi.put('/projects', newProject);
       projects[i] = newProject;

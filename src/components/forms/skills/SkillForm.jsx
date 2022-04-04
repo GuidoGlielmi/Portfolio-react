@@ -9,11 +9,13 @@ export default function SkillForm({
   i,
   hideForm,
 }) {
+  const skills = useContext(InfoContext).skills;
+  const setSkills = useContext(InfoContext).setSkills;
+
   const name = useRef(s.name);
   const abilityPercentage = useRef(s.abilityPercentage);
   const type = useRef(s.type);
-  const skills = useContext(InfoContext).skills;
-  const setSkills = useContext(InfoContext).setSkills;
+
   async function submitHandler(event) {
     event.preventDefault();
     const newSkill = {

@@ -5,11 +5,15 @@ import { useContext, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './LoginModal.module.css';
 export default function LoginModal({ children, closeModal }) {
-  const [unexistentUser, setUnexistentUser] = useState(false);
   const logIn = useContext(InfoContext).setLoggedIn;
+
+  let navigate = useNavigate();
+
   const username = useRef('');
   const password = useRef('');
-  let navigate = useNavigate();
+
+  const [unexistentUser, setUnexistentUser] = useState(false);
+
   async function login(e) {
     e.preventDefault();
     const user = {

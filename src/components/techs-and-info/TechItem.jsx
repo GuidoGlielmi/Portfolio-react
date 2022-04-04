@@ -13,7 +13,7 @@ export default function TechItem({ t, i }) {
     if (!loggedIn) setShowForm(false);
   }, [loggedIn]);
   async function deleteTech() {
-    await adminApi.delete(`/techs/${t.id}`);
+    // await adminApi.delete(`/techs/${t.id}`);
     techs.splice(i, 1);
     const newTech = [...techs];
     setTech(newTech);

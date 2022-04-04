@@ -4,19 +4,22 @@ import styles from './NavBar.module.css';
 import Button from 'components/button/Button';
 import CloseAndEdit from 'components/close-icon/CloseAndEdit';
 import { adminApi } from 'index';
+import LoadingIcon from 'components/loading-icon/LoadingIcon';
 
 const NavBar = ({ showLoginModal, setShowLoginModal, u, i }) => {
   const users = useContext(InfoContext).users;
   const setUsers = useContext(InfoContext).setUsers;
   const loggedIn = useContext(InfoContext).loggedIn;
   const setLoggedIn = useContext(InfoContext).setLoggedIn;
-  const loading = 'loading...';
+
   const [editLinks, setEditLinks] = useState('');
+
   useEffect(() => {
     if (!loggedIn) {
       setEditLinks(false);
     }
   }, [loggedIn]);
+
   async function saveUser() {
     await adminApi.put('/users', users[i]);
   }
@@ -97,7 +100,7 @@ const NavBar = ({ showLoginModal, setShowLoginModal, u, i }) => {
             </div>
           )
         ) : (
-          loading
+          <LoadingIcon />
         )}
 
         <div

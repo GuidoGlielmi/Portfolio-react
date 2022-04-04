@@ -6,10 +6,12 @@ import { adminApi } from 'index';
 import styles from './ExperienceItem.module.css';
 
 export default function ExperienceItem({ e, i, isLastItem }) {
-  const [showForm, setShowForm] = useState(false);
   const loggedIn = useContext(InfoContext).loggedIn;
   const experiences = useContext(InfoContext).experiences;
   const setExperiences = useContext(InfoContext).setExperiences;
+
+  const [showForm, setShowForm] = useState(false);
+
   useEffect(() => {
     if (!loggedIn) setShowForm(false);
   }, [loggedIn]);

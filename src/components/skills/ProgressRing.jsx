@@ -4,9 +4,9 @@ import styles from './ProgressRing.module.css';
 export default function ProgressRing({ percentage = 100 }) {
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
   const [screenHeight, setScreenHeight] = useState(window.innerHeight);
+
   const radius = 7;
   const strokeWidth = radius / 3;
-  let diameter = 2 * radius + strokeWidth;
   let circumference = screenWidth * (radius / 100) * 2 * Math.PI;
   let offset = (circumference * (100 - percentage)) / 100;
   let cxy = radius + strokeWidth / 2;
@@ -18,13 +18,25 @@ export default function ProgressRing({ percentage = 100 }) {
     vwh = 'vh';
     circumference = screenHeight * (radius / 100) * 2 * Math.PI;
   }
-  diameter = 2 * radius + strokeWidth;
   cxy = radius + strokeWidth / 2;
   offset = (circumference * (100 - percentage)) / 100;
+
   useEffect(() => {
-    window.addEventListener('resize', handleResize);
+    window.addEventListener('resize', debouncedHandleResize);
+    return () => window.removeEventListener('resize', debouncedHandleResize);
   }, []);
-  function handleResize() {
+
+  function debounce(fn, ms) {
+    let timer;
+    return () => {
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        timer = null;
+        fn.apply(this, arguments);
+      }, ms);
+    };
+  }
+  const debouncedHandleResize = debounce(function handleResize() {
     setScreenHeight(window.innerHeight);
     setScreenWidth(window.innerWidth);
     if (window.innerWidth > 650) {
@@ -34,11 +46,9 @@ export default function ProgressRing({ percentage = 100 }) {
       vwh = 'vh';
       circumference = screenHeight * (radius / 100) * 2 * Math.PI;
     }
-    diameter = 2 * radius + strokeWidth;
     cxy = radius + strokeWidth / 2;
     offset = (circumference * (100 - percentage)) / 100;
-    console.log(diameter, offset);
-  }
+  }, 100);
   return (
     <div className={styles.circleBox}>
       <p className={styles.percentage}>{percentage}%</p>
