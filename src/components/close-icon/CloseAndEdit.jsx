@@ -5,7 +5,7 @@ import styles from './CloseAndEdit.module.css';
 export default function CloseAndEdit({ toggleEdit, deleteItem }) {
   return (
     <div className={styles.CloseAndEditContainer}>
-      <div onClick={() => deleteItem()}>
+      <div className={styles.closeIconContainer} onClick={() => deleteItem()}>
         <CloseIcon />
       </div>
       <img

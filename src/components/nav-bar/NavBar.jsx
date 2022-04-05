@@ -5,6 +5,7 @@ import Button from 'components/button/Button';
 import CloseAndEdit from 'components/close-icon/CloseAndEdit';
 import { adminApi } from 'index';
 import LoadingIcon from 'components/loading-icon/LoadingIcon';
+import DropDownIcon from 'components/drop-down-icon/DropDownIcon';
 
 const NavBar = ({ showLoginModal, setShowLoginModal, u, i }) => {
   const users = useContext(InfoContext).users;
@@ -13,6 +14,7 @@ const NavBar = ({ showLoginModal, setShowLoginModal, u, i }) => {
   const setLoggedIn = useContext(InfoContext).setLoggedIn;
 
   const [editLinks, setEditLinks] = useState('');
+  const [dropDownState, setDropDownState] = useState(false);
 
   useEffect(() => {
     if (!loggedIn) {
@@ -29,86 +31,161 @@ const NavBar = ({ showLoginModal, setShowLoginModal, u, i }) => {
   }
   return (
     <nav>
-      <div className={styles.navLeftContainer}>
-        <div className={styles.navElementContainer}>
-          <img className={styles.navImg} src='assets/logos/AP.png' alt='AP logo' />
-        </div>
-        <a className={styles.yoProgramoLink} href='http://www.yoprogramo.org.ar/'>
-          #YoProgramo
-        </a>
-        {loggedIn && (
-          <div onClick={() => saveUser()} className={styles.navButton}>
-            <Button>Save user</Button>
+      <div className={styles.desktop}>
+        <div className={styles.navLeftContainer}>
+          <div className={styles.APLogoContainer}>
+            <img className={styles.navImg} src='assets/logos/AP.png' alt='AP logo' />
           </div>
-        )}
-      </div>
-      <div className={styles.navRightContainer}>
-        {loggedIn && <CloseAndEdit toggleEdit={() => setEditLinks(!editLinks)} />}
-        {u ? (
-          !editLinks ? (
-            <div className={styles.social}>
-              <a className={styles.imgLink} href={u.linkedInUrl}>
-                <img
-                  className={styles.navImg}
-                  src='/assets/logos/GitHub-Mark-64px.png'
-                  alt='AP logo'
-                />
-              </a>
-              <a className={styles.imgLink} href={u.githubUrl}>
-                <img className={styles.navImg} src='/assets/logos/linkedin.png' alt='AP logo' />
-              </a>
+          <a className={styles.yoProgramoLink} href='http://www.yoprogramo.org.ar/'>
+            #YoProgramo
+          </a>
+          {loggedIn && (
+            <div onClick={() => saveUser()} className={styles.navButton}>
+              <Button>Save user</Button>
             </div>
-          ) : (
-            <div className={styles.social}>
-              <div className={styles.inputLabel}>
-                <label className={styles.linksLabel} htmlFor='linkedInUrl'>
-                  Linkedin Url
-                </label>
-                <input
-                  defaultValue={u.linkedInUrl}
-                  className={styles.linksInput}
-                  onInput={({ target: { value } }) => {
-                    users[i] = {
-                      ...u,
-                      linkedInUrl: value,
-                    };
-                    console.log(users[i].linkedInUrl);
-                    setUsers([...users]);
-                  }}
-                  name='linkedInUrl'
-                  id='linkedInUrl'
-                />
-              </div>
-              <div className={styles.inputLabel}>
-                <label className={styles.linksLabel} htmlFor='githubUrl'>
-                  Github Url
-                </label>
-                <input
-                  defaultValue={u.githubUrl}
-                  className={styles.linksInput}
-                  onInput={({ target: { value } }) => {
-                    users[i] = {
-                      ...u,
-                      githubUrl: value,
-                    };
-                    setUsers([...users]);
-                  }}
-                  name='githubUrl'
-                  id='githubUrl'
-                />
-              </div>
-            </div>
-          )
-        ) : (
-          <LoadingIcon />
-        )}
-
-        <div
-          onClick={() => (!loggedIn ? setShowLoginModal(!showLoginModal) : logout())}
-          className={styles.navButton}
-        >
-          <Button>{loggedIn ? 'Log out' : 'Log in'}</Button>
+          )}
         </div>
+        <div className={styles.navRightContainer}>
+          {loggedIn && <CloseAndEdit toggleEdit={() => setEditLinks(!editLinks)} />}
+          {u ? (
+            !editLinks ? (
+              <div className={styles.social}>
+                <a className={styles.imgLink} href={u.linkedInUrl}>
+                  <img
+                    className={styles.navImg}
+                    src='/assets/logos/GitHub-Mark-64px.png'
+                    alt='AP logo'
+                  />
+                </a>
+                <a className={styles.imgLink} href={u.githubUrl}>
+                  <img className={styles.navImg} src='/assets/logos/linkedin.png' alt='AP logo' />
+                </a>
+              </div>
+            ) : (
+              <div className={styles.social}>
+                <div className={styles.inputLabel}>
+                  <label className={styles.linksLabel} htmlFor='linkedInUrl'>
+                    Linkedin Url
+                  </label>
+                  <input
+                    defaultValue={u.linkedInUrl}
+                    className={styles.linksInput}
+                    onInput={({ target: { value } }) => {
+                      users[i] = {
+                        ...u,
+                        linkedInUrl: value,
+                      };
+                      console.log(users[i].linkedInUrl);
+                      setUsers([...users]);
+                    }}
+                    name='linkedInUrl'
+                    id='linkedInUrl'
+                  />
+                </div>
+                <div className={styles.inputLabel}>
+                  <label className={styles.linksLabel} htmlFor='githubUrl'>
+                    Github Url
+                  </label>
+                  <input
+                    defaultValue={u.githubUrl}
+                    className={styles.linksInput}
+                    onInput={({ target: { value } }) => {
+                      users[i] = {
+                        ...u,
+                        githubUrl: value,
+                      };
+                      setUsers([...users]);
+                    }}
+                    name='githubUrl'
+                    id='githubUrl'
+                  />
+                </div>
+              </div>
+            )
+          ) : (
+            <LoadingIcon />
+          )}
+
+          <div
+            onClick={() => (!loggedIn ? setShowLoginModal(!showLoginModal) : logout())}
+            className={styles.navButton}
+          >
+            <Button>{loggedIn ? 'Log out' : 'Log in'}</Button>
+          </div>
+        </div>
+      </div>
+      <div className={styles.cellphone}>
+        <div
+          className={`${styles.cellElements} ${!dropDownState && styles.cellElementsTransition}`}
+        >
+          {loggedIn && <CloseAndEdit toggleEdit={() => setEditLinks(!editLinks)} />}
+          {u ? (
+            !editLinks ? (
+              <>
+                <a className={styles.imgLink} href={u.linkedInUrl}>
+                  <img
+                    className={styles.navImg}
+                    src='/assets/logos/GitHub-Mark-64px.png'
+                    alt='AP logo'
+                  />
+                </a>
+                <a className={styles.imgLink} href={u.githubUrl}>
+                  <img className={styles.navImg} src='/assets/logos/linkedin.png' alt='AP logo' />
+                </a>
+              </>
+            ) : (
+              <div className={styles.social}>
+                <div className={styles.inputLabel}>
+                  <label className={styles.linksLabel} htmlFor='linkedInUrl'>
+                    Linkedin Url
+                  </label>
+                  <input
+                    defaultValue={u.linkedInUrl}
+                    className={styles.linksInput}
+                    onInput={({ target: { value } }) => {
+                      users[i] = {
+                        ...u,
+                        linkedInUrl: value,
+                      };
+                      console.log(users[i].linkedInUrl);
+                      setUsers([...users]);
+                    }}
+                    name='linkedInUrl'
+                    id='linkedInUrl'
+                  />
+                </div>
+                <div className={styles.inputLabel}>
+                  <label className={styles.linksLabel} htmlFor='githubUrl'>
+                    Github Url
+                  </label>
+                  <input
+                    defaultValue={u.githubUrl}
+                    className={styles.linksInput}
+                    onInput={({ target: { value } }) => {
+                      users[i] = {
+                        ...u,
+                        githubUrl: value,
+                      };
+                      setUsers([...users]);
+                    }}
+                    name='githubUrl'
+                    id='githubUrl'
+                  />
+                </div>
+              </div>
+            )
+          ) : (
+            <LoadingIcon />
+          )}
+
+          <div
+            onClick={() => (!loggedIn ? setShowLoginModal(!showLoginModal) : logout())}
+            className={styles.navButton}
+          >
+            <Button>{loggedIn ? 'Log out' : 'Log in'}</Button>
+          </div>
+        </div>
+        <DropDownIcon onClick={() => setDropDownState(!dropDownState)} />
       </div>
     </nav>
   );

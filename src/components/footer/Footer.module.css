@@ -7,9 +7,7 @@ footer {
 }
 .linkList {
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
+  text-align: center;
 }
 .link {
   margin: max(2vw, 10px);
@@ -23,15 +21,11 @@ footer {
 .link:hover {
   opacity: 0.6;
 }
-/* .initialEnteringSectionStyle,
-.initialExitingSectionStyle {
-  position: absolute;
-  width: 200px;
-  transition: opacity 300ms ease, transform 300ms ease;
+@media (max-width: 650px) {
+  footer {
+    height: 40vh;
+  }
+  .linkList {
+    flex-direction: column;
+  }
 }
-.initialEnteringSectionStyle {
-  opacity: 0;
-}
-.initialExitingSectionStyle {
-  opacity: 1;
-} */

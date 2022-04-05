@@ -17,12 +17,10 @@ export default function Header({ user, i }) {
 
   return (
     <header>
-      <div className={styles.containerContainer}>
+      <div className={styles.infoAndTitle}>
         {user ? (
           <div className={styles.infoContainer}>
-            <div className={styles.headerTitleContainer}>
-              <h2 className={styles.headerTitle}>Welcome to my personal page!</h2>
-            </div>
+            <h2 className={styles.headerTitle}>Welcome to my personal page!</h2>
             <div className={styles.userInfo}>
               {loggedIn && <CloseAndEdit toggleEdit={() => setEditUserInfo(!editUserInfo)} />}
               <div className={styles.profileImgContainer}>

@@ -102,3 +102,8 @@
 }
 .tech {
 }
+@media (max-width: 650px) {
+  .projectContainer {
+    width: 85%;
+  }
+}

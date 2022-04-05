@@ -5,11 +5,15 @@ header {
   height: 60vh;
   background-image: url('../../../public/assets/img/banner2.jpg');
 }
-.containerContainer {
+.infoAndTitle {
   position: relative;
 }
 .infoContainer {
   display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+  position: relative;
+  top: min(50vw, 17.5vh);
 }
 .headerTitleContainer {
   display: flex;
@@ -17,8 +21,8 @@ header {
   width: 60%;
 }
 .headerTitle {
-  align-self: center;
   position: relative;
+  margin-left: 8%;
   padding-top: 2vh;
   font-size: xx-large;
   color: white;
@@ -34,23 +38,39 @@ header {
 .userInfo {
   display: flex;
   flex-direction: column;
+  justify-content: space-around;
   align-items: center;
-  flex: 1;
   position: relative;
-  top: min(25vw, 25vh);
+  margin-right: 33px;
 }
 .profileImgContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: min(30vw, 30vh);
 }
 .profileImg {
-  max-width: 100%;
+  height: min(80vw, 25vh);
+  margin-top: 15px;
   border-radius: 50%;
 }
 .fullName {
-  line-height: min(10vw, 10vh);
+  line-height: min(10vw, 4.5vh);
   font-size: x-large;
   font-weight: lighter;
+}
+@media (max-width: 650px) {
+  .headerTitle {
+    margin-bottom: 15px;
+  }
+  .headerTitle::before {
+    width: 81%;
+    right: 23%;
+  }
+  .infoContainer {
+    flex-direction: column;
+    align-items: center;
+  }
+  .userInfo {
+    margin: 0;
+  }
 }
