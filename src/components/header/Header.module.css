@@ -62,10 +62,12 @@ header {
 @media (max-width: 650px) {
   .headerTitle {
     margin-bottom: 15px;
+    margin-left: 0;
+    text-align: center;
   }
   .headerTitle::before {
-    width: 81%;
-    right: 23%;
+    width: 78%;
+    right: 18%;
   }
   .infoContainer {
     flex-direction: column;

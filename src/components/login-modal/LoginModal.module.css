@@ -7,8 +7,6 @@
   justify-content: center;
   align-items: center;
   max-width: 85%;
-  /*   width: 40vw;
-  height: 40vh; */
   z-index: 3;
   padding: max(15px, 3vw);
   margin: 5px;
@@ -50,5 +48,22 @@
   }
   label {
     font-size: small;
+  }
+}
+@media (max-width: 650px) {
+  .modal {
+    align-items: initial;
+    padding: max(15px, 3vh);
+  }
+  .title {
+    align-self: center;
+  }
+  .label {
+    font-size: small;
+  }
+  .input {
+    flex-direction: column;
+    justify-content: initial;
+    align-items: initial;
   }
 }

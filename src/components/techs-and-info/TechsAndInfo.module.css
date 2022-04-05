@@ -83,6 +83,9 @@
 .techImg {
   height: 8.55vw;
 }
+.extraTechs {
+  display: flex;
+}
 
 .aboutMeInput {
   height: 80px;

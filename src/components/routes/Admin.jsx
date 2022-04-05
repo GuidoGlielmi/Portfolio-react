@@ -167,7 +167,7 @@ export default function Admin() {
                 return (
                   <CSSTransition
                     in={index === i}
-                    timeout={1000}
+                    timeout={650}
                     classNames={previousIndex.current > index ? 'next-section' : 'previous-section'}
                     unmountOnExit
                   >

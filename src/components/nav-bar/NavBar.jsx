@@ -118,66 +118,67 @@ const NavBar = ({ showLoginModal, setShowLoginModal, u, i }) => {
         <div
           className={`${styles.cellElements} ${!dropDownState && styles.cellElementsTransition}`}
         >
-          {loggedIn && <CloseAndEdit toggleEdit={() => setEditLinks(!editLinks)} />}
-          {u ? (
-            !editLinks ? (
-              <>
-                <a className={styles.imgLink} href={u.linkedInUrl}>
-                  <img
-                    className={styles.navImg}
-                    src='/assets/logos/GitHub-Mark-64px.png'
-                    alt='AP logo'
-                  />
-                </a>
-                <a className={styles.imgLink} href={u.githubUrl}>
-                  <img className={styles.navImg} src='/assets/logos/linkedin.png' alt='AP logo' />
-                </a>
-              </>
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            {loggedIn && <CloseAndEdit toggleEdit={() => setEditLinks(!editLinks)} />}
+            {u ? (
+              !editLinks ? (
+                <>
+                  <a className={styles.imgLink} href={u.linkedInUrl}>
+                    <img
+                      className={styles.navImg}
+                      src='/assets/logos/GitHub-Mark-64px.png'
+                      alt='AP logo'
+                    />
+                  </a>
+                  <a className={styles.imgLink} href={u.githubUrl}>
+                    <img className={styles.navImg} src='/assets/logos/linkedin.png' alt='AP logo' />
+                  </a>
+                </>
+              ) : (
+                <div className={styles.socialInputs}>
+                  <div className={styles.inputLabel}>
+                    <label className={styles.linksLabel} htmlFor='linkedInUrl'>
+                      Linkedin Url
+                    </label>
+                    <input
+                      defaultValue={u.linkedInUrl}
+                      className={styles.linksInput}
+                      onInput={({ target: { value } }) => {
+                        users[i] = {
+                          ...u,
+                          linkedInUrl: value,
+                        };
+                        console.log(users[i].linkedInUrl);
+                        setUsers([...users]);
+                      }}
+                      name='linkedInUrl'
+                      id='linkedInUrl'
+                    />
+                  </div>
+                  <div className={styles.inputLabel}>
+                    <label className={styles.linksLabel} htmlFor='githubUrl'>
+                      Github Url
+                    </label>
+                    <input
+                      defaultValue={u.githubUrl}
+                      className={styles.linksInput}
+                      onInput={({ target: { value } }) => {
+                        users[i] = {
+                          ...u,
+                          githubUrl: value,
+                        };
+                        setUsers([...users]);
+                      }}
+                      name='githubUrl'
+                      id='githubUrl'
+                    />
+                  </div>
+                </div>
+              )
             ) : (
-              <div className={styles.social}>
-                <div className={styles.inputLabel}>
-                  <label className={styles.linksLabel} htmlFor='linkedInUrl'>
-                    Linkedin Url
-                  </label>
-                  <input
-                    defaultValue={u.linkedInUrl}
-                    className={styles.linksInput}
-                    onInput={({ target: { value } }) => {
-                      users[i] = {
-                        ...u,
-                        linkedInUrl: value,
-                      };
-                      console.log(users[i].linkedInUrl);
-                      setUsers([...users]);
-                    }}
-                    name='linkedInUrl'
-                    id='linkedInUrl'
-                  />
-                </div>
-                <div className={styles.inputLabel}>
-                  <label className={styles.linksLabel} htmlFor='githubUrl'>
-                    Github Url
-                  </label>
-                  <input
-                    defaultValue={u.githubUrl}
-                    className={styles.linksInput}
-                    onInput={({ target: { value } }) => {
-                      users[i] = {
-                        ...u,
-                        githubUrl: value,
-                      };
-                      setUsers([...users]);
-                    }}
-                    name='githubUrl'
-                    id='githubUrl'
-                  />
-                </div>
-              </div>
-            )
-          ) : (
-            <LoadingIcon />
-          )}
-
+              <LoadingIcon />
+            )}
+          </div>
           <div
             onClick={() => (!loggedIn ? setShowLoginModal(!showLoginModal) : logout())}
             className={styles.navButton}

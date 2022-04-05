@@ -38,8 +38,11 @@ nav {
   display: flex;
   align-items: center;
 }
+.socialInputs {
+  display: flex;
+  align-items: center;
+}
 .navButton {
-  height: 50%;
   margin: 0 10px;
 }
 .linksForm {
@@ -70,10 +73,9 @@ nav {
   }
   .cellElements {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
-    width: 90%;
-    height: 10vh;
+    height: 15vh;
     transition: height 200ms ease, transform 200ms ease;
   }
   .desktop {
@@ -81,7 +83,10 @@ nav {
     align-items: stretch;
   }
   .cellElementsTransition {
-    transform: scaleX(0);
+    transform: scaleY(0);
     height: 0;
+  }
+  .socialInputs {
+    flex-direction: column;
   }
 }

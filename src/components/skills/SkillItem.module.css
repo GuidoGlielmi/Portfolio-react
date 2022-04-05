@@ -4,5 +4,9 @@
   align-items: center;
   margin: 20px;
 }
-.skillName {
+.skillContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
 }

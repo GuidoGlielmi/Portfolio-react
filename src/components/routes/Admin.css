@@ -5,7 +5,7 @@
 .next-section-enter-active {
   transform: translate(0);
   opacity: 1;
-  transition: opacity 1000ms, transform 1000ms ease;
+  transition: opacity 650ms, transform 650ms ease;
 }
 .next-section-exit {
   transform: translate(-100%);
@@ -14,7 +14,7 @@
 .next-section-exit-active {
   transform: translate(0%);
   opacity: 0;
-  transition: opacity 1000ms, transform 1000ms ease;
+  transition: opacity 650ms, transform 650ms ease;
 }
 
 .previous-section-enter {
@@ -23,7 +23,7 @@
 }
 .previous-section-enter-active {
   opacity: 1;
-  transition: opacity 1000ms, transform 1000ms ease;
+  transition: opacity 650ms, transform 650ms ease;
   transform: translate(-100%);
 }
 .previous-section-exit {
@@ -33,5 +33,5 @@
 .previous-section-exit-active {
   transform: translate(-100%);
   opacity: 0;
-  transition: opacity 1000ms, transform 1000ms ease;
+  transition: opacity 650ms, transform 650ms ease;
 }
