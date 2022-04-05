@@ -1,5 +1,6 @@
 .CloseAndEditContainer {
   display: flex;
+  margin: 4px;
 }
 .closeIconContainer,
 .editIcon {

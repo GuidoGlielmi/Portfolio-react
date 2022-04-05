@@ -14,3 +14,12 @@
   width: 46%;
   margin: 2%;
 }
+@media (max-width: 650px) {
+  .experienceInputs {
+    flex-direction: column;
+    flex-wrap: nowrap;
+  }
+  .inputLabel {
+    width: unset;
+  }
+}

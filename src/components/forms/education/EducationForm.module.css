@@ -18,3 +18,12 @@
 }
 .educationLabel {
 }
+@media (max-width: 650px) {
+  .educationInputs {
+    flex-direction: column;
+    flex-wrap: nowrap;
+  }
+  .inputLabel {
+    width: unset;
+  }
+}

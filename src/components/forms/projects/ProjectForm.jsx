@@ -161,7 +161,7 @@ export default function ProjectForm({
                     />
                   </div>
                 </div>
-                <div onClick={() => removeUrl(i)}>
+                <div className={styles.deleteButton} onClick={() => removeUrl(i)}>
                   <CloseIcon size='20px' />
                 </div>
               </div>

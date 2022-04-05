@@ -34,3 +34,8 @@
   align-self: center;
   margin: 20px 0;
 }
+@media (max-width: 650px) {
+  .projects {
+    align-items: center;
+  }
+}

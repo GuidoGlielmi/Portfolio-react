@@ -105,6 +105,10 @@
 @media (max-width: 650px) {
   .projectContainer {
     width: 85%;
+    align-self: initial;
+    justify-content: initial;
+    align-items: center;
+    margin-right: 0;
   }
   .projectRight,
   .projectLeft {

@@ -63,7 +63,7 @@
 }
 .urlLabel {
   margin: 0 10px;
-  min-width: 60px;
+  min-width: 15%;
 }
 .toggleAddUrlButton {
   align-self: center;
@@ -71,4 +71,32 @@
 .addButton {
   align-self: center;
   transform: rotate(45deg);
+}
+.deleteButton {
+  margin: 5px;
+}
+@media (max-width: 650px) {
+  /*  .projectForm {
+    align-items: initial;
+  } */
+  .singleElements {
+    flex-direction: column;
+    flex-wrap: nowrap;
+  }
+  .inputLabel {
+    flex: initial;
+  }
+  .techsSection {
+    flex: initial;
+    min-width: unset;
+  }
+  .urlItem {
+    flex-direction: column;
+  }
+  .urlContainer {
+    padding-left: 5px;
+  }
+  .urlInputContainer {
+    flex-direction: column;
+  }
 }
