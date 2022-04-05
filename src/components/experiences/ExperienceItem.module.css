@@ -72,7 +72,8 @@
   text-shadow: 0 0 1px #eeeeee;
 }
 .experienceTitle,
-.experienceDescription {
+.experienceDescription,
+.dates {
   text-align: center;
 }
 .experienceTitle {
@@ -100,6 +101,27 @@
   }
   .experienceContainerRight,
   .experienceContainerLeft {
+    align-self: center;
+    align-items: center;
     width: 80%;
+    margin: 0;
+  }
+  .experiencePadding {
+    padding-bottom: 35vh;
+  }
+  .experienceRight,
+  .experienceLeft {
+    flex-direction: column;
+  }
+  .experiencePadding {
+    margin: auto;
+  }
+  .experienceImgContainer {
+    height: max(60vw, 30vh);
+    width: max(60vw, 30vh);
+  }
+  .experienceInfoContainerLeft,
+  .experienceInfoContainerRight {
+    max-width: unset;
   }
 }

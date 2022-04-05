@@ -58,7 +58,7 @@ export default function ProjectItem({ p, i }) {
               {p.techs.map((t, i) => {
                 return i !== p.techs.length - 1 ? (
                   <span className={styles.tech} key={t.id}>
-                    {t.name} -
+                    {t.name} -{' '}
                   </span>
                 ) : (
                   <span className={styles.tech} key={t.id}>

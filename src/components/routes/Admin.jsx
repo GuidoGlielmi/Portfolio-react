@@ -31,7 +31,6 @@ export default function Admin() {
   const [showResponseMsg, setShowResponseMsg] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [index, setIndex] = useState(0);
-  // const [previousIndex, setPreviousIndex] = useState(0);
 
   const modalBackground = useRef();
   const section = useRef('');
@@ -42,22 +41,15 @@ export default function Admin() {
   }
   function previousSection() {
     if (index === 0) {
-      // setPreviousIndex(index);
       setIndex(sections.length - 1);
-      // previousIndex.current = sections.length;
     } else {
-      // setPreviousIndex(index);
       setIndex(index - 1);
-      // previousIndex.current = index;
     }
-    // scrollToSection();
   }
   function nextSection() {
     if (index === sections.length - 1) {
-      // setPreviousIndex(index);
       setIndex(0);
     } else {
-      // setPreviousIndex(index);
       setIndex(index + 1);
     }
   }
@@ -161,7 +153,6 @@ export default function Admin() {
               <span
                 key={i}
                 onClick={() => {
-                  // setPreviousIndex(index);
                   setIndex(i);
                 }}
                 className={`${styles.sectionLink} ${index === i && styles.clickedSectionLink}`}
@@ -173,8 +164,6 @@ export default function Admin() {
           <div className={styles.sectionsContainer}>
             <div className={styles.section}>
               {sections.map((s, i) => {
-                // console.log(previousIndex.current, 'prev', index, 'current');
-                // console.log(i, index === i);
                 return (
                   <CSSTransition
                     in={index === i}

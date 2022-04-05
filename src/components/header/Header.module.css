@@ -42,6 +42,7 @@ header {
   align-items: center;
   position: relative;
   margin-right: 33px;
+  z-index: 1;
 }
 .profileImgContainer {
   display: flex;

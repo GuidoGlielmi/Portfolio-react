@@ -7,7 +7,7 @@ export default function Footer({ sections, setLinkIndex, scrollToSection }) {
         {sections.map((s, i) => (
           <li
             onClick={() => {
-              setLinkIndex(0);
+              setLinkIndex(i);
               scrollToSection();
             }}
             key={i}

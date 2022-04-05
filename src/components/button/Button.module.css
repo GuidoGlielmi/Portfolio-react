@@ -16,8 +16,8 @@
     font-size: small;
   }
 }
-@media (max-width: 650px) {
+@media (max-width: 450px) {
   .button {
-    font-size: xx-small;
+    font-size: x-small;
   }
 }

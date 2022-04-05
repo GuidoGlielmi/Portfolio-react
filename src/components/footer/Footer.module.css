@@ -23,7 +23,7 @@ footer {
 }
 @media (max-width: 650px) {
   footer {
-    height: 40vh;
+    height: 60vh;
   }
   .linkList {
     flex-direction: column;

@@ -90,15 +90,15 @@ export default function TechsAndInfo({ user, i }) {
           ) : (
             <LoadingIcon />
           )}
-          {techs ? (
-            techs.map((t, i) => (
-              <div key={t.id} ref={techImg}>
-                <TechItem t={t} i={i} />
-              </div>
-            ))
-          ) : (
-            <LoadingIcon />
-          )}
+          <div className={styles.extraTechs}>
+            {techs
+              ? techs.map((t, i) => (
+                  <div key={t.id} ref={techImg}>
+                    <TechItem t={t} i={i} />
+                  </div>
+                ))
+              : ''}
+          </div>
         </div>
       </div>
       {showNewForm && <TechForm />}

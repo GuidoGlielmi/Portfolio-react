@@ -17,7 +17,7 @@ export default function SkillItem({ s, i }) {
     setSkill(newSkill);
   }
   return (
-    <div>
+    <>
       {loggedIn && (
         <CloseAndEdit toggleEdit={() => setShowForm(!showForm)} deleteItem={deleteSkill} />
       )}
@@ -29,6 +29,6 @@ export default function SkillItem({ s, i }) {
       ) : (
         <SkillForm s={s} i={i} hideForm={() => setShowForm(!showForm)} />
       )}
-    </div>
+    </>
   );
 }

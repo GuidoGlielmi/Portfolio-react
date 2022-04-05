@@ -100,10 +100,21 @@
 .techs {
   text-align: center;
 }
-.tech {
-}
+/* .tech {
+} */
 @media (max-width: 650px) {
   .projectContainer {
     width: 85%;
+  }
+  .projectRight,
+  .projectLeft {
+    flex-direction: column;
+  }
+  .projectInfoContainer {
+    max-width: unset;
+  }
+  .projectImgContainer {
+    width: 70%;
+    height: unset;
   }
 }

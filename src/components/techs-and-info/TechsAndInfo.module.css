@@ -83,6 +83,7 @@
 .techImg {
   height: 8.55vw;
 }
+
 .aboutMeInput {
   height: 80px;
   width: 100%;
@@ -96,9 +97,15 @@
 }
 @media (max-width: 650px) {
   .personalInfo {
-    width: unset;
+    width: 90%;
+  }
+  .personalInfoTitle::before {
+    width: 82%;
   }
   .techsTitle {
     width: 75%;
+  }
+  .extraTechs {
+    display: none;
   }
 }

@@ -37,9 +37,9 @@ export default function EducationItem({ e, i }) {
           </div>
           <div className={styles.educationInfoContainer}>
             <h3 className={styles.educationDegree}>{e.degree}</h3>
-            <p className={styles.educationSchool}>{e.school}</p>
-            <p className={styles.educationSchool}>{e.startDate}</p>
-            <p className={styles.educationSchool}>{e.endDate}</p>
+            <p className={styles.educationP}>{e.school}</p>
+            <p className={styles.educationP}>{e.startDate}</p>
+            <p className={styles.educationP}>{e.endDate}</p>
           </div>
         </div>
       ) : (
