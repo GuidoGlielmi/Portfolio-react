@@ -30,6 +30,13 @@ export default function Admin() {
   const [error, setError] = useState(false);
   const [showResponseMsg, setShowResponseMsg] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
+  const [previousSectionButtonState, setPreviousSectionButtonState] = useState(false);
+  const [nextSectionButtonState, setNextSectionButtonState] = useState(false);
+  const changeSection = {
+    enter: styles.changeSectionEnter,
+    exit: styles.changeSectionExit,
+  };
+
   const [index, setIndex] = useState(0);
 
   const modalBackground = useRef();
@@ -138,14 +145,42 @@ export default function Admin() {
       <Header user={user} i={0} />
       <div style={{ position: 'relative' }}>
         <div className={styles.previousArrowContainer}>
-          <div onClick={() => previousSection()} className={styles.previousArrow}>
-            &lt;
-          </div>
+          <CSSTransition
+            in={previousSectionButtonState}
+            timeout={100}
+            classNames={changeSection}
+            onEntered={() => setPreviousSectionButtonState(false)}
+          >
+            <div className={styles.previousArrow}>
+              <img
+                onClick={() => {
+                  setPreviousSectionButtonState(true);
+                  previousSection();
+                }}
+                className={styles.previousArrowRotation}
+                src='/assets/icons/arrow.png'
+                alt='Previous section arrow'
+              />
+            </div>
+          </CSSTransition>
         </div>
         <div className={styles.nextArrowContainer}>
-          <div onClick={() => nextSection()} className={styles.nextArrow}>
-            &gt;
-          </div>
+          <CSSTransition
+            in={nextSectionButtonState}
+            timeout={100}
+            classNames={changeSection}
+            onEntered={() => setNextSectionButtonState(false)}
+          >
+            <img
+              onClick={() => {
+                setNextSectionButtonState(true);
+                nextSection();
+              }}
+              className={styles.nextArrow}
+              src='/assets/icons/arrow.png'
+              alt='Next section arrow'
+            />
+          </CSSTransition>
         </div>
         <div ref={section} className={styles.bottomPart}>
           <div className={styles.sectionLinks}>
