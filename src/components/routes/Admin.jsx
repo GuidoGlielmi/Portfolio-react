@@ -207,6 +207,7 @@ export default function Admin() {
               {sections.map((s, i) => {
                 return (
                   <CSSTransition
+                    key={i}
                     in={index === i}
                     timeout={650}
                     classNames={previousIndex.current > index ? 'next-section' : 'previous-section'}

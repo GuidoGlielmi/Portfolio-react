@@ -109,6 +109,7 @@
     justify-content: initial;
     align-items: center;
     margin-right: 0;
+    margin-left: 0;
   }
   .projectRight,
   .projectLeft {
