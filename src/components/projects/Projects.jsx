@@ -11,11 +11,7 @@ export default function Projects() {
 
   const [showNewForm, setShowNewForm] = useState(false);
 
-  useEffect(() => {
-    if (!loggedIn) {
-      setShowNewForm(false);
-    }
-  }, [loggedIn]);
+  useEffect(() => !loggedIn && setShowNewForm(false), [loggedIn]);
 
   return (
     <section className={styles.projectsSection}>

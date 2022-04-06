@@ -13,9 +13,11 @@ import { adminApi, loginApi, userApi } from 'index';
 import { InfoContext } from 'App';
 import LoginModal from 'components/login-modal/LoginModal';
 import { CSSTransition } from 'react-transition-group';
+import GlobalLoading from 'components/loading-icon/GlobalLoading';
 export default function Admin() {
   const setLoggedIn = useContext(InfoContext).setLoggedIn;
   const user = useContext(InfoContext).users[0];
+  const globalLoading = useContext(InfoContext).globalLoading;
 
   const sections = [
     <TechsAndInfo user={user} i={0} />,
@@ -32,12 +34,12 @@ export default function Admin() {
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [previousSectionButtonState, setPreviousSectionButtonState] = useState(false);
   const [nextSectionButtonState, setNextSectionButtonState] = useState(false);
+  const [index, setIndex] = useState(0);
+
   const changeSection = {
     enter: styles.changeSectionEnter,
     exit: styles.changeSectionExit,
   };
-
-  const [index, setIndex] = useState(0);
 
   const modalBackground = useRef();
   const section = useRef('');
@@ -117,6 +119,7 @@ export default function Admin() {
 
   return (
     <>
+      {globalLoading && <GlobalLoading />}
       <div
         ref={modalBackground}
         id='modalBackground'
@@ -125,7 +128,10 @@ export default function Admin() {
         }
         className={`${styles.modalBackground} ${!showLoginModal && styles.modalBackgroundFade}`}
       >
-        <LoginModal closeModal={() => setShowLoginModal(false)} />
+        <LoginModal
+          willResetErrorMsg={!showLoginModal}
+          closeModal={() => setShowLoginModal(false)}
+        />
       </div>
       <div
         className={`${!error ? styles.responseMsgContainer : styles.responseMsgErrorContainer} 

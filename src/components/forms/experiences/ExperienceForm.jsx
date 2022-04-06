@@ -29,7 +29,7 @@ export default function ExperienceForm({
       experienceImg: experienceImg.current.value,
     };
     if (!!e.id) {
-      await adminApi.put('/experience', newExperience);
+      await adminApi.put('/experiences', newExperience);
       experiences[i] = newExperience;
       hideForm();
     } else {

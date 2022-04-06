@@ -1,10 +1,10 @@
 import { InfoContext } from 'App';
 import Button from 'components/button/Button';
 import { loginApi } from 'index';
-import { useContext, useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './LoginModal.module.css';
-export default function LoginModal({ children, closeModal }) {
+export default function LoginModal({ children, closeModal, willResetErrorMsg }) {
   const logIn = useContext(InfoContext).setLoggedIn;
 
   let navigate = useNavigate();
@@ -13,7 +13,7 @@ export default function LoginModal({ children, closeModal }) {
   const password = useRef('');
 
   const [unexistentUser, setUnexistentUser] = useState(false);
-
+  useEffect(() => willResetErrorMsg && setUnexistentUser(false), [willResetErrorMsg]);
   async function login(e) {
     e.preventDefault();
     const user = {
@@ -58,12 +58,10 @@ export default function LoginModal({ children, closeModal }) {
           </label>
           <input ref={password} type='password' name='password' id='password' />
         </div>
-        <div className={styles.logInButton}>
-          {children}
-          <div onClick={(e) => login(e)}>
-            <Button>Log in</Button>
-          </div>
+        <div className={styles.logInButton} onClick={(e) => login(e)}>
+          <Button>Log in</Button>
         </div>
+        {children}
         {unexistentUser && <div className={styles.unexistentUser}>Invalid credentials</div>}
       </form>
     </div>

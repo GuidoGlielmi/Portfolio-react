@@ -16,11 +16,7 @@ const NavBar = ({ showLoginModal, setShowLoginModal, u, i }) => {
   const [editLinks, setEditLinks] = useState('');
   const [dropDownState, setDropDownState] = useState(false);
 
-  useEffect(() => {
-    if (!loggedIn) {
-      setEditLinks(false);
-    }
-  }, [loggedIn]);
+  useEffect(() => !loggedIn && setEditLinks(false), [loggedIn]);
 
   async function saveUser() {
     await adminApi.put('/users', users[i]);

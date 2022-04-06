@@ -9,11 +9,7 @@ export default function Skills() {
   const skills = useContext(InfoContext).skills;
   const [showNewForm, setShowNewForm] = useState(false);
   const loggedIn = useContext(InfoContext).loggedIn;
-  useEffect(() => {
-    if (!loggedIn) {
-      setShowNewForm(false);
-    }
-  }, [loggedIn]);
+  useEffect(() => !loggedIn && setShowNewForm(false), [loggedIn]);
   return (
     <section className={styles.skillsSection}>
       <div className={styles.softAndHard}>
