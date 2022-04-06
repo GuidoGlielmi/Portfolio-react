@@ -16,7 +16,7 @@ header {
   justify-content: space-around;
   align-items: flex-start;
   position: relative;
-  top: min(50vw, 20vh); /* profileImg + fullName */
+  top: min(52.5vw, 21.25vh); /* (profileImg + fullName)/2 */
 }
 .headerTitleContainer {
   display: flex;
@@ -61,7 +61,7 @@ header {
   box-shadow: 0 0 5px #08001e;
 }
 .fullName {
-  line-height: min(10vw, 4.5vh);
+  line-height: min(15vw, 7vh);
   font-size: x-large;
   font-weight: lighter;
 }

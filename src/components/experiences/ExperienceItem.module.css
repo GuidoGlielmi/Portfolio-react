@@ -68,7 +68,7 @@
   text-shadow: 0px 0px 1px #131313;
 }
 .experienceInfoContainerLeft {
-  color: #eae4db;
+  color: #eae4db !important;
   text-shadow: 0 0 1px #eeeeee;
 }
 .experienceTitle,
