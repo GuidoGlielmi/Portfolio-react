@@ -32,7 +32,7 @@ nav {
 .navImg {
   max-height: 100%;
   max-width: 100%;
-  min-width: 30px;
+  min-width: 20px;
 }
 .social {
   display: flex;

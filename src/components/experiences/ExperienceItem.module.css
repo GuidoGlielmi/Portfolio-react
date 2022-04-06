@@ -3,7 +3,7 @@
 .lastSection {
   display: flex;
   flex-direction: column;
-  min-height: 70vh;
+  min-height: max(45vw, 70vh);
 }
 .experienceSectionRight {
   background-image: linear-gradient(
@@ -50,6 +50,7 @@
   align-items: center;
   justify-content: center;
   height: max(15vw, 15vh);
+  width: max(15vw, 15vh);
   margin: 0 3vw;
 }
 .experienceImg {
