@@ -19,7 +19,7 @@ export default function Education() {
   return (
     <section className={styles.educationSection}>
       <div className={styles.titleContainer}>
-        <p className={styles.title}>My studies</p>
+        <p className={`${styles.title} textShadowLight`}>My studies</p>
       </div>
       <div className={styles.education}>
         {education ? (

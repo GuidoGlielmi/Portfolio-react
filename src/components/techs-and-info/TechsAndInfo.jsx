@@ -49,7 +49,7 @@ export default function TechsAndInfo({ user, i }) {
   return (
     <section className={styles.techsAndInfoSection}>
       <div className={styles.personalInfo}>
-        <h2 className={styles.personalInfoTitle}>I'm a web developer</h2>
+        <h2 className={`${styles.personalInfoTitle} textShadowLight`}>I'm a web developer</h2>
         {user ? (
           !loggedIn ? (
             <>
@@ -79,7 +79,9 @@ export default function TechsAndInfo({ user, i }) {
         )}
       </div>
       <div className={styles.techsSection}>
-        <p className={styles.techsTitle}>Some technologies i'm familiar with</p>
+        <p className={`${styles.techsTitle} textShadowSemiDark`}>
+          Some technologies i'm familiar with
+        </p>
         <div ref={techsContainer} onWheel={(e) => onWheel(e)} className={styles.techsContainer}>
           {techs ? (
             techs.map((t, i) => (

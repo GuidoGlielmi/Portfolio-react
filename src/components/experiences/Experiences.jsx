@@ -19,7 +19,7 @@ export default function Experiences() {
   return (
     <section className={styles.experiencesSection}>
       <div className={styles.titleContainer}>
-        <p className={styles.title}>My Experiences</p>
+        <p className={`${styles.title} textShadowLight`}>My Experiences</p>
       </div>
       <div className={styles.experiences}>
         {experiences ? (

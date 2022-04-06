@@ -36,9 +36,6 @@ const NavBar = ({ showLoginModal, setShowLoginModal, u, i }) => {
           <div className={styles.APLogoContainer}>
             <img className={styles.navImg} src='assets/logos/AP.png' alt='AP logo' />
           </div>
-          <a className={styles.yoProgramoLink} href='http://www.yoprogramo.org.ar/'>
-            #YoProgramo
-          </a>
           {loggedIn && (
             <div onClick={() => saveUser()} className={styles.navButton}>
               <Button>Save user</Button>

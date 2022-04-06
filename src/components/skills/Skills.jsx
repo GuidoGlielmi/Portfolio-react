@@ -18,7 +18,7 @@ export default function Skills() {
     <section className={styles.skillsSection}>
       <div className={styles.softAndHard}>
         <div className={styles.titleContainer}>
-          <p className={styles.title}>Soft and Hard Skills</p>
+          <p className={`${styles.title} textShadowLight`}>Soft and Hard Skills</p>
         </div>
         {skills ? (
           <div className={styles.skills}>
@@ -30,7 +30,7 @@ export default function Skills() {
       </div>
       <div className={styles.languages}>
         <div className={styles.titleContainer}>
-          <p className={styles.title}>Languages</p>
+          <p className={`${styles.title} textShadowSemiDark`}>Languages</p>
         </div>
         {skills ? (
           <div className={styles.skills}>

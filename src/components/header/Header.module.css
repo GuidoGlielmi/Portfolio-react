@@ -3,7 +3,10 @@ header {
   flex-direction: column;
   justify-content: flex-end;
   height: 60vh;
-  background-image: url('../../../public/assets/img/banner2.jpg');
+  background-size: 100% 200%;
+  background-image: linear-gradient(to top, transparent 50%, rgba(255, 255, 255, 0.3) 100%),
+    url('../../../public/assets/img/banner3.jpg');
+  box-shadow: 0 0 10px 1px #363636;
 }
 .infoAndTitle {
   position: relative;
@@ -13,7 +16,7 @@ header {
   justify-content: space-around;
   align-items: flex-start;
   position: relative;
-  top: min(50vw, 17.5vh);
+  top: min(50vw, 20vh); /* profileImg + fullName */
 }
 .headerTitleContainer {
   display: flex;
@@ -25,7 +28,9 @@ header {
   margin-left: 8%;
   padding-top: 2vh;
   font-size: xx-large;
-  color: white;
+  font-family: Comfortaa;
+  text-shadow: 0.8px 0.8px rgb(0, 0, 0);
+  color: rgb(200, 200, 200);
 }
 .headerTitle::before {
   content: '';
@@ -33,7 +38,7 @@ header {
   width: 117%;
   right: 5%;
   top: 0;
-  border-top: 3px solid white;
+  border-top: 3px solid rgb(200, 200, 200);
 }
 .userInfo {
   display: flex;
@@ -50,9 +55,10 @@ header {
   align-items: center;
 }
 .profileImg {
-  height: min(80vw, 25vh);
+  height: min(80vw, 30vh);
   margin-top: 15px;
   border-radius: 50%;
+  box-shadow: 0 0 5px #08001e;
 }
 .fullName {
   line-height: min(10vw, 4.5vh);
