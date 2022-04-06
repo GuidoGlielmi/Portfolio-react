@@ -1,0 +1,10 @@
+.globalLoadingBackground {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  z-index: 3;
+  background: rgba(255, 255, 255, 0.2);
+}

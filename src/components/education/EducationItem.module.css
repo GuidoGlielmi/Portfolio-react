@@ -47,8 +47,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: max(20vw, 20vh);
-  height: max(20vw, 20vh);
+  width: min(75vw, 33vh);
+  height: min(75vw, 33vh);
   margin: 0 3vw;
 }
 .educationImg {
@@ -85,14 +85,14 @@
     align-items: center;
     width: 90%;
     margin-right: 0;
+    margin-left: 0;
     align-self: center;
   }
   .educationRight,
   .educationLeft {
     flex-direction: column;
   }
-  .educationImgContainer {
-    width: max(60vw, 30vh);
-    height: max(60vw, 30vh);
+  .educationInfoContainer {
+    max-width: 80%;
   }
 }

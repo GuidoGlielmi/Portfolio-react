@@ -11,16 +11,12 @@ export default function Projects() {
 
   const [showNewForm, setShowNewForm] = useState(false);
 
-  useEffect(() => {
-    if (!loggedIn) {
-      setShowNewForm(false);
-    }
-  }, [loggedIn]);
+  useEffect(() => !loggedIn && setShowNewForm(false), [loggedIn]);
 
   return (
     <section className={styles.projectsSection}>
       <div className={styles.titleContainer}>
-        <p className={styles.title}>Projects i've worked on</p>
+        <p className={`${styles.title} textShadowLight`}>Projects i've worked on</p>
       </div>
       <div className={styles.projects}>
         {projects ? (

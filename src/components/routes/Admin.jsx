@@ -13,9 +13,11 @@ import { adminApi, loginApi, userApi } from 'index';
 import { InfoContext } from 'App';
 import LoginModal from 'components/login-modal/LoginModal';
 import { CSSTransition } from 'react-transition-group';
+import GlobalLoading from 'components/loading-icon/GlobalLoading';
 export default function Admin() {
   const setLoggedIn = useContext(InfoContext).setLoggedIn;
   const user = useContext(InfoContext).users[0];
+  const globalLoading = useContext(InfoContext).globalLoading;
 
   const sections = [
     <TechsAndInfo user={user} i={0} />,
@@ -30,7 +32,14 @@ export default function Admin() {
   const [error, setError] = useState(false);
   const [showResponseMsg, setShowResponseMsg] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
+  const [previousSectionButtonState, setPreviousSectionButtonState] = useState(false);
+  const [nextSectionButtonState, setNextSectionButtonState] = useState(false);
   const [index, setIndex] = useState(0);
+
+  const changeSection = {
+    enter: styles.changeSectionEnter,
+    exit: styles.changeSectionExit,
+  };
 
   const modalBackground = useRef();
   const section = useRef('');
@@ -110,6 +119,7 @@ export default function Admin() {
 
   return (
     <>
+      {globalLoading && <GlobalLoading />}
       <div
         ref={modalBackground}
         id='modalBackground'
@@ -118,7 +128,10 @@ export default function Admin() {
         }
         className={`${styles.modalBackground} ${!showLoginModal && styles.modalBackgroundFade}`}
       >
-        <LoginModal closeModal={() => setShowLoginModal(false)} />
+        <LoginModal
+          willResetErrorMsg={!showLoginModal}
+          closeModal={() => setShowLoginModal(false)}
+        />
       </div>
       <div
         className={`${!error ? styles.responseMsgContainer : styles.responseMsgErrorContainer} 
@@ -138,14 +151,42 @@ export default function Admin() {
       <Header user={user} i={0} />
       <div style={{ position: 'relative' }}>
         <div className={styles.previousArrowContainer}>
-          <div onClick={() => previousSection()} className={styles.previousArrow}>
-            &lt;
-          </div>
+          <CSSTransition
+            in={previousSectionButtonState}
+            timeout={100}
+            classNames={changeSection}
+            onEntered={() => setPreviousSectionButtonState(false)}
+          >
+            <div className={styles.previousArrow}>
+              <img
+                onClick={() => {
+                  setPreviousSectionButtonState(true);
+                  previousSection();
+                }}
+                className={styles.previousArrowRotation}
+                src='/assets/icons/arrow.png'
+                alt='Previous section arrow'
+              />
+            </div>
+          </CSSTransition>
         </div>
         <div className={styles.nextArrowContainer}>
-          <div onClick={() => nextSection()} className={styles.nextArrow}>
-            &gt;
-          </div>
+          <CSSTransition
+            in={nextSectionButtonState}
+            timeout={100}
+            classNames={changeSection}
+            onEntered={() => setNextSectionButtonState(false)}
+          >
+            <img
+              onClick={() => {
+                setNextSectionButtonState(true);
+                nextSection();
+              }}
+              className={styles.nextArrow}
+              src='/assets/icons/arrow.png'
+              alt='Next section arrow'
+            />
+          </CSSTransition>
         </div>
         <div ref={section} className={styles.bottomPart}>
           <div className={styles.sectionLinks}>
@@ -166,6 +207,7 @@ export default function Admin() {
               {sections.map((s, i) => {
                 return (
                   <CSSTransition
+                    key={i}
                     in={index === i}
                     timeout={650}
                     classNames={previousIndex.current > index ? 'next-section' : 'previous-section'}

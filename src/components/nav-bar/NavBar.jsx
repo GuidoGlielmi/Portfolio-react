@@ -16,11 +16,7 @@ const NavBar = ({ showLoginModal, setShowLoginModal, u, i }) => {
   const [editLinks, setEditLinks] = useState('');
   const [dropDownState, setDropDownState] = useState(false);
 
-  useEffect(() => {
-    if (!loggedIn) {
-      setEditLinks(false);
-    }
-  }, [loggedIn]);
+  useEffect(() => !loggedIn && setEditLinks(false), [loggedIn]);
 
   async function saveUser() {
     await adminApi.put('/users', users[i]);
@@ -36,9 +32,6 @@ const NavBar = ({ showLoginModal, setShowLoginModal, u, i }) => {
           <div className={styles.APLogoContainer}>
             <img className={styles.navImg} src='assets/logos/AP.png' alt='AP logo' />
           </div>
-          <a className={styles.yoProgramoLink} href='http://www.yoprogramo.org.ar/'>
-            #YoProgramo
-          </a>
           {loggedIn && (
             <div onClick={() => saveUser()} className={styles.navButton}>
               <Button>Save user</Button>

@@ -25,6 +25,7 @@
 .inputs {
   display: flex;
   flex-direction: column;
+  align-items: center;
   padding: 4vh 5vw;
   border: 0.5px antiquewhite;
 }
@@ -32,6 +33,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  align-self: stretch;
   margin: 5px;
 }
 .logInButton,
@@ -41,6 +43,9 @@
 }
 .unexistentUser {
   color: red;
+}
+.logInButton {
+  align-self: center;
 }
 @media (max-width: 850px) {
   .modal {

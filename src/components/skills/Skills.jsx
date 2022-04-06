@@ -9,16 +9,12 @@ export default function Skills() {
   const skills = useContext(InfoContext).skills;
   const [showNewForm, setShowNewForm] = useState(false);
   const loggedIn = useContext(InfoContext).loggedIn;
-  useEffect(() => {
-    if (!loggedIn) {
-      setShowNewForm(false);
-    }
-  }, [loggedIn]);
+  useEffect(() => !loggedIn && setShowNewForm(false), [loggedIn]);
   return (
     <section className={styles.skillsSection}>
       <div className={styles.softAndHard}>
         <div className={styles.titleContainer}>
-          <p className={styles.title}>Soft and Hard Skills</p>
+          <p className={`${styles.title} textShadowLight`}>Soft and Hard Skills</p>
         </div>
         {skills ? (
           <div className={styles.skills}>
@@ -30,7 +26,7 @@ export default function Skills() {
       </div>
       <div className={styles.languages}>
         <div className={styles.titleContainer}>
-          <p className={styles.title}>Languages</p>
+          <p className={`${styles.title} textShadowSemiDark`}>Languages</p>
         </div>
         {skills ? (
           <div className={styles.skills}>

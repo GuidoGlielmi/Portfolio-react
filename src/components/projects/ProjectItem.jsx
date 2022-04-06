@@ -14,7 +14,7 @@ export default function ProjectItem({ p, i }) {
 
   for (let i = p.techs.length - 1; i >= 0; i--) {
     //make sure when deleting a tech it doesn't appear in the projects
-    if (!techs.find(({ id }) => id === p.techs[i].id)) {
+    if (techs && !techs.find(({ id }) => id === p.techs[i].id)) {
       p.techs.splice(i, 1);
     }
   }

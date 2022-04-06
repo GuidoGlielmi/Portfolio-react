@@ -27,7 +27,7 @@ export default function Header({ user, i }) {
                 {!editUserInfo ? (
                   <>
                     <img className={styles.profileImg} src={user.profileImg} alt='profile' />
-                    <h1 className={`${styles.fullName} darkFont`}>
+                    <h1 className={`${`${styles.fullName} textShadowLight`} darkFont`}>
                       {user.firstName + ' ' + user.lastName}
                     </h1>
                   </>

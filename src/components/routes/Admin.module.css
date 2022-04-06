@@ -91,20 +91,36 @@
 .nextArrowContainer {
   right: 0;
 }
-.previousArrow,
-.nextArrow {
+.nextArrow,
+.previousArrow {
   position: sticky;
   display: flex;
   justify-content: center;
   align-items: center;
   top: 50%;
-  padding: 15px;
-  margin: 5px;
-  border-radius: 50%;
-  background-color: wheat;
-  box-shadow: 0.5px 0.5px 5px black;
   cursor: pointer;
+  transform: scale(1);
+  transition: transform 200ms ease;
 }
+.nextArrow,
+.previousArrowRotation {
+  background-color: #93b7a8;
+  box-shadow: 0.5px 0.5px 3px black;
+  border-radius: 50%;
+  width: 35px;
+  margin: 5px;
+  padding: 25%;
+}
+.previousArrowRotation {
+  transform: rotate(180deg);
+}
+.changeSectionEnter {
+  transform: scale(1.5);
+}
+.changeSectionExit {
+  transform: scale(1) !important;
+}
+
 @media (max-width: 650px) {
   .bottomPart {
     padding-top: min(50vw, 17.5vh);

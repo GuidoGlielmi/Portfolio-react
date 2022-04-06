@@ -14,6 +14,7 @@ const App = () => {
   const [skills, setSkills] = useState('');
   const [techs, setTechs] = useState('');
   const [loggedIn, setLoggedIn] = useState(token);
+  const [globalLoading, setGlobalLoading] = useState(false);
 
   useEffect(() => getInfo(), []);
   async function getInfo() {
@@ -65,6 +66,8 @@ const App = () => {
         setSkills,
         loggedIn,
         setLoggedIn,
+        globalLoading,
+        setGlobalLoading,
       }}
     >
       <Routes>

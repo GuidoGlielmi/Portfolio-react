@@ -11,15 +11,11 @@ export default function Education() {
 
   const [showNewForm, setShowNewForm] = useState(false);
 
-  useEffect(() => {
-    if (!loggedIn) {
-      setShowNewForm(false);
-    }
-  }, [loggedIn]);
+  useEffect(() => !loggedIn && setShowNewForm(false), [loggedIn]);
   return (
     <section className={styles.educationSection}>
       <div className={styles.titleContainer}>
-        <p className={styles.title}>My studies</p>
+        <p className={`${styles.title} textShadowLight`}>My studies</p>
       </div>
       <div className={styles.education}>
         {education ? (

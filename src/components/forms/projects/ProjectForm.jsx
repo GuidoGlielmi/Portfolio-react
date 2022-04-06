@@ -136,8 +136,8 @@ export default function ProjectForm({
           <p className={styles.projectLabel}>Urls</p>
           <div className={styles.urlsContainer}>
             {p.urls.map((pu, i) => (
-              <div className={styles.urlItem}>
-                <div key={pu.id ? pu.id : i} className={styles.urlContainer}>
+              <div key={pu.id ? pu.id : i} className={styles.urlItem}>
+                <div className={styles.urlContainer}>
                   <div className={styles.urlInputContainer}>
                     <label className={styles.urlLabel} htmlFor={pu.id}>
                       Name
@@ -211,8 +211,8 @@ export default function ProjectForm({
               </div>
             </div>
           ))}
-          <select ref={selectedTech}>
-            <option value='default' disabled selected>
+          <select ref={selectedTech} defaultValue='default'>
+            <option value='default' disabled>
               Add a tech
             </option>
             {remainingTechs.map((rt, i) => (
