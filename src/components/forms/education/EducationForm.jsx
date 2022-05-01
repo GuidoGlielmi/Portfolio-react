@@ -43,8 +43,7 @@ export default function EducationForm({
       endDate.current.value = '';
       educationImg.current.value = '';
     }
-    const newEducationList = [...education];
-    setEducation(newEducationList);
+    setEducation([...education]);
   }
   return (
     <form onSubmit={submitHandler} className={styles.educationForm}>

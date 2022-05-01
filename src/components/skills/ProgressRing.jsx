@@ -7,28 +7,25 @@ export default function ProgressRing({ percentage = 100 }) {
   const radius = 7 * sizeMultiplier;
   const strokeWidth = radius / 3;
   const diameter = radius * 2 + strokeWidth;
-  let circumference = screenWidth * (radius / 100) * 2 * Math.PI;
-  let offset = (circumference * (100 - percentage)) / 100;
-  let cxy = radius + strokeWidth / 2;
-  circumference = screenWidth * (radius / 100) * 2 * Math.PI;
-  cxy = radius + strokeWidth / 2;
-  offset = (circumference * (100 - percentage)) / 100;
-
+  const circumference = screenWidth * (radius / 100) * 2 * Math.PI;
+  const offset = (circumference * (100 - percentage)) / 100;
+  const cxy = radius + strokeWidth / 2;
   useEffect(() => {
+    function debounce(fn, ms) {
+      let timer;
+      return () => {
+        clearTimeout(timer);
+        timer = setTimeout(() => {
+          timer = null;
+          fn.apply(this, arguments);
+        }, ms);
+      };
+    }
+    const handleResize = debounce(() => setScreenWidth(window.innerWidth), 100);
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
-  function debounce(fn, ms) {
-    let timer;
-    return () => {
-      clearTimeout(timer);
-      timer = setTimeout(() => {
-        timer = null;
-        fn.apply(this, arguments);
-      }, ms);
-    };
-  }
-  const handleResize = debounce(() => setScreenWidth(window.innerWidth), 100);
+
   return (
     <div className={styles.circleBox}>
       <p className={styles.percentage}>{percentage}%</p>

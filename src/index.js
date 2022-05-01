@@ -5,15 +5,10 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import axios from 'axios';
-export const userApi = axios.create({
-  baseURL: 'https://yoprogramo-server.herokuapp.com/',
-});
-export const adminApi = axios.create({
-  baseURL: 'https://yoprogramo-server.herokuapp.com/',
-});
-export const loginApi = axios.create({
-  baseURL: 'https://yoprogramo-server.herokuapp.com/',
-});
+const baseURL = 'https://yoprogramo-server.herokuapp.com/';
+export const userApi = axios.create({ baseURL });
+export const adminApi = axios.create({ baseURL });
+export const loginApi = axios.create({ baseURL });
 adminApi.interceptors.request.use((req) => {
   const token = sessionStorage.getItem('accessToken');
   req.headers['Authorization'] = `Bearer ${token}`;

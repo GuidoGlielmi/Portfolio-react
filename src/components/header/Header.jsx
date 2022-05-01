@@ -9,11 +9,7 @@ export default function Header({ user, i }) {
 
   const loggedIn = useContext(InfoContext).loggedIn;
 
-  useEffect(() => {
-    if (!loggedIn) {
-      setEditUserInfo(false);
-    }
-  }, [loggedIn]);
+  useEffect(() => !loggedIn && setEditUserInfo(false), [loggedIn]);
 
   return (
     <header>

@@ -1,36 +1,41 @@
-.next-section-enter {
+/* there are two section shown at the same time
+
+when going to the next section, the current adquires previous-exit's classes (and goes left)
+when going to the previous section, the current adquires next-exit's classes (and goes right)
+*/
+.next-enter {
   opacity: 0;
   transform: translate(-100%);
 }
-.next-section-enter-active {
+.next-enter-active {
   transform: translate(0);
   opacity: 1;
   transition: opacity 650ms, transform 650ms ease;
 }
-.next-section-exit {
+.next-exit {
   transform: translate(-100%);
   opacity: 1;
 }
-.next-section-exit-active {
+.next-exit-active {
   transform: translate(0%);
   opacity: 0;
   transition: opacity 650ms, transform 650ms ease;
 }
 
-.previous-section-enter {
+.previous-enter {
   opacity: 0;
   transform: translate(0);
 }
-.previous-section-enter-active {
+.previous-enter-active {
   opacity: 1;
   transition: opacity 650ms, transform 650ms ease;
   transform: translate(-100%);
 }
-.previous-section-exit {
+.previous-exit {
   opacity: 1;
   transform: translate(0);
 }
-.previous-section-exit-active {
+.previous-exit-active {
   transform: translate(-100%);
   opacity: 0;
   transition: opacity 650ms, transform 650ms ease;

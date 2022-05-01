@@ -37,8 +37,7 @@ export default function SkillForm({
       abilityPercentage.current.value = '';
       type.current.value = '';
     }
-    const newSkillList = [...skills];
-    setSkills(newSkillList);
+    setSkills([...skills]);
   }
   return (
     <form onSubmit={submitHandler} className={styles.skillForm}>

@@ -18,9 +18,8 @@ const NavBar = ({ showLoginModal, setShowLoginModal, u, i }) => {
 
   useEffect(() => !loggedIn && setEditLinks(false), [loggedIn]);
 
-  async function saveUser() {
-    await adminApi.put('/users', users[i]);
-  }
+  const saveUser = () => adminApi.put('/users', users[i]);
+
   function logout() {
     sessionStorage.removeItem('accessToken');
     setLoggedIn(false);
@@ -33,7 +32,7 @@ const NavBar = ({ showLoginModal, setShowLoginModal, u, i }) => {
             <img className={styles.navImg} src='assets/logos/AP.png' alt='AP logo' />
           </div>
           {loggedIn && (
-            <div onClick={() => saveUser()} className={styles.navButton}>
+            <div onClick={saveUser} className={styles.navButton}>
               <Button>Save user</Button>
             </div>
           )}
@@ -68,7 +67,6 @@ const NavBar = ({ showLoginModal, setShowLoginModal, u, i }) => {
                         ...u,
                         linkedInUrl: value,
                       };
-                      console.log(users[i].linkedInUrl);
                       setUsers([...users]);
                     }}
                     name='linkedInUrl'
@@ -141,7 +139,6 @@ const NavBar = ({ showLoginModal, setShowLoginModal, u, i }) => {
                           ...u,
                           linkedInUrl: value,
                         };
-                        console.log(users[i].linkedInUrl);
                         setUsers([...users]);
                       }}
                       name='linkedInUrl'

@@ -51,8 +51,7 @@ export default function ProjectForm({
       description.current.value = '';
       projectImg.current.value = '';
     }
-    const newProjectList = [...projects];
-    setProjects(newProjectList);
+    setProjects([...projects]);
   }
   function addTech(i) {
     /* remainingTechs.forEach((rt, i) => {
@@ -64,14 +63,12 @@ export default function ProjectForm({
     }); */
     p.techs.push(remainingTechs[i]);
     p.techs.sort((a, b) => a.name > b.name);
-    const newProjectList = [...projects];
     selectedTech.current.value = 'default';
-    setProjects(newProjectList);
+    setProjects([...projects]);
   }
   function removeTech(i) {
     p.techs.splice(i, 1);
-    const newProjectList = [...projects];
-    setProjects(newProjectList);
+    setProjects([...projects]);
   }
   function addUrl() {
     const newUrlItem = {
@@ -83,13 +80,11 @@ export default function ProjectForm({
     setShowNewUrl(false);
     newUrl.current.value = '';
     newUrlName.current.value = '';
-    const newProjectList = [...projects];
-    setProjects(newProjectList);
+    setProjects([...projects]);
   }
   function removeUrl(i) {
     p.urls.splice(i, 1);
-    const newProjectList = [...projects];
-    setProjects(newProjectList);
+    setProjects([...projects]);
   }
   return (
     <form onSubmit={submitHandler} className={styles.projectForm}>
@@ -186,7 +181,7 @@ export default function ProjectForm({
                 </label>
                 <input ref={newUrl} className={styles.urlInput} name='newUrl' id='newUrl' />
               </div>
-              <div onClick={() => addUrl()} className={styles.addButton}>
+              <div onClick={addUrl} className={styles.addButton}>
                 <CloseIcon size='20px' />
               </div>
             </div>

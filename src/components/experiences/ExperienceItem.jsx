@@ -12,14 +12,11 @@ export default function ExperienceItem({ e, i, isLastItem }) {
 
   const [showForm, setShowForm] = useState(false);
 
-  useEffect(() => {
-    if (!loggedIn) setShowForm(false);
-  }, [loggedIn]);
+  useEffect(() => !loggedIn && setShowForm(false), [loggedIn]);
   async function deleteExperience() {
     await adminApi.delete(`/experiences/${e.id}`);
     experiences.splice(i, 1);
-    const newEducation = [...experiences];
-    setExperiences(newEducation);
+    setExperiences([...experiences]);
   }
   return i % 2 === 0 ? (
     <div className={!isLastItem ? styles.experienceSectionRight : styles.lastSection}>
@@ -43,12 +40,10 @@ export default function ExperienceItem({ e, i, isLastItem }) {
                   <span>{e.endDate}</span>
                 </div>
                 <p className={styles.experienceDescription}>{e.description}</p>
-                {e.certificate ? (
+                {e.certificate && (
                   <a href={e.certificate} target='_blank' rel='noreferrer'>
                     Certificate
                   </a>
-                ) : (
-                  ''
                 )}
               </div>
             ) : (
@@ -75,12 +70,10 @@ export default function ExperienceItem({ e, i, isLastItem }) {
                   <span>{e.endDate}</span>
                 </div>
                 <p className={styles.experienceDescription}>{e.description}</p>
-                {e.certificate ? (
+                {e.certificate && (
                   <a href={e.certificate} target='_blank' rel='noreferrer'>
                     Certificate
                   </a>
-                ) : (
-                  ''
                 )}
               </div>
             ) : (

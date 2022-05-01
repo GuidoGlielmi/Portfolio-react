@@ -12,14 +12,11 @@ export default function EducationItem({ e, i }) {
 
   const [showForm, setShowForm] = useState(false);
 
-  useEffect(() => {
-    if (!loggedIn) setShowForm(false);
-  }, [loggedIn]);
+  useEffect(() => !loggedIn && setShowForm(false), [loggedIn]);
   async function deleteEducation() {
     await adminApi.delete(`/education/${e.id}`);
     education.splice(i, 1);
-    const newEducation = [...education];
-    setEducation(newEducation);
+    setEducation([...education]);
   }
   return (
     <div

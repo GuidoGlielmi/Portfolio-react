@@ -19,15 +19,12 @@ export default function ProjectItem({ p, i }) {
     }
   }
 
-  useEffect(() => {
-    if (!loggedIn) setShowForm(false);
-  }, [loggedIn]);
+  useEffect(() => !loggedIn && setShowForm(false), [loggedIn]);
 
   async function deleteProject() {
     await adminApi.delete(`/projects/${p.id}`);
     projects.splice(i, 1);
-    const newProject = [...projects];
-    setProject(newProject);
+    setProject([...projects]);
   }
 
   return (

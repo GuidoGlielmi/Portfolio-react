@@ -43,8 +43,7 @@ export default function ExperienceForm({
       endDate.current.value = '';
       experienceImg.current.value = '';
     }
-    const newExperienceList = [...experiences];
-    setExperiences(newExperienceList);
+    setExperiences([...experiences]);
   }
   return (
     <form onSubmit={submitHandler} className={styles.experienceForm}>

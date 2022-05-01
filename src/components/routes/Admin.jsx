@@ -14,6 +14,7 @@ import { InfoContext } from 'App';
 import LoginModal from 'components/login-modal/LoginModal';
 import { CSSTransition } from 'react-transition-group';
 import GlobalLoading from 'components/loading-icon/GlobalLoading';
+import CircleButton from 'components/button/CircleButton';
 export default function Admin() {
   const setLoggedIn = useContext(InfoContext).setLoggedIn;
   const user = useContext(InfoContext).users[0];
@@ -32,36 +33,15 @@ export default function Admin() {
   const [error, setError] = useState(false);
   const [showResponseMsg, setShowResponseMsg] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
-  const [previousSectionButtonState, setPreviousSectionButtonState] = useState(false);
-  const [nextSectionButtonState, setNextSectionButtonState] = useState(false);
   const [index, setIndex] = useState(0);
-
-  const changeSection = {
-    enter: styles.changeSectionEnter,
-    exit: styles.changeSectionExit,
-  };
 
   const modalBackground = useRef();
   const section = useRef('');
   const previousIndex = useRef(0);
-  useEffect(() => (previousIndex.current = index), [index]);
-  function scrollToSection() {
-    section.current.scrollIntoView();
-  }
-  function previousSection() {
-    if (index === 0) {
-      setIndex(sections.length - 1);
-    } else {
-      setIndex(index - 1);
-    }
-  }
-  function nextSection() {
-    if (index === sections.length - 1) {
-      setIndex(0);
-    } else {
-      setIndex(index + 1);
-    }
-  }
+
+  const scrollToSection = () => section.current.scrollIntoView();
+  const previousSection = () => (index === 0 ? setIndex(sections.length - 1) : setIndex(index - 1));
+  const nextSection = () => (index === sections.length - 1 ? setIndex(0) : setIndex(index + 1));
   function showResponseMsgSuccess(data) {
     setResponseMsg(data);
     setError(false);
@@ -76,6 +56,7 @@ export default function Admin() {
     setShowResponseMsg(true);
   }
 
+  useEffect(() => (previousIndex.current = index), [index]);
   useEffect(() => {
     loginApi.interceptors.response.use((res) => {
       showResponseMsgSuccess(res.data.msg);
@@ -103,7 +84,7 @@ export default function Admin() {
       },
       (err) => {
         const res = err.response;
-        console.log(res);
+        // console.log(res);
         if (res.data) {
           showResponseMsgError(`${res.data.error} '${res.data.message}' ${res.data.path}`);
         } else if (res.status === 403) {
@@ -151,51 +132,33 @@ export default function Admin() {
       <Header user={user} i={0} />
       <div style={{ position: 'relative' }}>
         <div className={styles.previousArrowContainer}>
-          <CSSTransition
-            in={previousSectionButtonState}
-            timeout={100}
-            classNames={changeSection}
-            onEntered={() => setPreviousSectionButtonState(false)}
-          >
-            <div className={styles.previousArrow}>
+          <div className={`${styles.previousArrow} ${styles.flip}`}>
+            <CircleButton action={previousSection}>
               <img
-                onClick={() => {
-                  setPreviousSectionButtonState(true);
-                  previousSection();
-                }}
-                className={styles.previousArrowRotation}
+                style={{ width: '100%' }}
                 src='/assets/icons/arrow.png'
                 alt='Previous section arrow'
               />
-            </div>
-          </CSSTransition>
+            </CircleButton>
+          </div>
         </div>
         <div className={styles.nextArrowContainer}>
-          <CSSTransition
-            in={nextSectionButtonState}
-            timeout={100}
-            classNames={changeSection}
-            onEntered={() => setNextSectionButtonState(false)}
-          >
-            <img
-              onClick={() => {
-                setNextSectionButtonState(true);
-                nextSection();
-              }}
-              className={styles.nextArrow}
-              src='/assets/icons/arrow.png'
-              alt='Next section arrow'
-            />
-          </CSSTransition>
+          <div className={styles.previousArrow}>
+            <CircleButton action={nextSection}>
+              <img
+                style={{ width: '100%' }}
+                src='/assets/icons/arrow.png'
+                alt='Previous section arrow'
+              />
+            </CircleButton>
+          </div>
         </div>
         <div ref={section} className={styles.bottomPart}>
           <div className={styles.sectionLinks}>
             {sectionsNames.map((sn, i) => (
               <span
                 key={i}
-                onClick={() => {
-                  setIndex(i);
-                }}
+                onClick={() => setIndex(i)}
                 className={`${styles.sectionLink} ${index === i && styles.clickedSectionLink}`}
               >
                 {sn}
@@ -210,7 +173,7 @@ export default function Admin() {
                     key={i}
                     in={index === i}
                     timeout={650}
-                    classNames={previousIndex.current > index ? 'next-section' : 'previous-section'}
+                    classNames={previousIndex.current > index ? 'next' : 'previous'}
                     unmountOnExit
                   >
                     {s}

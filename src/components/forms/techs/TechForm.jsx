@@ -30,8 +30,7 @@ export default function TechForm({ t = { name: '', techImg: '' }, i, hideForm })
       name.current.value = '';
       techImg.current.value = '';
     }
-    const newTechsList = [...techs];
-    setTechs(newTechsList);
+    setTechs([...techs]);
   }
   return (
     <form onSubmit={submitHandler} className={styles.techForm}>

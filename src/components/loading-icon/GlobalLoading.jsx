@@ -5,7 +5,7 @@ export default function GlobalLoading() {
   return (
     <div className={styles.globalLoadingBackground}>
       <div className={styles.loadingIcon}>
-        <LoadingIcon></LoadingIcon>
+        <LoadingIcon />
       </div>
     </div>
   );
