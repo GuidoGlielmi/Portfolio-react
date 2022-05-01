@@ -36,7 +36,7 @@ export default function ExperienceItem({ e, i, isLastItem }) {
               <div className={styles.experienceInfoContainerRight}>
                 <h3 className={styles.experienceTitle}>{e.title}</h3>
                 <div className={styles.dates}>
-                  <span>{e.startDate} -</span>
+                  <span>{e.startDate} - </span>
                   <span>{e.endDate}</span>
                 </div>
                 <p className={styles.experienceDescription}>{e.description}</p>
