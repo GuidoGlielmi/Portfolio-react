@@ -1,50 +1,30 @@
-import { InfoContext } from 'App';
 import Button from 'components/button/Button';
-import { adminApi } from 'index';
-import React, { useContext, useRef } from 'react';
+import React, {useRef} from 'react';
 import styles from './EducationForm.module.css';
+const initialState = {degree: '', school: '', startDate: '', endDate: '', educationImg: ''};
+export default function EducationForm({education = initialState, handleSubmit}) {
+  const degree = useRef(education.degree);
+  const school = useRef(education.school);
+  const startDate = useRef(education.startDate);
+  const endDate = useRef(education.endDate);
+  const educationImg = useRef(education.educationImg);
 
-export default function EducationForm({
-  e = { degree: '', school: '', startDate: '', endDate: '', educationImg: '' },
-  i,
-  hideForm,
-}) {
-  const education = useContext(InfoContext).education;
-  const setEducation = useContext(InfoContext).setEducation;
-
-  const degree = useRef('');
-  const school = useRef('');
-  const startDate = useRef('');
-  const endDate = useRef('');
-  const educationImg = useRef('');
-
-  async function submitHandler(event) {
-    event.preventDefault();
-    const newEducation = {
-      ...e,
+  async function submitHandler(e) {
+    e.preventDefault();
+    await handleSubmit({
       degree: degree.current.value,
       school: school.current.value,
       startDate: startDate.current.value,
       endDate: endDate.current.value,
       educationImg: educationImg.current.value,
-    };
-    if (!!e.id) {
-      await adminApi.put('/education', newEducation);
-      education[i] = newEducation;
-      hideForm();
-    } else {
-      const generatedId = await adminApi.post('/education', newEducation);
-      newEducation.id = generatedId;
-      education.push(newEducation);
-      education.sort((a, b) => a.degree > b.degree);
-      degree.current.value = '';
-      school.current.value = '';
-      startDate.current.value = '';
-      endDate.current.value = '';
-      educationImg.current.value = '';
-    }
-    setEducation([...education]);
+    });
+    degree.current.value = '';
+    school.current.value = '';
+    startDate.current.value = '';
+    endDate.current.value = '';
+    educationImg.current.value = '';
   }
+
   return (
     <form onSubmit={submitHandler} className={styles.educationForm}>
       <div className={styles.educationInputs}>
@@ -53,7 +33,7 @@ export default function EducationForm({
             Degree
           </label>
           <input
-            defaultValue={e.degree}
+            defaultValue={degree.current}
             className={styles.educationInput}
             ref={degree}
             name='degree'
@@ -65,7 +45,7 @@ export default function EducationForm({
             School
           </label>
           <input
-            defaultValue={e.school}
+            defaultValue={school.current}
             className={styles.educationInput}
             ref={school}
             name='school'
@@ -77,7 +57,7 @@ export default function EducationForm({
             Start date
           </label>
           <input
-            defaultValue={e.startDate}
+            defaultValue={startDate.current}
             className={styles.educationInput}
             ref={startDate}
             name='startDate'
@@ -89,7 +69,7 @@ export default function EducationForm({
             End date
           </label>
           <input
-            defaultValue={e.endDate}
+            defaultValue={endDate.current}
             className={styles.educationInput}
             ref={endDate}
             name='endDate'
@@ -101,7 +81,7 @@ export default function EducationForm({
             Education image path
           </label>
           <input
-            defaultValue={e.educationImg}
+            defaultValue={educationImg.current}
             className={styles.educationInput}
             ref={educationImg}
             name='educationImg'
@@ -110,7 +90,7 @@ export default function EducationForm({
         </div>
       </div>
       <div>
-        <Button onClick={(e) => submitHandler(e)}>Save</Button>
+        <Button onClick={e => submitHandler(e)}>Save</Button>
       </div>
     </form>
   );
