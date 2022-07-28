@@ -1,23 +1,28 @@
-import { InfoContext } from 'App';
+import {InfoContext} from 'App';
 import CloseAndEdit from 'components/close-icon/CloseAndEdit';
 import ExperienceForm from 'components/forms/experiences/ExperienceForm';
-import React, { useContext, useEffect, useState } from 'react';
-import { adminApi } from 'index';
+import React, {useContext, useState} from 'react';
 import styles from './ExperienceItem.module.css';
+import fetch from 'services/fetch';
 
-export default function ExperienceItem({ e, i, isLastItem }) {
-  const loggedIn = useContext(InfoContext).loggedIn;
-  const experiences = useContext(InfoContext).experiences;
-  const setExperiences = useContext(InfoContext).setExperiences;
+export default function ExperienceItem({experience, i, isLastItem, setExperiences}) {
+  const {loggedIn} = useContext(InfoContext);
 
   const [showForm, setShowForm] = useState(false);
 
-  useEffect(() => !loggedIn && setShowForm(false), [loggedIn]);
+  if (!loggedIn && showForm) setShowForm(false);
+
   async function deleteExperience() {
-    await adminApi.delete(`/experiences/${e.id}`);
-    experiences.splice(i, 1);
-    setExperiences([...experiences]);
+    await fetch.delete(`experiences/${experience.id}`);
+    setExperiences(pe => pe.filter(({id}) => id !== experience.id));
   }
+
+  async function updateExperience(newExperience) {
+    await fetch.put('experiences', newExperience);
+    setExperiences(pe => pe.map(e => (e.id === experience.id ? newExperience : e)));
+    setShowForm(false);
+  }
+
   return i % 2 === 0 ? (
     <div className={!isLastItem ? styles.experienceSectionRight : styles.lastSection}>
       <div className={styles.experienceContainerRight}>
@@ -25,29 +30,33 @@ export default function ExperienceItem({ e, i, isLastItem }) {
           <div className={styles.experienceRight}>
             {loggedIn && (
               <CloseAndEdit
-                toggleEdit={() => setShowForm(!showForm)}
+                toggleEdit={() => setShowForm(ps => !ps)}
                 deleteItem={deleteExperience}
               />
             )}
             <div className={styles.experienceImgContainer}>
-              <img className={styles.experienceImg} src={e.experienceImg} alt={`${e.title} logo`} />
+              <img
+                className={styles.experienceImg}
+                src={experience.experienceImg}
+                alt={`${experience.title} logo`}
+              />
             </div>
             {!showForm ? (
               <div className={styles.experienceInfoContainerRight}>
-                <h3 className={styles.experienceTitle}>{e.title}</h3>
+                <h3 className={styles.experienceTitle}>{experience.title}</h3>
                 <div className={styles.dates}>
-                  <span>{e.startDate} - </span>
-                  <span>{e.endDate}</span>
+                  <span>{experience.startDate} - </span>
+                  <span>{experience.endDate}</span>
                 </div>
-                <p className={styles.experienceDescription}>{e.description}</p>
-                {e.certificate && (
-                  <a href={e.certificate} target='_blank' rel='noreferrer'>
+                <p className={styles.experienceDescription}>{experience.description}</p>
+                {experience.certificate && (
+                  <a href={experience.certificate} target='_blank' rel='noreferrer'>
                     Certificate
                   </a>
                 )}
               </div>
             ) : (
-              <ExperienceForm e={e} i={i} hideForm={() => setShowForm(!showForm)} />
+              <ExperienceForm experience={experience} handleSubmit={updateExperience} />
             )}
           </div>
         </div>
@@ -60,24 +69,28 @@ export default function ExperienceItem({ e, i, isLastItem }) {
           <div className={styles.experienceLeft}>
             {loggedIn && <CloseAndEdit toggleEdit={() => setShowForm(!showForm)} />}
             <div className={styles.experienceImgContainer}>
-              <img className={styles.experienceImg} src={e.experienceImg} alt={`${e.title} logo`} />
+              <img
+                className={styles.experienceImg}
+                src={experience.experienceImg}
+                alt={`${experience.title} logo`}
+              />
             </div>
             {!showForm ? (
               <div className={styles.experienceInfoContainerLeft}>
-                <h3 className={styles.experienceTitle}>{e.title}</h3>
+                <h3 className={styles.experienceTitle}>{experience.title}</h3>
                 <div className={styles.dates}>
-                  <span>{e.startDate} - </span>
-                  <span>{e.endDate}</span>
+                  <span>{experience.startDate} - </span>
+                  <span>{experience.endDate}</span>
                 </div>
-                <p className={styles.experienceDescription}>{e.description}</p>
-                {e.certificate && (
-                  <a href={e.certificate} target='_blank' rel='noreferrer'>
+                <p className={styles.experienceDescription}>{experience.description}</p>
+                {experience.certificate && (
+                  <a href={experience.certificate} target='_blank' rel='noreferrer'>
                     Certificate
                   </a>
                 )}
               </div>
             ) : (
-              <ExperienceForm e={e} i={i} hideForm={() => setShowForm(!showForm)} />
+              <ExperienceForm experience={experience} handleSubmit={updateExperience} />
             )}
           </div>
         </div>
