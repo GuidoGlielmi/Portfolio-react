@@ -1,11 +1,11 @@
-import { InfoContext } from 'App';
+import {InfoContext} from 'App';
 import Button from 'components/button/Button';
-import { loginApi } from 'index';
-import { useContext, useEffect, useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import {useContext, useEffect, useRef, useState} from 'react';
+import {useNavigate} from 'react-router-dom';
+import fetch from 'services/fetch';
 import styles from './LoginModal.module.css';
-export default function LoginModal({ children, closeModal, willResetErrorMsg }) {
-  const logIn = useContext(InfoContext).setLoggedIn;
+export default function LoginModal({children, closeModal, willResetErrorMsg}) {
+  const {setloggedIn} = useContext(InfoContext);
 
   let navigate = useNavigate();
 
@@ -13,7 +13,9 @@ export default function LoginModal({ children, closeModal, willResetErrorMsg }) 
   const password = useRef('');
 
   const [unexistentUser, setUnexistentUser] = useState(false);
+
   useEffect(() => willResetErrorMsg && setUnexistentUser(false), [willResetErrorMsg]);
+
   async function login(e) {
     e.preventDefault();
     const user = {
@@ -21,25 +23,20 @@ export default function LoginModal({ children, closeModal, willResetErrorMsg }) 
       password: password.current.value,
     };
     try {
-      const res = await loginApi.post('/login', user, {
-        validateStatus: (status) => {
-          return status !== 403;
-        },
-      });
-      const token = res.headers.authorization;
+      const token = await fetch.post('login', user);
       sessionStorage.setItem('accessToken', token);
-      logIn(true);
+      setloggedIn(true);
       setInterval(() => {
         sessionStorage.removeItem('accessToken');
-        logIn(false);
+        setloggedIn(false);
       }, 1000 * 60 * 60);
       if (closeModal) closeModal();
-      return navigate('/guest', { replace: true });
-    } catch ({ response }) {
-      /* console.log(response);
-      if (response.status === 403) */ setUnexistentUser(true);
+      return navigate('/guest', {replace: true});
+    } catch ({message, status}) {
+      setUnexistentUser(true);
     }
   }
+
   return (
     <div className={styles.modal}>
       <div className={styles.title}>
@@ -58,7 +55,7 @@ export default function LoginModal({ children, closeModal, willResetErrorMsg }) 
           </label>
           <input ref={password} type='password' name='password' id='password' />
         </div>
-        <div className={styles.logInButton} onClick={(e) => login(e)}>
+        <div className={styles.setloggedInButton}>
           <Button>Log in</Button>
         </div>
         {children}

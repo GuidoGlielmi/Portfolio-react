@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, {useContext, useEffect, useRef, useState} from 'react';
 import Header from 'components/header/Header';
 import NavBar from 'components/nav-bar/NavBar';
 import Footer from 'components/footer/Footer';
@@ -9,25 +9,25 @@ import Experiences from 'components/experiences/Experiences';
 import Skills from 'components/skills/Skills';
 import styles from './Admin.module.css';
 import './Admin.css';
-import { adminApi, loginApi, userApi } from 'index';
-import { InfoContext } from 'App';
+import {adminApi, loginApi, userApi} from 'index';
+import {InfoContext} from 'App';
 import LoginModal from 'components/login-modal/LoginModal';
-import { CSSTransition } from 'react-transition-group';
+import {CSSTransition} from 'react-transition-group';
 import GlobalLoading from 'components/loading-icon/GlobalLoading';
 import CircleButton from 'components/button/CircleButton';
+import useFetch from 'components/custom-hooks/useFetch';
+const sectionsNames = ['Who am I', 'Projects', 'Experiences', 'My education', 'My skills'];
 export default function Admin() {
-  const setLoggedIn = useContext(InfoContext).setLoggedIn;
-  const user = useContext(InfoContext).users[0];
-  const globalLoading = useContext(InfoContext).globalLoading;
+  const {setLoggedIn, globalLoading} = useContext(InfoContext);
+  const [[user], setUser] = useFetch({url: '/users'});
 
   const sections = [
-    <TechsAndInfo user={user} i={0} />,
+    <TechsAndInfo user={user} setUser={setUser} i={0} />,
     <Projects />,
     <Experiences />,
     <Education />,
     <Skills />,
   ];
-  const sectionsNames = ['Who am I', 'Projects', 'Experiences', 'My education', 'My skills'];
 
   const [responseMsg, setResponseMsg] = useState('');
   const [error, setError] = useState(false);
@@ -35,13 +35,16 @@ export default function Admin() {
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [index, setIndex] = useState(0);
 
+  useEffect(() => {
+    section.current.scrollIntoView();
+  }, [index]);
+
   const modalBackground = useRef();
   const section = useRef('');
   const previousIndex = useRef(0);
 
-  const scrollToSection = () => section.current.scrollIntoView();
-  const previousSection = () => (index === 0 ? setIndex(sections.length - 1) : setIndex(index - 1));
-  const nextSection = () => (index === sections.length - 1 ? setIndex(0) : setIndex(index + 1));
+  const previousSection = () => setIndex(!index ? sections.length - 1 : index - 1);
+  const nextSection = () => setIndex(index === sections.length - 1 ? 0 : index + 1);
   function showResponseMsgSuccess(data) {
     setResponseMsg(data);
     setError(false);
@@ -58,13 +61,13 @@ export default function Admin() {
 
   useEffect(() => (previousIndex.current = index), [index]);
   useEffect(() => {
-    loginApi.interceptors.response.use((res) => {
+    loginApi.interceptors.response.use(res => {
       showResponseMsgSuccess(res.data.msg);
       return res;
     });
     userApi.interceptors.response.use(
-      (req) => req,
-      ({ response }) => {
+      req => req,
+      ({response}) => {
         if (response.data) {
           showResponseMsgError(response.data.message + ': ' + response.data.path);
         } else {
@@ -76,13 +79,13 @@ export default function Admin() {
     adminApi.interceptors.response.use(
       // this function is the return for any request from the axios instance "api"
       // i.e api.get(...), api.post(...), etc
-      (res) => {
+      res => {
         if (res.data) {
           showResponseMsgSuccess(res.data.msg);
         }
         return res;
       },
-      (err) => {
+      err => {
         const res = err.response;
         // console.log(res);
         if (res.data) {
@@ -104,7 +107,7 @@ export default function Admin() {
       <div
         ref={modalBackground}
         id='modalBackground'
-        onClick={({ target: { id } }) =>
+        onClick={({target: {id}}) =>
           id === modalBackground.current.id && setShowLoginModal(!showLoginModal)
         }
         className={`${styles.modalBackground} ${!showLoginModal && styles.modalBackgroundFade}`}
@@ -124,18 +127,19 @@ export default function Admin() {
         </button>
       </div>
       <NavBar
-        u={user}
+        user={user}
+        setUser={setUser}
         i={0}
         showLoginModal={showLoginModal}
         setShowLoginModal={setShowLoginModal}
       />
-      <Header user={user} i={0} />
-      <div style={{ position: 'relative' }}>
+      <Header user={user} i={0} setUser={setUser} />
+      <div style={{position: 'relative'}}>
         <div className={styles.previousArrowContainer}>
           <div className={`${styles.previousArrow} ${styles.flip}`}>
             <CircleButton action={previousSection}>
               <img
-                style={{ width: '100%' }}
+                style={{width: '100%'}}
                 src='/assets/icons/arrow.png'
                 alt='Previous section arrow'
               />
@@ -146,7 +150,7 @@ export default function Admin() {
           <div className={styles.previousArrow}>
             <CircleButton action={nextSection}>
               <img
-                style={{ width: '100%' }}
+                style={{width: '100%'}}
                 src='/assets/icons/arrow.png'
                 alt='Previous section arrow'
               />
@@ -183,11 +187,7 @@ export default function Admin() {
             </div>
           </div>
         </div>
-        <Footer
-          sections={sectionsNames}
-          setLinkIndex={setIndex}
-          scrollToSection={scrollToSection}
-        />
+        <Footer sections={sectionsNames} setLinkIndex={setIndex} />
       </div>
     </>
   );

@@ -39,10 +39,7 @@ class Fetch {
     return res?.[this.#api.data];
   }
 }
-const apiConfig = new ApiConfig('https://yoprogramo-server.herokuapp.com/', {
-  status: 'status_code',
-  message: 'message',
-  data: 'result',
-});
+// const apiConfig = new ApiConfig('https://yoprogramo-server.herokuapp.com/');
+const apiConfig = new ApiConfig('http://localhost:8080');
 
 export default new Fetch(apiConfig);
