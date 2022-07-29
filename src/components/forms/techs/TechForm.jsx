@@ -1,24 +1,21 @@
-import { InfoContext } from 'App';
 import Button from 'components/button/Button';
-import { adminApi } from 'index';
-import React, { useContext, useRef } from 'react';
+import {useRef} from 'react';
 import styles from './TechForm.module.css';
+const initialTech = {name: '', techImg: ''};
+export default function TechForm({techs = initialTech, handleSubmit}) {
+  const name = useRef(techs.name);
+  const techImg = useRef(techs.techImg);
 
-export default function TechForm({ t = { name: '', techImg: '' }, i, hideForm }) {
-  const techs = useContext(InfoContext).techs;
-  const setTechs = useContext(InfoContext).setTechs;
-
-  const name = useRef(t.name);
-  const techImg = useRef(t.techImg);
-
-  async function submitHandler(event) {
-    event.preventDefault();
+  async function onSubmit(e) {
+    e.preventDefault();
     const newTech = {
-      ...t,
+      ...techs,
       name: name.current.value,
       techImg: techImg.current.value,
     };
-    if (!!t.id) {
+    await handleSubmit(newTech);
+
+    /* if (!!techs.id) {
       await adminApi.put('/techs', newTech);
       techs[i] = newTech;
       hideForm();
@@ -30,17 +27,17 @@ export default function TechForm({ t = { name: '', techImg: '' }, i, hideForm })
       name.current.value = '';
       techImg.current.value = '';
     }
-    setTechs([...techs]);
+    setTechs([...techs]); */
   }
   return (
-    <form onSubmit={submitHandler} className={styles.techForm}>
+    <form onSubmit={onSubmit} className={styles.techForm}>
       <div className={styles.techInputs}>
         <div className={styles.inputLabel}>
           <label className={styles.techLabel} htmlFor='name'>
             Name
           </label>
           <input
-            defaultValue={t.name}
+            defaultValue={techs.name}
             className={styles.techInput}
             ref={name}
             name='name'
@@ -52,7 +49,7 @@ export default function TechForm({ t = { name: '', techImg: '' }, i, hideForm })
             Technology image
           </label>
           <input
-            defaultValue={t.techImg}
+            defaultValue={techs.techImg}
             className={styles.techInput}
             ref={techImg}
             name='techImg'
@@ -61,7 +58,7 @@ export default function TechForm({ t = { name: '', techImg: '' }, i, hideForm })
         </div>
       </div>
       <div>
-        <Button onClick={(e) => submitHandler(e)}>Save</Button>
+        <Button onClick={e => onSubmit(e)}>Save</Button>
       </div>
     </form>
   );

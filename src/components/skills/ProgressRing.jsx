@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import {useState, useEffect} from 'react';
 import styles from './ProgressRing.module.css';
 
-export default function ProgressRing({ percentage = 100 }) {
+export default function ProgressRing({percentage = 100}) {
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
   const sizeMultiplier = screenWidth > 650 ? 1 : 3;
   const radius = 7 * sizeMultiplier;

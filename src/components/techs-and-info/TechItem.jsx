@@ -1,32 +1,37 @@
-import { InfoContext } from 'App';
+import {InfoContext} from 'App';
 import CloseAndEdit from 'components/close-icon/CloseAndEdit';
 import TechForm from 'components/forms/techs/TechForm';
-import { adminApi } from 'index';
-import { useContext, useEffect, useState } from 'react';
+import {useContext, useEffect, useState} from 'react';
 import styles from './TechItem.module.css';
-export default function TechItem({ t, i }) {
+export default function TechItem({tech, setTechs}) {
+  const {loggedIn} = useContext(InfoContext);
   const [showForm, setShowForm] = useState(false);
-  const loggedIn = useContext(InfoContext).loggedIn;
-  const techs = useContext(InfoContext).techs;
-  const setTech = useContext(InfoContext).setTechs;
+
   useEffect(() => {
     if (!loggedIn) setShowForm(false);
   }, [loggedIn]);
+
   async function deleteTech() {
-    await adminApi.delete(`/techs/${t.id}`);
-    techs.splice(i, 1);
-    setTech([...techs]);
+    await fetch.delete(`techs/${tech.id}`);
+    setTechs(pt => pt.filter(({id}) => id !== tech.id));
   }
+
+  async function updateTech(newTech) {
+    await fetch.put('techs', newTech);
+    setTechs(pt => pt.map(e => (e.id === tech.id ? newTech : e)));
+    setShowForm(false);
+  }
+
   return (
     <div className={styles.techContainer}>
       <div className={styles.techImageContainer}>
         {loggedIn && (
-          <CloseAndEdit toggleEdit={() => setShowForm(!showForm)} deleteItem={deleteTech} />
+          <CloseAndEdit toggleEdit={() => setShowForm(ps => !ps)} deleteItem={deleteTech} />
         )}
         {!showForm ? (
-          <img className={styles.techImg} src={t.techImg} alt={`${t.techName} logo`} />
+          <img className={styles.techImg} src={tech.techImg} alt={`${tech.techName} logo`} />
         ) : (
-          <TechForm t={t} />
+          <TechForm tech={tech} handleSubmit={updateTech} />
         )}
       </div>
     </div>

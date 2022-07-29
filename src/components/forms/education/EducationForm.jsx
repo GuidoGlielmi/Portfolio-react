@@ -9,7 +9,7 @@ export default function EducationForm({education = initialState, handleSubmit}) 
   const endDate = useRef(education.endDate);
   const educationImg = useRef(education.educationImg);
 
-  async function submitHandler(e) {
+  async function onSubmit(e) {
     e.preventDefault();
     await handleSubmit({
       degree: degree.current.value,
@@ -26,7 +26,7 @@ export default function EducationForm({education = initialState, handleSubmit}) 
   }
 
   return (
-    <form onSubmit={submitHandler} className={styles.educationForm}>
+    <form onSubmit={onSubmit} className={styles.educationForm}>
       <div className={styles.educationInputs}>
         <div className={styles.inputLabel}>
           <label className={styles.educationLabel} htmlFor='degree'>
@@ -90,7 +90,7 @@ export default function EducationForm({education = initialState, handleSubmit}) 
         </div>
       </div>
       <div>
-        <Button onClick={e => submitHandler(e)}>Save</Button>
+        <Button onClick={e => onSubmit(e)}>Save</Button>
       </div>
     </form>
   );
