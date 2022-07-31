@@ -1,10 +1,12 @@
-import {InfoContext} from 'App';
+import {useContext, useEffect, useState} from 'react';
+import {userContext} from 'components/contexts/user/UserContext';
 import CloseAndEdit from 'components/close-icon/CloseAndEdit';
 import TechForm from 'components/forms/techs/TechForm';
-import {useContext, useEffect, useState} from 'react';
 import styles from './TechItem.module.css';
-export default function TechItem({tech, setTechs}) {
-  const {loggedIn} = useContext(InfoContext);
+
+export default function TechItem({tech}) {
+  const {loggedIn, makeRequest, setTechs} = useContext(userContext);
+
   const [showForm, setShowForm] = useState(false);
 
   useEffect(() => {
@@ -12,12 +14,12 @@ export default function TechItem({tech, setTechs}) {
   }, [loggedIn]);
 
   async function deleteTech() {
-    await fetch.delete(`techs/${tech.id}`);
+    await makeRequest({url: `techs/${tech.id}`, method: 'delete'});
     setTechs(pt => pt.filter(({id}) => id !== tech.id));
   }
 
   async function updateTech(newTech) {
-    await fetch.put('techs', newTech);
+    await makeRequest({url: 'techs', body: newTech, method: 'put'});
     setTechs(pt => pt.map(e => (e.id === tech.id ? newTech : e)));
     setShowForm(false);
   }

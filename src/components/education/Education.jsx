@@ -1,13 +1,13 @@
-import React, {useContext, useEffect, useState} from 'react';
-import EducationItem from './EducationItem';
-import {InfoContext} from 'App';
-import styles from './Education.module.css';
+import {useContext, useEffect, useState} from 'react';
+import {userContext} from 'components/contexts/user/UserContext';
 import EducationForm from 'components/forms/education/EducationForm';
 import Button from 'components/button/Button';
-import useFetch from 'components/custom-hooks/useFetch';
+import EducationItem from './EducationItem';
+import styles from './Education.module.css';
+
 export default function Education() {
-  const [loading, educations, setEducations] = useFetch({url: '/education'});
-  const {loggedIn} = useContext(InfoContext);
+  const {loggedIn, makeRequest, useFetch} = useContext(userContext);
+  const [loading, educations, setEducations] = useFetch({url: 'education'});
 
   const [showNewForm, setShowNewForm] = useState(false);
 
@@ -16,9 +16,13 @@ export default function Education() {
   const toggleNewForm = () => setShowNewForm(ps => !ps);
 
   async function addEducation(newEducation) {
-    const addedEducationId = await fetch.post('education', newEducation);
+    const addedEducationId = await makeRequest({
+      url: 'education',
+      body: newEducation,
+      method: 'post',
+    });
     newEducation.id = addedEducationId;
-    setEducations([...educations, newEducation].sort((a, b) => a.degree > b.degree));
+    setEducations(pe => [...pe, newEducation]);
     setShowNewForm(false);
   }
 

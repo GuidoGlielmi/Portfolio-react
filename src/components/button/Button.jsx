@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import {useState} from 'react';
 import styles from './Button.module.css';
-export default function Button({ children }) {
+
+export default function Button({children}) {
   const [buttonPressed, setButtonPressed] = useState(false);
   return (
     <button
-      onPointerDown={() => setButtonPressed(!buttonPressed)}
-      onPointerUp={() => setButtonPressed(!buttonPressed)}
+      onPointerDown={() => setButtonPressed(ps => !ps)}
+      onPointerUp={() => setButtonPressed(ps => !ps)}
       className={!buttonPressed ? styles.button : `${styles.buttonPressed} ${styles.button}`}
     >
       {children}

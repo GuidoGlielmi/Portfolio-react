@@ -1,9 +1,9 @@
-import { InfoContext } from 'App';
-import { useContext } from 'react';
+import {userContext} from 'components/contexts/user/UserContext';
+import {useContext} from 'react';
 import styles from './UserForm.module.css';
-export default function UserForm({ u, i }) {
-  const users = useContext(InfoContext).users;
-  const setUsers = useContext(InfoContext).setUsers;
+
+export default function UserForm() {
+  const {user, setUser} = useContext(userContext);
 
   return (
     <form className={styles.userInfoForm}>
@@ -12,15 +12,9 @@ export default function UserForm({ u, i }) {
           firstName
         </label>
         <input
-          defaultValue={u.firstName}
+          defaultValue={user.firstName}
           className={styles.userInput}
-          onInput={({ target: { value } }) => {
-            users[i] = {
-              ...u,
-              firstName: value,
-            };
-            setUsers([...users]);
-          }}
+          onChange={e => setUser(pu => ({...pu, firstName: e.target.value}))}
           name='firstName'
           id='firstName'
         />
@@ -30,15 +24,9 @@ export default function UserForm({ u, i }) {
           Last name
         </label>
         <input
-          defaultValue={u.lastName}
+          defaultValue={user.lastName}
           className={styles.userInput}
-          onInput={({ target: { value } }) => {
-            users[i] = {
-              ...u,
-              lastName: value,
-            };
-            setUsers([...users]);
-          }}
+          onChange={e => setUser(pu => ({...pu, lastName: e.target.value}))}
           name='lastName'
           id='lastName'
         />
@@ -48,15 +36,9 @@ export default function UserForm({ u, i }) {
           Profile image path
         </label>
         <input
-          defaultValue={u.profileImg}
+          defaultValue={user.profileImg}
           className={styles.userInput}
-          onInput={({ target: { value } }) => {
-            users[i] = {
-              ...u,
-              profileImg: value,
-            };
-            setUsers([...users]);
-          }}
+          onChange={e => setUser(pu => ({...pu, profileImg: e.target.value}))}
           name='profileImg'
           id='profileImg'
         />

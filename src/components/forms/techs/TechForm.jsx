@@ -1,6 +1,7 @@
 import Button from 'components/button/Button';
 import {useRef} from 'react';
 import styles from './TechForm.module.css';
+
 const initialTech = {name: '', techImg: ''};
 export default function TechForm({techs = initialTech, handleSubmit}) {
   const name = useRef(techs.name);

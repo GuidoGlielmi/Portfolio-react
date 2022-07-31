@@ -1,14 +1,14 @@
-import React, {useContext, useEffect, useState} from 'react';
-import {InfoContext} from 'App';
-import styles from './Experiences.module.css';
-import ExperienceItem from './ExperienceItem';
+import {useContext, useEffect, useState} from 'react';
+import {userContext} from 'components/contexts/user/UserContext';
 import ExperienceForm from 'components/forms/experiences/ExperienceForm';
 import Button from 'components/button/Button';
-import useFetch from 'components/custom-hooks/useFetch';
-export default function Experiences() {
-  const [loading, experiences, setExperiences] = useFetch({url: '/experiences'});
+import ExperienceItem from './ExperienceItem';
+import styles from './Experiences.module.css';
 
-  const {loggedIn} = useContext(InfoContext);
+export default function Experiences() {
+  const {loggedIn, makeRequest, useFetch} = useContext(userContext);
+
+  const [loading, experiences, setExperiences] = useFetch({url: 'experiences'});
 
   const [showNewForm, setShowNewForm] = useState(false);
 
@@ -17,9 +17,13 @@ export default function Experiences() {
   const toggleNewForm = () => setShowNewForm(ps => !ps);
 
   async function addExperience(newExperience) {
-    const addedExperienceId = await fetch.post('experiences', newExperience);
+    const addedExperienceId = await makeRequest({
+      url: 'experiences',
+      body: newExperience,
+      method: 'post',
+    });
     newExperience.id = addedExperienceId;
-    setExperiences([...experiences, newExperience].sort((a, b) => a.title > b.title));
+    setExperiences([...experiences, newExperience]);
     setShowNewForm(false);
   }
 
@@ -34,7 +38,7 @@ export default function Experiences() {
             <ExperienceItem
               e={e}
               i={i}
-              isLastItem={i === experiences.length - 1 ? true : false}
+              isLastItem={i === experiences.length - 1}
               key={e.id}
               setExperiences={setExperiences}
             />

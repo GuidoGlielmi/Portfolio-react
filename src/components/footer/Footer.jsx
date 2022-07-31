@@ -1,15 +1,15 @@
+/* eslint-disable react/no-array-index-key */
 import styles from './Footer.module.css';
 
-export default function Footer({sections, setLinkIndex}) {
-  return (
-    <footer>
-      <ul className={styles.linkList}>
-        {sections.map((s, i) => (
-          <li onClick={() => setLinkIndex(i)} key={i} className={styles.link}>
-            {s}
-          </li>
-        ))}
-      </ul>
-    </footer>
-  );
-}
+const Footer = ({sections, setLinkIndex}) => (
+  <footer>
+    <ul className={styles.linkList}>
+      {sections.map((s, i) => (
+        <li onClick={() => setLinkIndex(i)} key={s} className={styles.link}>
+          {s}
+        </li>
+      ))}
+    </ul>
+  </footer>
+);
+export default Footer;

@@ -1,6 +1,7 @@
 import Button from 'components/button/Button';
 import {useRef} from 'react';
 import styles from './SkillForm.module.css';
+
 const initialSkill = {name: '', abilityPercentage: 0, type: ''};
 export default function SkillForm({skill = initialSkill, handleSubmit}) {
   const name = useRef(skill.name);

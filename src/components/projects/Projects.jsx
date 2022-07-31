@@ -1,14 +1,13 @@
-import React, {useContext, useEffect, useState} from 'react';
-import {InfoContext} from 'App';
-import styles from './Projects.module.css';
-import ProjectItem from './ProjectItem';
+import {useContext, useEffect, useState} from 'react';
+import {userContext} from 'components/contexts/user/UserContext';
 import ProjectForm from 'components/forms/projects/ProjectForm';
 import Button from 'components/button/Button';
-import LoadingIcon from 'components/loading-icon/LoadingIcon';
-import useFetch from 'components/custom-hooks/useFetch';
+import ProjectItem from './ProjectItem';
+import styles from './Projects.module.css';
+
 export default function Projects() {
-  const [loading, projects, setProjects] = useFetch({url: '/education'});
-  const {loggedIn} = useContext(InfoContext);
+  const {loggedIn, makeRequest, useFetch} = useContext(userContext);
+  const [loading, projects, setProjects] = useFetch({url: 'projects'});
 
   const [showNewForm, setShowNewForm] = useState(false);
 
@@ -16,22 +15,20 @@ export default function Projects() {
   const toggleNewForm = () => setShowNewForm(ps => !ps);
 
   async function addProject(newProject) {
-    const addedProjectId = await fetch.post('projects', newProject);
+    const addedProjectId = await makeRequest({url: 'projects', body: newProject, method: 'post'});
     newProject.id = addedProjectId;
-    setProjects([...projects, newProject].sort((a, b) => a.title > b.title));
+    setProjects(pp => [...pp, newProject]);
     setShowNewForm(false);
   }
 
   return (
     <section className={styles.projectsSection}>
       <div className={styles.titleContainer}>
-        <p className={`${styles.title} textShadowLight`}>Projects i've worked on</p>
+        <p className={`${styles.title} textShadowLight`}>Projects i&apos;ve worked on</p>
       </div>
       <div className={styles.projects}>
         {loading ||
-          projects.map((p, i) => (
-            <ProjectItem p={p} i={i} key={p.id} setEducations={setProjects} />
-          ))}
+          projects.map(p => <ProjectItem project={p} key={p.id} setProjects={setProjects} />)}
       </div>
       {showNewForm && <ProjectForm handleSubmit={addProject} />}
       {loggedIn && (

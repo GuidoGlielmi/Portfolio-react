@@ -1,18 +1,46 @@
 import LoadingIcon from 'components/loading-icon/LoadingIcon';
 import {useEffect, useState} from 'react';
-import fetchData from 'services/fetch';
-export default function useFetch({url, method, body}) {
-  const [data, setData] = useState(null);
-  useEffect(() => {
-    async function getData() {
-      const data = await fetchData[method](url, body);
-      setData(data);
-    }
+import fetch from 'services/Fetch';
+
+export default function useFetching() {
+  const [fetchInProgress, setFetchInProgress] = useState(false);
+  const [feedbackMsg, setFeedbackMsg] = useState('');
+  const [responseStatus, setResponseStatus] = useState(200);
+
+  const makeRequest = async (feedbackMsg, {url = '', method = 'get', body}) => {
     try {
-      getData();
+      setFetchInProgress(true);
+      const data = await fetch[method](url, body);
+      setFetchInProgress(false);
+      setFeedbackMsg(feedbackMsg);
+      return data;
     } catch (err) {
-      console.log(err.message);
+      setResponseStatus(err.status);
     }
-  }, [url, method, body]);
-  return [!data && <LoadingIcon />, data, setData];
+  };
+
+  function useFetch({url = '', method = 'get', body}) {
+    const [data, setData] = useState(null);
+    useEffect(() => {
+      try {
+        (async () => {
+          const data = await fetch[method](url, body);
+          setData(data);
+        })();
+      } catch (err) {
+        console.log(err.message);
+      }
+    }, [url, method, body]);
+    return [!data && <LoadingIcon />, data, setData];
+  }
+
+  return [
+    fetchInProgress,
+    makeRequest,
+    useFetch,
+    feedbackMsg,
+    setFeedbackMsg,
+    responseStatus,
+    setResponseStatus,
+  ];
 }

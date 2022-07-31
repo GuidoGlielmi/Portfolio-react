@@ -1,27 +1,19 @@
-import React from 'react';
+import {StrictMode} from 'react';
 import ReactDOM from 'react-dom';
+import {BrowserRouter} from 'react-router-dom';
+import UserContext from 'components/contexts/user/UserContext';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { BrowserRouter } from 'react-router-dom';
-import axios from 'axios';
-const baseURL = 'https://yoprogramo-server.herokuapp.com/';
-export const userApi = axios.create({ baseURL });
-export const adminApi = axios.create({ baseURL });
-export const loginApi = axios.create({ baseURL });
-adminApi.interceptors.request.use((req) => {
-  const token = sessionStorage.getItem('accessToken');
-  req.headers['Authorization'] = `Bearer ${token}`;
-  console.log(req);
-  return req;
-});
 
 ReactDOM.render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
-  </React.StrictMode>,
+  <StrictMode>
+    <UserContext>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </UserContext>
+  </StrictMode>,
   document.getElementById('root'),
 );
 // If you want to start measuring performance in your app, pass a function

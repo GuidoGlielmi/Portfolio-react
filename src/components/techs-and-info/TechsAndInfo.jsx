@@ -1,11 +1,11 @@
-import React, {useContext, useEffect, useState} from 'react';
-import {InfoContext} from 'App';
-import styles from './TechsAndInfo.module.css';
+import {useContext, useEffect, useState} from 'react';
+import {userContext} from 'components/contexts/user/UserContext';
 import CloseAndEdit from 'components/close-icon/CloseAndEdit';
-import LoadingIcon from 'components/loading-icon/LoadingIcon';
 import Techs from './Techs';
-export default function TechsAndInfo({user, i}) {
-  const {loggedIn, users, setUsers} = useContext(InfoContext);
+import styles from './TechsAndInfo.module.css';
+
+export default function TechsAndInfo() {
+  const {loggedIn, user, setUser, loadingUser} = useContext(userContext);
   const [editAboutMe, setEditAboutMe] = useState(false);
   useEffect(() => {
     if (!loggedIn) setEditAboutMe(false);
@@ -13,31 +13,24 @@ export default function TechsAndInfo({user, i}) {
   return (
     <section className={styles.techsAndInfoSection}>
       <div className={styles.personalInfo}>
-        <h2 className={`${styles.personalInfoTitle} textShadowLight`}>I'm a web developer</h2>
-        {when(!user)
-          .return(<LoadingIcon />)
-          .elseWhen(!loggedIn)
-          .return(<p className={styles.aboutMe}>{user.aboutMe}</p>)
-          .else(
-            <>
-              <CloseAndEdit toggleEdit={() => setEditAboutMe(!editAboutMe)} />
-              {when(!editAboutMe)
-                .return(<p className={styles.aboutMe}>{user.aboutMe}</p>)
-                .else(
-                  <textarea
-                    defaultValue={user.aboutMe}
-                    className={styles.aboutMeInput}
-                    onInput={({target: {value}}) => {
-                      users[i] = {
-                        ...user,
-                        aboutMe: value,
-                      };
-                      setUsers([...users]);
-                    }}
-                  />,
-                )}
-            </>,
-          )}
+        <h2 className={`${styles.personalInfoTitle} textShadowLight`}>I&apos;m a web developer</h2>
+        {loadingUser ||
+          when(!loggedIn)
+            .return(<p className={styles.aboutMe}>{user.aboutMe}</p>)
+            .else(
+              <>
+                <CloseAndEdit toggleEdit={() => setEditAboutMe(ps => !ps)} />
+                {when(!editAboutMe)
+                  .return(<p className={styles.aboutMe}>{user.aboutMe}</p>)
+                  .else(
+                    <textarea
+                      defaultValue={user.aboutMe}
+                      className={styles.aboutMeInput}
+                      onChange={e => setUser(pu => ({...pu, aboutMe: e.target.value}))}
+                    />,
+                  )}
+              </>,
+            )}
       </div>
       <Techs />
     </section>

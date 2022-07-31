@@ -1,6 +1,7 @@
 import Button from 'components/button/Button';
-import React, {useRef} from 'react';
+import {useRef} from 'react';
 import styles from './EducationForm.module.css';
+
 const initialState = {degree: '', school: '', startDate: '', endDate: '', educationImg: ''};
 export default function EducationForm({education = initialState, handleSubmit}) {
   const degree = useRef(education.degree);
@@ -18,11 +19,11 @@ export default function EducationForm({education = initialState, handleSubmit}) 
       endDate: endDate.current.value,
       educationImg: educationImg.current.value,
     });
-    degree.current.value = '';
+    /*     degree.current.value = '';
     school.current.value = '';
     startDate.current.value = '';
     endDate.current.value = '';
-    educationImg.current.value = '';
+    educationImg.current.value = ''; */
   }
 
   return (

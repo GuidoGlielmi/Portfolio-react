@@ -1,50 +1,50 @@
-import {InfoContext} from 'App';
+import {useContext, useState} from 'react';
+import {userContext} from 'components/contexts/user/UserContext';
 import CloseAndEdit from 'components/close-icon/CloseAndEdit';
 import EducationForm from 'components/forms/education/EducationForm';
 import {when} from 'components/techs-and-info/TechsAndInfo';
-import React, {useContext, useState} from 'react';
-import fetch from 'services/fetch';
-import styles from './EducationItem.moduleducation.css';
+import styles from './EducationItem.module.css';
 
-export default function EducationItem({education, setEducations, i}) {
-  const {loggedIn} = useContext(InfoContext);
-  const position = i % 2 ? 'Left' : 'Right';
+export default function EducationItem({
+  education,
+  education: {id, educationImg, school, degree, startDate, endDate},
+  setEducations,
+}) {
+  const {loggedIn, makeRequest} = useContext(userContext);
+  // const position = i % 2 ? 'Left' : 'Right';
   const [showForm, setShowForm] = useState(false);
 
   if (!loggedIn && showForm) setShowForm(false);
 
   async function deleteEducation() {
-    await fetch.delete(`education/${education.id}`);
-    setEducations(pe => pe.filter(({id}) => id !== education.id));
+    await makeRequest({url: `education/${id}`, method: 'delete'});
+    setEducations(pe => pe.filter(e => e.id !== id));
   }
 
   async function updateEducation(newEducation) {
-    await fetch.put('education', newEducation);
-    setEducations(pe => pe.map(e => (e.id === education.id ? newEducation : e)));
+    await makeRequest({url: 'education', body: newEducation, method: 'put'});
+    setEducations(pe => pe.map(e => (e.id === id ? newEducation : e)));
     setShowForm(false);
   }
 
   const toggleEdit = () => setShowForm(ps => !ps);
 
   return (
-    <div className={`${styles.educationContainer} ${styles[`educationContainer${position}`]}`}>
+    <div /* className={`${styles.educationContainer} ${styles[`educationContainer${position}`]}`} */
+    >
       {loggedIn && <CloseAndEdit toggleEdit={toggleEdit} deleteItem={deleteEducation} />}
       {when(showForm)
         .return(<EducationForm education={education} handleSubmit={updateEducation} />)
         .else(
-          <div className={styles[`education${position}`]}>
+          <div /* className={styles[`education${position}`]} */>
             <div className={styles.educationImgContainer}>
-              <img
-                className={styles.educationImg}
-                src={education.educationImg}
-                alt={`${education.school} logo`}
-              />
+              <img className={styles.educationImg} src={educationImg} alt={`${school} logo`} />
             </div>
             <div className={styles.educationInfoContainer}>
-              <h3 className={styles.educationDegree}>{education.degree}</h3>
-              <p className={styles.educationP}>{education.school}</p>
-              <p className={styles.educationP}>{education.startDate}</p>
-              <p className={styles.educationP}>{education.endDate}</p>
+              <h3 className={styles.educationDegree}>{degree}</h3>
+              <p className={styles.educationP}>{school}</p>
+              <p className={styles.educationP}>{startDate}</p>
+              <p className={styles.educationP}>{endDate}</p>
             </div>
           </div>,
         )}

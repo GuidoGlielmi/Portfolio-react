@@ -1,24 +1,23 @@
-import {InfoContext} from 'App';
+import {useContext, useState} from 'react';
+import {userContext} from 'components/contexts/user/UserContext';
 import CloseAndEdit from 'components/close-icon/CloseAndEdit';
 import ExperienceForm from 'components/forms/experiences/ExperienceForm';
-import React, {useContext, useState} from 'react';
 import styles from './ExperienceItem.module.css';
-import fetch from 'services/fetch';
 
 export default function ExperienceItem({experience, i, isLastItem, setExperiences}) {
-  const {loggedIn} = useContext(InfoContext);
+  const {loggedIn, makeRequest} = useContext(userContext);
 
   const [showForm, setShowForm] = useState(false);
 
   if (!loggedIn && showForm) setShowForm(false);
 
   async function deleteExperience() {
-    await fetch.delete(`experiences/${experience.id}`);
+    await makeRequest({url: `experiences/${experience.id}`, method: 'delete'});
     setExperiences(pe => pe.filter(({id}) => id !== experience.id));
   }
 
   async function updateExperience(newExperience) {
-    await fetch.put('experiences', newExperience);
+    await makeRequest({url: 'experiences', body: newExperience, method: 'put'});
     setExperiences(pe => pe.map(e => (e.id === experience.id ? newExperience : e)));
     setShowForm(false);
   }
@@ -42,6 +41,7 @@ export default function ExperienceItem({experience, i, isLastItem, setExperience
               />
             </div>
             {!showForm ? (
+              // resolver experienceInfoContainerRight
               <div className={styles.experienceInfoContainerRight}>
                 <h3 className={styles.experienceTitle}>{experience.title}</h3>
                 <div className={styles.dates}>
@@ -67,7 +67,7 @@ export default function ExperienceItem({experience, i, isLastItem, setExperience
       <div className={styles.experienceContainerLeft}>
         <div className={styles.experiencePadding}>
           <div className={styles.experienceLeft}>
-            {loggedIn && <CloseAndEdit toggleEdit={() => setShowForm(!showForm)} />}
+            {loggedIn && <CloseAndEdit toggleEdit={() => setShowForm(ps => !ps)} />}
             <div className={styles.experienceImgContainer}>
               <img
                 className={styles.experienceImg}

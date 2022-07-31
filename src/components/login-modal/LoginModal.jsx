@@ -1,13 +1,13 @@
-import {InfoContext} from 'App';
-import Button from 'components/button/Button';
 import {useContext, useEffect, useRef, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
-import fetch from 'services/fetch';
+import {userContext} from 'components/contexts/user/UserContext';
+import Button from 'components/button/Button';
 import styles from './LoginModal.module.css';
-export default function LoginModal({children, closeModal, willResetErrorMsg}) {
-  const {setloggedIn} = useContext(InfoContext);
 
-  let navigate = useNavigate();
+export default function LoginModal({children, closeModal, willResetErrorMsg}) {
+  const {setloggedIn, makeRequest} = useContext(userContext);
+
+  const navigate = useNavigate();
 
   const username = useRef('');
   const password = useRef('');
@@ -23,7 +23,7 @@ export default function LoginModal({children, closeModal, willResetErrorMsg}) {
       password: password.current.value,
     };
     try {
-      const token = await fetch.post('login', user);
+      const token = await makeRequest({url: 'login', body: user, method: 'post'});
       sessionStorage.setItem('accessToken', token);
       setloggedIn(true);
       setInterval(() => {

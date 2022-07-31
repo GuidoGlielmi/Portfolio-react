@@ -1,0 +1,51 @@
+{
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "extends": ["plugin:react/recommended", "react-app", "airbnb", "prettier"],
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": "latest",
+    "sourceType": "module"
+  },
+  "plugins": ["react"],
+  "rules": {},
+  "overrides": [
+    {
+      "files": ["*"],
+      "env": {
+        "jest": true
+      },
+      "rules": {
+        "import/no-unresolved": "off",
+        "react/prop-types": "off",
+        "react/jsx-filename-extension": "off",
+        "react/react-in-jsx-scope": "off",
+        "no-return-assign": "off",
+        "no-underscore-dangle": "off",
+        "no-param-reassign": "off",
+        "no-console": "off",
+        "no-shadow": "off",
+        "react/jsx-no-bind": "off",
+        "react/jsx-props-no-spreading": "off",
+        "no-irregular-whitespace": "off",
+        "react/function-component-definition": "off",
+        "react/button-has-type": "off",
+        "no-use-before-define": "off",
+        "no-void": "off",
+        "no-unused-expressions": "off",
+        "default-param-last": "off",
+        "no-plusplus": "off",
+        "no-unused-vars": "off",
+        "jsx-a11y/click-events-have-key-events": "off",
+        "jsx-a11y/no-static-element-interactions": "off",
+        "jsx-a11y/label-has-associated-control": "off",
+        "consistent-return": "off",
+        "jsx-a11y/no-noninteractive-element-interactions": "off"
+      }
+    }
+  ]
+}

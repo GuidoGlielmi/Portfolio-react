@@ -1,10 +1,11 @@
-import {ApiConfig} from './ApiConfig';
-
-const {RequestError} = require('./RequestError');
+import ApiConfig from './ApiConfig';
+import RequestError from './RequestError';
 
 class Fetch {
   #api;
+
   #methodsNames = ['GET', 'POST', 'PUT', 'DELETE'];
+
   constructor(apiConfig) {
     this.#api = apiConfig;
     this.#methodsNames.forEach(methodName => {

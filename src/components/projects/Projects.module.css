@@ -34,6 +34,60 @@
   align-self: center;
   margin: 20px 0;
 }
+
+.projects > * {
+  /* projectContainer */
+  position: relative;
+  width: 70%;
+  padding-bottom: 30px;
+  margin: 10vh 0;
+}
+
+.projects > :nth-child(odd) {
+  /* projectContainerRight */
+  align-self: flex-end;
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 7%;
+}
+.projects > :nth-child(odd)::before {
+  content: '';
+  position: absolute;
+  right: 2vw;
+  bottom: 0;
+  width: 100%;
+  border-bottom: 2px solid #363636;
+  border-image: linear-gradient(to left, #202020, rgba(0, 0, 0, 0)) 0 0 1%;
+}
+
+.projects > :nth-child(even) {
+  /* projectContainerLeft */
+  align-self: flex-start;
+  display: flex;
+  justify-content: flex-start;
+  margin-left: 7%;
+}
+.projects > :nth-child(even)::before {
+  content: '';
+  position: absolute;
+  left: 2vw;
+  bottom: 0;
+  width: 100%;
+  border-bottom: 2px solid #363636;
+  border-image: linear-gradient(to right, #202020, rgba(0, 0, 0, 0)) 0 0 1%;
+}
+.projects > * > * {
+  /* projectRight projectLeft */
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.projects > :nth-child(odd) > * {
+  /* projectRight */
+  flex-direction: row-reverse;
+}
+
 @media (max-width: 650px) {
   .projects {
     align-items: center;

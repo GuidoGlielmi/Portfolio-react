@@ -1,4 +1,4 @@
-.educationContainer {
+/* .educationContainer {
   position: relative;
   width: 70%;
   padding-bottom: 30px;
@@ -33,7 +33,7 @@
   width: 100%;
   border-bottom: 2px solid #363636;
   border-image: linear-gradient(to right, #202020, rgba(0, 0, 0, 0)) 0 0 1%;
-}
+} 
 .educationRight,
 .educationLeft {
   display: flex;
@@ -42,7 +42,7 @@
 }
 .educationRight {
   flex-direction: row-reverse;
-}
+}*/
 .educationImgContainer {
   display: flex;
   align-items: center;
