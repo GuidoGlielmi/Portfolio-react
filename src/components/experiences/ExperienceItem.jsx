@@ -4,7 +4,7 @@ import CloseAndEdit from 'components/close-icon/CloseAndEdit';
 import ExperienceForm from 'components/forms/experiences/ExperienceForm';
 import styles from './ExperienceItem.module.css';
 
-export default function ExperienceItem({experience, i, isLastItem, setExperiences}) {
+export default function ExperienceItem({experience, setExperiences}) {
   const {loggedIn, makeRequest} = useContext(userContext);
 
   const [showForm, setShowForm] = useState(false);
@@ -18,15 +18,15 @@ export default function ExperienceItem({experience, i, isLastItem, setExperience
 
   async function updateExperience(newExperience) {
     await makeRequest({url: 'experiences', body: newExperience, method: 'put'});
-    setExperiences(pe => pe.map(e => (e.id === experience.id ? newExperience : e)));
+    setExperiences(pe => pe.map(e => (e.id === newExperience.id ? newExperience : e)));
     setShowForm(false);
   }
 
-  return i % 2 === 0 ? (
-    <div className={!isLastItem ? styles.experienceSectionRight : styles.lastSection}>
-      <div className={styles.experienceContainerRight}>
+  return (
+    <div>
+      <div>
         <div className={styles.experiencePadding}>
-          <div className={styles.experienceRight}>
+          <div>
             {loggedIn && (
               <CloseAndEdit
                 toggleEdit={() => setShowForm(ps => !ps)}
@@ -41,8 +41,7 @@ export default function ExperienceItem({experience, i, isLastItem, setExperience
               />
             </div>
             {!showForm ? (
-              // resolver experienceInfoContainerRight
-              <div className={styles.experienceInfoContainerRight}>
+              <div className='experienceInfoContainer'>
                 <h3 className={styles.experienceTitle}>{experience.title}</h3>
                 <div className={styles.dates}>
                   <span>{experience.startDate} - </span>
@@ -62,7 +61,7 @@ export default function ExperienceItem({experience, i, isLastItem, setExperience
         </div>
       </div>
     </div>
-  ) : (
+    /*  ) : (
     <div className={!isLastItem ? styles.experienceSectionLeft : styles.lastSection}>
       <div className={styles.experienceContainerLeft}>
         <div className={styles.experiencePadding}>
@@ -95,6 +94,6 @@ export default function ExperienceItem({experience, i, isLastItem, setExperience
           </div>
         </div>
       </div>
-    </div>
+    </div> */
   );
 }

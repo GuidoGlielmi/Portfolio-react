@@ -1,40 +1,47 @@
 import {useContext, useEffect, useRef, useState} from 'react';
 import {userContext} from 'components/contexts/user/UserContext';
 import Button from 'components/button/Button';
-import CloseAndEdit from 'components/close-icon/CloseAndEdit';
+import CloseAndEdit, {Edit} from 'components/close-icon/CloseAndEdit';
 import DropDownIcon from 'components/drop-down-icon/DropDownIcon';
 import LoginModal from 'components/login-modal/LoginModal';
 import styles from './NavBar.module.css';
 
 export default function NavBar() {
+  const {setLoggedIn, user, makeRequest} = useContext(userContext);
+
+  const [editLinks, setEditLinks] = useState('');
   const [showLoginModal, setShowLoginModal] = useState(false);
+
+  const logout = () => setLoggedIn(false);
 
   return (
     <>
       <LoginModalBackground showLoginModal={showLoginModal} setShowLoginModal={setShowLoginModal} />
       <nav>
-        <MobileNavBar setShowLoginModal={setShowLoginModal} />
-        <DesktopNavBar setShowLoginModal={setShowLoginModal} />
+        <MobileNavBar
+          setShowLoginModal={setShowLoginModal}
+          logout={logout}
+          editLinks={editLinks}
+          setEditLinks={setEditLinks}
+        />
+        <DesktopNavBar
+          setShowLoginModal={setShowLoginModal}
+          logout={logout}
+          editLinks={editLinks}
+          setEditLinks={setEditLinks}
+        />
       </nav>
     </>
   );
 }
 
-function DesktopNavBar({setShowLoginModal}) {
-  const {loggedIn, setLoggedIn, userLoading, user, setUser, makeRequest} = useContext(userContext);
+function DesktopNavBar({setShowLoginModal, logout, editLinks, setEditLinks}) {
+  const {loggedIn, loadingUser, user, saveUser} = useContext(userContext);
+  useEffect(() => !loggedIn && setEditLinks(false), [loggedIn, setEditLinks]);
 
-  const [editLinks, setEditLinks] = useState('');
-
-  useEffect(() => !loggedIn && setEditLinks(false), [loggedIn]);
-
-  async function saveUser() {
-    if (!editLinks) return;
-    await makeRequest({url: 'users', body: user, method: 'put'});
+  function handleToggle() {
+    if (editLinks) saveUser();
     setEditLinks(ps => !ps);
-  }
-  function logout() {
-    sessionStorage.removeItem('accessToken');
-    setLoggedIn(false);
   }
 
   return (
@@ -45,10 +52,10 @@ function DesktopNavBar({setShowLoginModal}) {
         </div>
       </div>
       <div className={styles.navRightContainer}>
-        {loggedIn && <CloseAndEdit toggleEdit={saveUser} />}
-        {userLoading ||
-          (!editLinks ? (
-            <UserForm user={user} setUser={setUser} />
+        {loggedIn && <Edit toggleEdit={handleToggle} />}
+        {loadingUser ||
+          (editLinks ? (
+            <UserForm />
           ) : (
             <div className={styles.social}>
               <a className={styles.imgLink} href={user.linkedInUrl}>
@@ -74,52 +81,49 @@ function DesktopNavBar({setShowLoginModal}) {
   );
 }
 
-const UserForm = ({user, setUser}) => (
-  <div className={styles.social}>
-    <div className={styles.inputLabel}>
-      <label className={styles.linksLabel} htmlFor='linkedInUrl'>
-        Linkedin Url
-      </label>
-      <input
-        defaultValue={user.linkedInUrl}
-        className={styles.linksInput}
-        onChange={e => setUser(pu => ({...pu, linkedInUrl: e.target.value}))}
-        name='linkedInUrl'
-        id='linkedInUrl'
-      />
-    </div>
-    <div className={styles.inputLabel}>
-      <label className={styles.linksLabel} htmlFor='githubUrl'>
-        Github Url
-      </label>
-      <input
-        defaultValue={user.githubUrl}
-        className={styles.linksInput}
-        onChange={e => setUser(pu => ({...pu, githubUrl: e.target.value}))}
-        name='githubUrl'
-        id='githubUrl'
-      />
-    </div>
-  </div>
-);
+const UserForm = () => {
+  const {user, setUser} = useContext(userContext);
 
-function MobileNavBar({setShowLoginModal}) {
-  const {loggedIn, setLoggedIn, userLoading, user, setUser, makeRequest} = useContext(userContext);
+  return (
+    <div className={styles.social}>
+      <div className={styles.inputLabel}>
+        <label className={styles.linksLabel} htmlFor='linkedInUrl'>
+          Linkedin Url
+        </label>
+        <input
+          defaultValue={user.linkedInUrl}
+          className={styles.linksInput}
+          onChange={e => setUser(pu => ({...pu, linkedInUrl: e.target.value}))}
+          name='linkedInUrl'
+          id='linkedInUrl'
+        />
+      </div>
+      <div className={styles.inputLabel}>
+        <label className={styles.linksLabel} htmlFor='githubUrl'>
+          Github Url
+        </label>
+        <input
+          defaultValue={user.githubUrl}
+          className={styles.linksInput}
+          onChange={e => setUser(pu => ({...pu, githubUrl: e.target.value}))}
+          name='githubUrl'
+          id='githubUrl'
+        />
+      </div>
+    </div>
+  );
+};
 
-  const [editLinks, setEditLinks] = useState('');
+function MobileNavBar({setShowLoginModal, logout, editLinks, setEditLinks}) {
   const [dropDownDisplayed, setDropDownDisplayed] = useState(false);
 
-  useEffect(() => !loggedIn && setEditLinks(false), [loggedIn]);
+  const {loggedIn, loadingUser, user, setUser, saveUser} = useContext(userContext);
 
-  async function saveUser() {
-    if (!editLinks) return;
-    await makeRequest({url: 'users', body: user, method: 'put'});
+  useEffect(() => !loggedIn && setEditLinks(false), [loggedIn, setEditLinks]);
+
+  function handleToggle() {
+    if (editLinks) saveUser();
     setEditLinks(ps => !ps);
-  }
-
-  function logout() {
-    sessionStorage.removeItem('accessToken');
-    setLoggedIn(false);
   }
 
   return (
@@ -128,8 +132,8 @@ function MobileNavBar({setShowLoginModal}) {
         className={`${styles.cellElements} ${!dropDownDisplayed && styles.cellElementsTransition}`}
       >
         <div style={{display: 'flex', alignItems: 'center'}}>
-          {loggedIn && <CloseAndEdit toggleEdit={saveUser} />}
-          {userLoading ||
+          {loggedIn && <Edit toggleEdit={handleToggle} />}
+          {loadingUser ||
             (!editLinks ? (
               <>
                 <a className={styles.imgLink} href={user.linkedInUrl}>

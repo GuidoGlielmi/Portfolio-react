@@ -1,15 +1,29 @@
-import {useContext, useEffect, useState} from 'react';
+import {useContext, useEffect, useRef, useState} from 'react';
 import {userContext} from 'components/contexts/user/UserContext';
 import CloseAndEdit from 'components/close-icon/CloseAndEdit';
 import UserForm from 'components/forms/user/UserForm';
 import styles from './Header.module.css';
 
 export default function Header() {
-  const {loggedIn, loadingUser, user} = useContext(userContext);
+  const {loggedIn, loadingUser, user, saveUser} = useContext(userContext);
 
   const [editUserInfo, setEditUserInfo] = useState(false);
+  const firstName = useRef(user?.firstName);
+  const lastName = useRef(user?.lastName);
+  const profileImg = useRef(user?.profileImg);
 
   useEffect(() => !loggedIn && setEditUserInfo(false), [loggedIn]);
+
+  function handleToggle() {
+    if (editUserInfo) {
+      saveUser({
+        firstName: firstName.current.value,
+        lastName: lastName.current.value,
+        profileImg: profileImg.current.value,
+      });
+    }
+    setEditUserInfo(ps => !ps);
+  }
 
   return (
     <header>
@@ -18,10 +32,10 @@ export default function Header() {
           <div className={styles.infoContainer}>
             <h2 className={styles.headerTitle}>Welcome to my personal page!</h2>
             <div className={styles.userInfo}>
-              {loggedIn && <CloseAndEdit toggleEdit={() => setEditUserInfo(ps => !ps)} />}
+              {loggedIn && <CloseAndEdit toggleEdit={handleToggle} />}
               <div className={styles.profileImgContainer}>
                 {editUserInfo ? (
-                  <UserForm />
+                  <UserForm firstName={firstName} lastName={lastName} profileImg={profileImg} />
                 ) : (
                   <>
                     <img className={styles.profileImg} src={user.profileImg} alt='profile' />

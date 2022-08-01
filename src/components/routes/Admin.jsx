@@ -41,7 +41,7 @@ export default function Admin() {
           <Arrow action={nextSection} />
         </div>
         <div ref={section} className={styles.bottomPart}>
-          <SectionLinks />
+          <SectionLinks index={index} setIndex={setIndex} />
           <Sections sections={sections} index={index} previousIndex={previousIndex} />
         </div>
         <Footer sections={sectionsNames} setLinkIndex={setIndex} />

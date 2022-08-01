@@ -22,7 +22,7 @@ class Fetch {
         method,
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${localStorage.getItem('token') || ''}`,
+          Authorization: `Bearer ${localStorage.getItem('accessToken') || ''}`,
         },
         ...(body && {body: JSON.stringify(body)}),
       });
@@ -41,6 +41,6 @@ class Fetch {
   }
 }
 // const apiConfig = new ApiConfig('https://yoprogramo-server.herokuapp.com/');
-const apiConfig = new ApiConfig('http://localhost:8080');
+const apiConfig = new ApiConfig('http://localhost:8080/');
 
 export default new Fetch(apiConfig);

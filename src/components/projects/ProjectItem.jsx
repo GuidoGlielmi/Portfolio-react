@@ -16,12 +16,13 @@ export default function ProjectItem({
   useEffect(() => !loggedIn && setShowForm(false), [loggedIn]);
 
   async function deleteProject() {
-    await makeRequest({url: `project/${id}`, method: 'delete'});
+    await makeRequest({url: `projects/${id}`, method: 'delete'});
     setProjects(pp => pp.filter(p => p.id !== id));
   }
 
   async function updateProject(newProject) {
-    await makeRequest({url: 'project', body: newProject, method: 'put'});
+    await makeRequest({url: 'projects', body: newProject, method: 'put'});
+    console.log(newProject);
     setProjects(pe => pe.map(e => (e.id === project.id ? newProject : e)));
     setShowForm(false);
   }
@@ -40,7 +41,7 @@ export default function ProjectItem({
           <img className={styles.projectImg} src={projectImg} alt={`${title} logo`} />
         </div>
         {showForm ? (
-          <ProjectForm project={project} handleSubmit={updateProject} />
+          <ProjectForm project={project} handleSubmit={updateProject} setProjects={setProjects} />
         ) : (
           <div className={styles.projectInfoContainer}>
             <h3 className={styles.projectTitle}>{title}</h3>

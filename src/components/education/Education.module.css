@@ -33,19 +33,19 @@
 
 .education > * {
   position: relative;
+  display: flex;
   width: 70%;
   padding-bottom: 30px;
   margin: 10vh 0;
 }
 
-.education > :nth-child(odd) {
+.education > :nth-child(even) {
   /* educationContainerRight */
   align-self: flex-end;
-  display: flex;
   justify-content: flex-end;
   margin-right: 7%;
 }
-.education > :nth-child(odd)::before {
+.education > :nth-child(even)::before {
   content: '';
   position: absolute;
   right: 2vw;
@@ -54,14 +54,13 @@
   border-bottom: 2px solid #363636;
   border-image: linear-gradient(to left, #202020, rgba(0, 0, 0, 0)) 0 0 1%;
 }
-.education > :nth-child(even) {
+.education > :nth-child(odd) {
   /* educationContainerLeft */
   align-self: flex-start;
-  display: flex;
   justify-content: flex-start;
   margin-left: 7%;
 }
-.education > :nth-child(even) {
+.education > :nth-child(odd)::before {
   content: '';
   position: absolute;
   left: 2vw;
@@ -77,7 +76,7 @@
   position: relative;
 }
 
-.education > :nth-child(odd) > div:last-child {
+.education > :nth-child(even) {
   /* educationRight */
   flex-direction: row-reverse;
 }

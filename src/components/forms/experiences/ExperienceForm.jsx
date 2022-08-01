@@ -10,20 +10,16 @@ export default function ExperienceForm({experience = initialState, handleSubmit}
   const endDate = useRef(experience.endDate);
   const experienceImg = useRef(experience.experienceImg);
 
-  async function onSubmit(event) {
-    event.preventDefault();
+  async function onSubmit(e) {
+    e.preventDefault();
     await handleSubmit({
-      degree: title.current.value,
-      school: description.current.value,
+      ...experience,
+      title: title.current.value,
+      description: description.current.value,
       startDate: startDate.current.value,
       endDate: endDate.current.value,
-      educationImg: experienceImg.current.value,
+      experienceImg: experienceImg.current.value,
     });
-    title.current.value = '';
-    description.current.value = '';
-    startDate.current.value = '';
-    endDate.current.value = '';
-    experienceImg.current.value = '';
   }
   return (
     <form onSubmit={onSubmit} className={styles.experienceForm}>
@@ -90,7 +86,7 @@ export default function ExperienceForm({experience = initialState, handleSubmit}
         </div>
       </div>
       <div>
-        <Button onClick={e => onSubmit(e)}>Save</Button>
+        <Button>Save</Button>
       </div>
     </form>
   );

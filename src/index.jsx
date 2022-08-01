@@ -1,4 +1,4 @@
-import {StrictMode} from 'react';
+// import {StrictMode} from 'react';
 import ReactDOM from 'react-dom';
 import {BrowserRouter} from 'react-router-dom';
 import UserContext from 'components/contexts/user/UserContext';
@@ -7,13 +7,13 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
-  <StrictMode>
-    <UserContext>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </UserContext>
-  </StrictMode>,
+  // <StrictMode>
+  <UserContext>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </UserContext>,
+  // </StrictMode>
   document.getElementById('root'),
 );
 // If you want to start measuring performance in your app, pass a function

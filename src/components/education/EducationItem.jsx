@@ -36,7 +36,7 @@ export default function EducationItem({
       {when(showForm)
         .return(<EducationForm education={education} handleSubmit={updateEducation} />)
         .else(
-          <div /* className={styles[`education${position}`]} */>
+          <div className='educationInfo' /* className={styles[`education${position}`]} */>
             <div className={styles.educationImgContainer}>
               <img className={styles.educationImg} src={educationImg} alt={`${school} logo`} />
             </div>

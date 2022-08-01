@@ -34,14 +34,8 @@ export default function Experiences() {
       </div>
       <div className={styles.experiences}>
         {loading ||
-          experiences.map((e, i) => (
-            <ExperienceItem
-              e={e}
-              i={i}
-              isLastItem={i === experiences.length - 1}
-              key={e.id}
-              setExperiences={setExperiences}
-            />
+          experiences.map(e => (
+            <ExperienceItem key={e.id} experience={e} setExperiences={setExperiences} />
           ))}
       </div>
       {showNewForm && <ExperienceForm handleSubmit={addExperience} />}

@@ -3,32 +3,17 @@ import {useRef} from 'react';
 import styles from './TechForm.module.css';
 
 const initialTech = {name: '', techImg: ''};
-export default function TechForm({techs = initialTech, handleSubmit}) {
-  const name = useRef(techs.name);
-  const techImg = useRef(techs.techImg);
+export default function TechForm({tech = initialTech, handleSubmit}) {
+  const name = useRef(tech.name);
+  const techImg = useRef(tech.techImg);
 
   async function onSubmit(e) {
     e.preventDefault();
-    const newTech = {
-      ...techs,
+    await handleSubmit({
+      ...tech,
       name: name.current.value,
       techImg: techImg.current.value,
-    };
-    await handleSubmit(newTech);
-
-    /* if (!!techs.id) {
-      await adminApi.put('/techs', newTech);
-      techs[i] = newTech;
-      hideForm();
-    } else {
-      const generatedId = await adminApi.post('/techs', newTech);
-      newTech.id = generatedId;
-      techs.push(newTech);
-      techs.sort((a, b) => a.name > b.name);
-      name.current.value = '';
-      techImg.current.value = '';
-    }
-    setTechs([...techs]); */
+    });
   }
   return (
     <form onSubmit={onSubmit} className={styles.techForm}>
@@ -38,7 +23,7 @@ export default function TechForm({techs = initialTech, handleSubmit}) {
             Name
           </label>
           <input
-            defaultValue={techs.name}
+            defaultValue={tech.name}
             className={styles.techInput}
             ref={name}
             name='name'
@@ -50,7 +35,7 @@ export default function TechForm({techs = initialTech, handleSubmit}) {
             Technology image
           </label>
           <input
-            defaultValue={techs.techImg}
+            defaultValue={tech.techImg}
             className={styles.techInput}
             ref={techImg}
             name='techImg'

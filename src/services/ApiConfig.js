@@ -5,10 +5,10 @@ export default class ApiConfig {
 
   data = 'data';
 
-  constructor(baseUrl, {status, message, data}) {
+  constructor(baseUrl, config) {
     this.baseUrl = baseUrl;
-    this.status = status;
-    this.message = message;
-    this.data = data;
+    if (config?.status) this.status = config.status;
+    if (config?.message) this.message = config.message;
+    if (config?.data) this.data = config.data;
   }
 }

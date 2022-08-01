@@ -30,7 +30,7 @@ export default function Projects() {
         {loading ||
           projects.map(p => <ProjectItem project={p} key={p.id} setProjects={setProjects} />)}
       </div>
-      {showNewForm && <ProjectForm handleSubmit={addProject} />}
+      {showNewForm && <ProjectForm handleSubmit={addProject} setProjects={setProjects} />}
       {loggedIn && (
         <div onClick={toggleNewForm} className={styles.addButton}>
           <Button>Add project</Button>

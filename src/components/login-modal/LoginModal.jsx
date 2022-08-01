@@ -5,7 +5,7 @@ import Button from 'components/button/Button';
 import styles from './LoginModal.module.css';
 
 export default function LoginModal({children, closeModal, willResetErrorMsg}) {
-  const {setloggedIn, makeRequest} = useContext(userContext);
+  const {setLoggedIn, makeRequest} = useContext(userContext);
 
   const navigate = useNavigate();
 
@@ -24,11 +24,11 @@ export default function LoginModal({children, closeModal, willResetErrorMsg}) {
     };
     try {
       const token = await makeRequest({url: 'login', body: user, method: 'post'});
-      sessionStorage.setItem('accessToken', token);
-      setloggedIn(true);
+      localStorage.setItem('accessToken', token);
+      setLoggedIn(true);
       setInterval(() => {
-        sessionStorage.removeItem('accessToken');
-        setloggedIn(false);
+        localStorage.removeItem('accessToken');
+        setLoggedIn(false);
       }, 1000 * 60 * 60);
       if (closeModal) closeModal();
       return navigate('/guest', {replace: true});

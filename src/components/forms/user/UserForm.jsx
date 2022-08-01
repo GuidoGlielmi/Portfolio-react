@@ -1,10 +1,6 @@
-import {userContext} from 'components/contexts/user/UserContext';
-import {useContext} from 'react';
 import styles from './UserForm.module.css';
 
-export default function UserForm() {
-  const {user, setUser} = useContext(userContext);
-
+export default function UserForm({firstName, lastName, profileImg}) {
   return (
     <form className={styles.userInfoForm}>
       <div className={styles.inputLabel}>
@@ -12,9 +8,9 @@ export default function UserForm() {
           firstName
         </label>
         <input
-          defaultValue={user.firstName}
+          defaultValue={firstName.current}
+          ref={firstName}
           className={styles.userInput}
-          onChange={e => setUser(pu => ({...pu, firstName: e.target.value}))}
           name='firstName'
           id='firstName'
         />
@@ -24,9 +20,9 @@ export default function UserForm() {
           Last name
         </label>
         <input
-          defaultValue={user.lastName}
+          defaultValue={lastName.current}
+          ref={lastName}
           className={styles.userInput}
-          onChange={e => setUser(pu => ({...pu, lastName: e.target.value}))}
           name='lastName'
           id='lastName'
         />
@@ -36,9 +32,9 @@ export default function UserForm() {
           Profile image path
         </label>
         <input
-          defaultValue={user.profileImg}
+          defaultValue={profileImg.current}
+          ref={profileImg}
           className={styles.userInput}
-          onChange={e => setUser(pu => ({...pu, profileImg: e.target.value}))}
           name='profileImg'
           id='profileImg'
         />

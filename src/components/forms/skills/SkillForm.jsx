@@ -2,7 +2,7 @@ import Button from 'components/button/Button';
 import {useRef} from 'react';
 import styles from './SkillForm.module.css';
 
-const initialSkill = {name: '', abilityPercentage: 0, type: ''};
+const initialSkill = {name: '', abilityPercentage: '', type: ''};
 export default function SkillForm({skill = initialSkill, handleSubmit}) {
   const name = useRef(skill.name);
   const abilityPercentage = useRef(skill.abilityPercentage);
@@ -10,13 +10,12 @@ export default function SkillForm({skill = initialSkill, handleSubmit}) {
 
   function onSubmit(e) {
     e.preventDefault();
-    const newSkill = {
+    handleSubmit({
       ...skill,
       name: name.current.value,
       abilityPercentage: abilityPercentage.current.value,
       type: type.current.value,
-    };
-    handleSubmit(newSkill);
+    });
   }
   return (
     <form onSubmit={onSubmit} className={styles.skillForm}>

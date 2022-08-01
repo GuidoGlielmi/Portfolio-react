@@ -11,7 +11,10 @@ export default function Skills() {
   const [loading, skills, setSkills] = useFetch({url: 'skills'});
   const [showNewForm, setShowNewForm] = useState(false);
 
-  const groups = skills.reduce((p, c) => ({[c.type]: p[c.type] ? [...p[c.type], c] : [c]}), {});
+  const groups = skills?.reduce(
+    (p, c) => ({...p, [c.type]: p[c.type] ? [...p[c.type], c] : [c]}),
+    {},
+  );
 
   useEffect(() => !loggedIn && setShowNewForm(false), [loggedIn]);
 
@@ -51,25 +54,3 @@ function TypeGroup({title, skills, setSkills}) {
     </div>
   );
 }
-/*
-<div className={styles.softAndHard}>
-        <div className={styles.titleContainer}>
-          <p className={`${styles.title} textShadowLight`}>Soft and Hard Skills</p>
-        </div>
-        {loading || (
-          <div className={styles.skills}>
-            {skills.map((s, i) => s.type === 'HardAndSoft' && <SkillItem s={s} i={i} key={s.id} />)}
-          </div>
-        )}
-      </div>
-      <div className={styles.languages}>
-        <div className={styles.titleContainer}>
-          <p className={`${styles.title} textShadowSemiDark`}>Languages</p>
-        </div>
-        {loading || (
-          <div className={styles.skills}>
-            {skills.map((s, i) => s.type === 'language' && <SkillItem s={s} i={i} key={s.id} />)}
-          </div>
-        )}
-      </div>
-*/

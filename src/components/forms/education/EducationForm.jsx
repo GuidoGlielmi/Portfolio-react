@@ -13,17 +13,13 @@ export default function EducationForm({education = initialState, handleSubmit}) 
   async function onSubmit(e) {
     e.preventDefault();
     await handleSubmit({
+      ...education,
       degree: degree.current.value,
       school: school.current.value,
       startDate: startDate.current.value,
       endDate: endDate.current.value,
       educationImg: educationImg.current.value,
     });
-    /*     degree.current.value = '';
-    school.current.value = '';
-    startDate.current.value = '';
-    endDate.current.value = '';
-    educationImg.current.value = ''; */
   }
 
   return (

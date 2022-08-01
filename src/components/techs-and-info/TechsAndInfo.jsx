@@ -5,11 +5,17 @@ import Techs from './Techs';
 import styles from './TechsAndInfo.module.css';
 
 export default function TechsAndInfo() {
-  const {loggedIn, user, setUser, loadingUser} = useContext(userContext);
+  const {loggedIn, user, setUser, loadingUser, saveUser} = useContext(userContext);
   const [editAboutMe, setEditAboutMe] = useState(false);
   useEffect(() => {
     if (!loggedIn) setEditAboutMe(false);
   }, [loggedIn]);
+
+  function handleToggle() {
+    if (editAboutMe) saveUser();
+    setEditAboutMe(ps => !ps);
+  }
+
   return (
     <section className={styles.techsAndInfoSection}>
       <div className={styles.personalInfo}>
@@ -19,7 +25,7 @@ export default function TechsAndInfo() {
             .return(<p className={styles.aboutMe}>{user.aboutMe}</p>)
             .else(
               <>
-                <CloseAndEdit toggleEdit={() => setEditAboutMe(ps => !ps)} />
+                <CloseAndEdit toggleEdit={handleToggle} />
                 {when(!editAboutMe)
                   .return(<p className={styles.aboutMe}>{user.aboutMe}</p>)
                   .else(

@@ -1,46 +1,27 @@
 import {userContext} from 'components/contexts/user/UserContext';
 import Button from 'components/button/Button';
 import CloseIcon from 'components/close-icon/CloseIcon';
-import {useContext, useEffect, useRef, useState} from 'react';
+import {useContext, useRef, useState} from 'react';
 import styles from './ProjectForm.module.css';
 
-const initialState = {title: '', description: '', projectImg: '', techs: [], urls: []};
-export default function ProjectForm({project = initialState, handleSubmit, setProjects}) {
+const initialProject = {title: '', description: '', projectImg: '', techs: [], urls: []};
+export default function ProjectForm({project = initialProject, handleSubmit}) {
+  const [urls, setUrls] = useState(project.urls);
+  const [techs, setTechs] = useState(project.techs);
   const title = useRef(project.title);
   const description = useRef(project.description);
   const projectImg = useRef(project.projectImg);
 
-  function onSubmit(event) {
-    event.preventDefault();
+  function onSubmit(e) {
+    e.preventDefault();
     handleSubmit({
       ...project,
       title: title.current.value,
       description: description.current.value,
       projectImg: projectImg.current.value,
+      urls,
+      techs,
     });
-    /*     title.current.value = '';
-    description.current.value = '';
-    projectImg.current.value = ''; */
-    /* const newProject = {
-      ...p,
-      title: title.current.value,
-      description: description.current.value,
-      projectImg: projectImg.current.value,
-    };
-    if (!!p.id) {
-      await adminApi.put('/projects', newProject);
-      projects[i] = newProject;
-      hideForm();
-    } else {
-      const generatedId = await adminApi.post('/projects', newProject);
-      newProject.id = generatedId;
-      projects.push(newProject);
-      projects.sort((a, b) => a.title > b.title);
-      title.current.value = '';
-      description.current.value = '';
-      projectImg.current.value = '';
-    }
-    setProjects([...projects]); */
   }
 
   return (
@@ -84,8 +65,8 @@ export default function ProjectForm({project = initialState, handleSubmit, setPr
             />
           </div>
         </div>
-        <ProjectUrls project={project} setProjects={setProjects} />
-        <ProjectTechs project={project} setProjects={setProjects} />
+        <ProjectUrls urls={urls} setUrls={setUrls} projectId={project.id} />
+        <ProjectTechs project={project} techs={techs} setTechs={setTechs} projectId={project.id} />
       </div>
       <div>
         <Button>Save</Button>
@@ -94,22 +75,22 @@ export default function ProjectForm({project = initialState, handleSubmit, setPr
   );
 }
 
-function ProjectUrls({project: {urls: projectUrls, id: projectId}, setProjects}) {
+function ProjectUrls({urls, setUrls, projectId}) {
   const [showNewUrl, setShowNewUrl] = useState(false);
 
   return (
     <div className={styles.urlsSection}>
       <p className={styles.projectLabel}>Urls</p>
       <div className={styles.urlsContainer}>
-        {projectUrls.map(u => (
-          <ProjectUrlFormHandler key={u.id} projectUrl={u} setProjects={setProjects} />
+        {urls.map(u => (
+          <ProjectUrlFormHandler key={u.id} projectUrl={u} setUrls={setUrls} />
         ))}
       </div>
       {showNewUrl && (
         <ProjectUrlFormHandler
-          projectId={projectId}
-          setProjects={setProjects}
+          setUrls={setUrls}
           setShowNewUrl={setShowNewUrl}
+          projectId={projectId}
         />
       )}
       <div
@@ -126,63 +107,53 @@ function ProjectUrls({project: {urls: projectUrls, id: projectId}, setProjects})
 }
 
 const initialUrl = {url: '', name: ''};
-function ProjectUrlFormHandler({
-  projectUrl = initialUrl,
-  projectId = projectUrl.projectId,
-  setProjects,
-  setShowNewUrl,
-}) {
-  const [url, setUrl] = useState(projectUrl);
-  const isAddForm = projectUrl === initialUrl;
+function ProjectUrlFormHandler({projectId, projectUrl = initialUrl, setUrls, setShowNewUrl}) {
   const {makeRequest} = useContext(userContext);
-  useEffect(() => {
-    (async () => {
-      if (projectUrl === initialUrl) return;
-      await makeRequest({
-        url: 'projects/url',
-        body: url,
-        method: 'put',
-      });
-      setProjects(pp =>
-        pp.map(p =>
-          p.id === projectId
-            ? {
-                ...p,
-                urls: p.urls.map(u => (u.id === url.id ? url : u)),
-              }
-            : p,
-        ),
-      );
-    })();
-  }, [url, makeRequest, setProjects, projectUrl, projectId]);
+  const isRegisteredUrl = !!projectUrl.id;
+  const isExistentProject = !!projectUrl.projectId;
+  const isAlreadyAdded = projectUrl !== initialUrl;
+  const url = useRef({projectId, ...initialUrl});
 
-  async function addUrl() {
-    const newUrl = {...url, projectId};
+  const updateNewUrl = newUrl => (url.current = newUrl);
+
+  const updateExistentUrl = newUrl => setUrls(pu => pu.map(p => (p.id === newUrl.id ? newUrl : p)));
+
+  async function addToExistentProject() {
+    const newUrl = url.current;
     const addedUrlId = await makeRequest({url: 'projects/url', body: newUrl, method: 'post'});
     newUrl.id = addedUrlId;
-    setProjects(pp => pp.map(p => (p.id === projectId ? {...p, urls: [...p.urls, newUrl]} : p)));
+    setUrls(pt => [...pt, newUrl]);
     setShowNewUrl(false);
   }
 
-  async function removeUrl() {
-    const {id} = projectUrl;
-    await makeRequest({url: `projects/url/${id}`, method: 'delete'});
-    setProjects(pp =>
-      pp.map(p => (p.id === projectId ? {...p, urls: p.urls.filter(u => u.id !== id)} : p)),
-    );
+  async function addToProject() {
+    const newUrl = url.current;
+    setUrls(pu => [...pu, newUrl]);
+    setShowNewUrl(false);
+  }
+
+  async function removeExistentUrl() {
+    await makeRequest({url: `projects/url/${projectUrl.id}`, method: 'delete'});
+    setUrls(pu => pu.urls.filter(u => u.id !== projectUrl.id));
   }
 
   return (
     <div className={styles.urlItem}>
-      <ProjectUrlForm setUrl={setUrl}>
-        {isAddForm && (
-          <div onClick={addUrl} className={styles.addButton}>
+      <ProjectUrlForm
+        projectUrl={projectUrl}
+        handleChange={isRegisteredUrl ? updateExistentUrl : updateNewUrl}
+      >
+        {!isAlreadyAdded && (
+          <div
+            onClick={isExistentProject ? addToExistentProject : addToProject}
+            className={styles.addButton}
+          >
             <CloseIcon size='20px' />
           </div>
         )}
       </ProjectUrlForm>
-      {!isAddForm && (
-        <div className={styles.deleteButton} onClick={removeUrl}>
+      {isAlreadyAdded && (
+        <div className={styles.deleteButton} onClick={removeExistentUrl}>
           <CloseIcon size='20px' />
         </div>
       )}
@@ -190,17 +161,17 @@ function ProjectUrlFormHandler({
   );
 }
 
-function ProjectUrlForm({setUrl, children, projectUrl = initialUrl}) {
+function ProjectUrlForm({children, projectUrl, handleChange}) {
   const url = useRef(projectUrl.url);
   const name = useRef(projectUrl.name);
-  const props = Object.freeze({
-    [projectUrl === initialUrl ? 'onChange' : 'onBlur']: () =>
-      setUrl(ps => ({
-        ...ps,
-        url: url.current.value,
-        name: name.current.value,
-      })),
-  });
+  console.log(projectUrl);
+  const onChange = () =>
+    handleChange({
+      ...projectUrl,
+      url: url.current.value,
+      name: name.current.value,
+    });
+
   return (
     <div className={styles.urlContainer}>
       <div className={styles.urlInputContainer}>
@@ -210,9 +181,9 @@ function ProjectUrlForm({setUrl, children, projectUrl = initialUrl}) {
         <input
           defaultValue={name.current}
           ref={name}
+          onChange={onChange}
           className={styles.urlInput}
           id={projectUrl.id || 'name'}
-          {...props}
         />
       </div>
       <div className={styles.urlInputContainer}>
@@ -222,9 +193,9 @@ function ProjectUrlForm({setUrl, children, projectUrl = initialUrl}) {
         <input
           defaultValue={url.current}
           ref={url}
+          onChange={onChange}
           className={styles.urlInput}
           id={projectUrl.id || 'url'}
-          {...props}
         />
       </div>
       {children}
@@ -232,29 +203,43 @@ function ProjectUrlForm({setUrl, children, projectUrl = initialUrl}) {
   );
 }
 
-function ProjectTechs({project: {id: projectId, techs: projectTechs}, setProjects}) {
-  const {techs, makeRequest, useFetch} = useContext(userContext);
-  const remainingTechs = techs.filter(t => !projectTechs.find(({id}) => t.id === id));
+function ProjectTechs({project: {id: projectId}, techs, setTechs}) {
+  const {techs: allTechs, makeRequest} = useContext(userContext);
+  const remainingTechs = allTechs.filter(t => !techs.find(({id}) => t.id === id));
+  const remainingTechsNode = useRef();
 
   async function addTech(newTech) {
-    await makeRequest({url: 'projects/url', body: newTech, method: 'post'});
-    setProjects(pp => pp.map(p => (p.id === projectId ? {...p, techs: [...p.techs, newTech]} : p)));
+    if (projectId) {
+      await makeRequest({
+        url: `projects/${projectId}/tech/${newTech.id}`,
+        body: newTech,
+        method: 'post',
+        feedbackMsg: 'The technology has been added',
+      });
+    }
+    setTechs(pt => [...pt, newTech]);
+    remainingTechsNode.current.value = '';
   }
+
   async function removeTech(techId) {
-    await makeRequest({url: `projects/${projectId}/tech/${techId}`, method: 'delete'});
-    setProjects(pp =>
-      pp.map(p => (p.id === projectId ? {...p, techs: p.techs.filter(t => t.id !== techId)} : p)),
-    );
+    if (projectId) {
+      await makeRequest({
+        url: `projects/${projectId}/tech/${techId}`,
+        method: 'delete',
+        feedbackMsg: 'The technology has been removed',
+      });
+    }
+    setTechs(pt => pt.filter(t => t.id !== techId));
   }
 
   return (
     <div className={styles.techsSection}>
       <p className={styles.projectLabel}>Techs</p>
-      {projectTechs.map(t => (
-        <ProjectTech key={t.id} projectTech={t} removeTech={removeTech} />
+      {techs.map(t => (
+        <ProjectTech key={t.id} tech={t} removeTech={removeTech} />
       ))}
-      <select>
-        <option value='' disabled selected>
+      <select ref={remainingTechsNode} defaultValue=''>
+        <option value='' disabled>
           Add a tech
         </option>
         {remainingTechs.map(rt => (
@@ -277,93 +262,3 @@ function ProjectTech({tech: {id, name}, removeTech}) {
     </div>
   );
 }
-
-/* function debounce(fn, delay) {
-  let timer;
-  let active = false;
-  return () => {
-    if (active) clearTimeout(timer);
-    timer = setTimeout(() => {
-      active = false;
-      fn();
-    }, delay);
-    active = true;
-  };
-} */
-/*
-function ProjectUrlAddForm({addUrl}) {
-  const [url, setUrl] = useState('');
-  const [urlName, setName] = useState('');
-
-  const setNameHandler = e => setName(e.target.value);
-  const setUrlHandler = e => setUrl(e.target.value);
-
-  const handleAddUrl = async () => {
-    await addUrl({url, name: urlName});
-    // setUrl('');
-    //setName('');
-  };
-  return (
-    <ProjectUrlForm url={url} setUrl={setUrlHandler} urlName={urlName} setName={setNameHandler}>
-      <div onClick={handleAddUrl} className={styles.addButton}>
-        <CloseIcon size='20px' />
-      </div>
-    </ProjectUrlForm>
-  );
-}
-
-function ProjectUrlUpdateForm({projectId, projectUrl, setProjects}) {
-  const [url, setUrl] = useState(projectUrl.url);
-  const [name, setName] = useState(projectUrl.name);
-  const [nameOnFocus, setNameOnFocus] = useState(projectUrl.name);
-  const [nameOnBlur, setNameOnBlur] = useState(projectUrl.name);
-  const [urlOnFocus, setUrlOnFocus] = useState(projectUrl.url);
-  const [urlOnBlur, setUrlOnBlur] = useState(projectUrl.url);
-
-  const setNameHandler = e => setName(e.target.value);
-  const setUrlHandler = e => setUrl(e.target.value);
-
-  useEffect(() => {
-    async function updateUrl() {
-      const body = {...projectUrl, url: urlOnBlur, name: nameOnBlur};
-      await makeRequest({url: `projects/url/${projectUrl.id}`, body, method: 'put'});
-    }
-    if (nameOnFocus !== nameOnBlur || urlOnFocus !== urlOnBlur) updateUrl();
-  }, [nameOnFocus, nameOnBlur, urlOnFocus, urlOnBlur, makeRequest, projectUrl]);
-
-  useEffect(() => {
-    const updatedUrl = {...projectUrl, url, name};
-    setProjects(pp =>
-      pp.map(p =>
-        p.id === updatedUrl.projectId
-          ? {
-              ...p,
-              urls: p.urls
-                .map(u => (u.id === updatedUrl.id ? updatedUrl : u))
-                .sort((a, b) => a.name > b.name),
-            }
-          : p,
-      ),
-    );
-  }, [url, name, projectUrl, projectId, setProjects]);
-
-  async function removeUrl(urlId) {
-    await makeRequest({url: `projects/url/${urlId}`, method: 'delete'});
-    setProjects(pp =>
-      pp
-        .map(p => (p.id === projectId ? {...p, urls: p.urls.filter(u => u.id !== urlId)} : p))
-        .sort((a, b) => a.name > b.name),
-    );
-  }
-
-  return (
-    <div className={styles.urlItem}>
-      <ProjectUrlForm url={url} setUrl={setUrlHandler} urlName={name} setName={setNameHandler} />
-      <div className={styles.deleteButton} onClick={removeUrl}>
-        <CloseIcon size='20px' />
-      </div>
-    </div>
-  );
-}
-
-*/
