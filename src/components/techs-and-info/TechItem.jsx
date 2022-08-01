@@ -14,14 +14,22 @@ export default function TechItem({tech}) {
   }, [loggedIn]);
 
   async function deleteTech() {
-    await makeRequest({url: `techs/${tech.id}`, method: 'delete'});
-    setTechs(pt => pt.filter(({id}) => id !== tech.id));
+    try {
+      await makeRequest({url: `techs/${tech.id}`, method: 'delete'});
+      setTechs(pt => pt.filter(({id}) => id !== tech.id));
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   async function updateTech(newTech) {
-    await makeRequest({url: 'techs', body: newTech, method: 'put'});
-    setTechs(pt => pt.map(e => (e.id === tech.id ? newTech : e)));
-    setShowForm(false);
+    try {
+      await makeRequest({url: 'techs', body: newTech, method: 'put'});
+      setTechs(pt => pt.map(e => (e.id === tech.id ? newTech : e)));
+      setShowForm(false);
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   return (

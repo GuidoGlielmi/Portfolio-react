@@ -10,9 +10,9 @@ export default function EducationForm({education = initialState, handleSubmit}) 
   const endDate = useRef(education.endDate);
   const educationImg = useRef(education.educationImg);
 
-  async function onSubmit(e) {
+  function onSubmit(e) {
     e.preventDefault();
-    await handleSubmit({
+    handleSubmit({
       ...education,
       degree: degree.current.value,
       school: school.current.value,

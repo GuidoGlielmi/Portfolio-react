@@ -15,10 +15,14 @@ export default function Projects() {
   const toggleNewForm = () => setShowNewForm(ps => !ps);
 
   async function addProject(newProject) {
-    const addedProjectId = await makeRequest({url: 'projects', body: newProject, method: 'post'});
-    newProject.id = addedProjectId;
-    setProjects(pp => [...pp, newProject]);
-    setShowNewForm(false);
+    try {
+      const addedProjectId = await makeRequest({url: 'projects', body: newProject, method: 'post'});
+      newProject.id = addedProjectId;
+      setProjects(pp => [...pp, newProject]);
+      setShowNewForm(false);
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   return (

@@ -16,24 +16,28 @@ export default function ProjectItem({
   useEffect(() => !loggedIn && setShowForm(false), [loggedIn]);
 
   async function deleteProject() {
-    await makeRequest({url: `projects/${id}`, method: 'delete'});
-    setProjects(pp => pp.filter(p => p.id !== id));
+    try {
+      await makeRequest({url: `projects/${id}`, method: 'delete'});
+      setProjects(pp => pp.filter(p => p.id !== id));
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   async function updateProject(newProject) {
-    await makeRequest({url: 'projects', body: newProject, method: 'put'});
-    console.log(newProject);
-    setProjects(pe => pe.map(e => (e.id === project.id ? newProject : e)));
-    setShowForm(false);
+    try {
+      await makeRequest({url: 'projects', body: newProject, method: 'put'});
+      console.log(newProject);
+      setProjects(pe => pe.map(e => (e.id === project.id ? newProject : e)));
+      setShowForm(false);
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   return (
-    <div
-    /*  className={`${styles.projectContainer} ${
-        i % 2 === 0 ? styles.projectContainerRight : styles.projectContainerLeft
-      }`} */
-    >
-      <div /* className={i % 2 === 0 ? styles.projectRight : styles.projectLeft} */>
+    <div>
+      <div>
         {loggedIn && (
           <CloseAndEdit toggleEdit={() => setShowForm(ps => !ps)} deleteItem={deleteProject} />
         )}

@@ -22,14 +22,16 @@ export default function UserContext({children}) {
     try {
       data = await fetch[method](url, body);
       if (feedbackMsg) setFeedbackMsg(feedbackMsg);
+      setGlobalLoading(false);
+      return data;
     } catch (err) {
       if (err.status === 401) {
         setLoggedIn(false);
         setFeedbackErrorMsg('Please, log in');
       } else setFeedbackErrorMsg('Ha ocurrido un error');
+      setGlobalLoading(false);
+      throw Error(err);
     }
-    setGlobalLoading(false);
-    return data;
   }, []);
 
   function useFetch({url = '', method = 'get', body}, initialValue = null, index) {
@@ -60,10 +62,10 @@ export default function UserContext({children}) {
   const [loadingTechs, techs, setTechs] = useFetch({url: 'techs'});
 
   const [loadingUser, user, setUser] = useFetch({url: 'users'}, [], 0);
-  console.log(loadingUser, user);
+  // console.log(loadingUser, user);
 
   const saveUser = useCallback(async () => {
-    await makeRequest({url: 'usersdlkfmsdlkfms', body: user, method: 'put'});
+    await makeRequest({url: 'userss', body: user, method: 'put'});
   }, [user, makeRequest]);
 
   const contextObject = useMemo(

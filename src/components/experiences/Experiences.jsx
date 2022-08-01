@@ -17,14 +17,18 @@ export default function Experiences() {
   const toggleNewForm = () => setShowNewForm(ps => !ps);
 
   async function addExperience(newExperience) {
-    const addedExperienceId = await makeRequest({
-      url: 'experiences',
-      body: newExperience,
-      method: 'post',
-    });
-    newExperience.id = addedExperienceId;
-    setExperiences([...experiences, newExperience]);
-    setShowNewForm(false);
+    try {
+      const addedExperienceId = await makeRequest({
+        url: 'experiences',
+        body: newExperience,
+        method: 'post',
+      });
+      newExperience.id = addedExperienceId;
+      setExperiences([...experiences, newExperience]);
+      setShowNewForm(false);
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   return (

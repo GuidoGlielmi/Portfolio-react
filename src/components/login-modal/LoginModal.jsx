@@ -1,13 +1,10 @@
 import {useContext, useEffect, useRef, useState} from 'react';
-import {useNavigate} from 'react-router-dom';
 import {userContext} from 'components/contexts/user/UserContext';
 import Button from 'components/button/Button';
 import styles from './LoginModal.module.css';
 
 export default function LoginModal({children, closeModal, willResetErrorMsg}) {
   const {setLoggedIn, makeRequest} = useContext(userContext);
-
-  const navigate = useNavigate();
 
   const username = useRef('');
   const password = useRef('');
@@ -31,7 +28,6 @@ export default function LoginModal({children, closeModal, willResetErrorMsg}) {
         setLoggedIn(false);
       }, 1000 * 60 * 60);
       if (closeModal) closeModal();
-      return navigate('/guest', {replace: true});
     } catch ({message, status}) {
       setUnexistentUser(true);
     }

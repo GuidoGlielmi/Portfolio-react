@@ -16,14 +16,18 @@ export default function Education() {
   const toggleNewForm = () => setShowNewForm(ps => !ps);
 
   async function addEducation(newEducation) {
-    const addedEducationId = await makeRequest({
-      url: 'education',
-      body: newEducation,
-      method: 'post',
-    });
-    newEducation.id = addedEducationId;
-    setEducations(pe => [...pe, newEducation]);
-    setShowNewForm(false);
+    try {
+      const addedEducationId = await makeRequest({
+        url: 'education',
+        body: newEducation,
+        method: 'post',
+      });
+      newEducation.id = addedEducationId;
+      setEducations(pe => [...pe, newEducation]);
+      setShowNewForm(false);
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   return (

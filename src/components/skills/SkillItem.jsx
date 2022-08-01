@@ -11,14 +11,22 @@ export default function SkillItem({skill, setSkills}) {
   const [showForm, setShowForm] = useState(false);
 
   async function deleteSkill() {
-    await makeRequest({url: `skills/${skill.id}`, method: 'delete'});
-    setSkills(ps => ps.filter(s => s.skill !== skill.id));
+    try {
+      await makeRequest({url: `skills/${skill.id}`, method: 'delete'});
+      setSkills(ps => ps.filter(s => s.skill !== skill.id));
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   async function updateSkill(newSkill) {
-    await makeRequest({url: `skills/${skill.id}`, body: newSkill, method: 'put'});
-    setSkills(ps => ps.filter(s => s.skill !== skill.id));
-    setShowForm(false);
+    try {
+      await makeRequest({url: `skills/${skill.id}`, body: newSkill, method: 'put'});
+      setSkills(ps => ps.filter(s => s.skill !== skill.id));
+      setShowForm(false);
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   return (

@@ -45,10 +45,14 @@ export default function Techs() {
   }
 
   async function addTech(newTech) {
-    const addedTechId = await makeRequest({url: 'techs', body: newTech, method: 'post'});
-    newTech.id = addedTechId;
-    setTechs([...techs, newTech].sort((a, b) => a.degree > b.degree));
-    setShowNewForm(false);
+    try {
+      const addedTechId = await makeRequest({url: 'techs', body: newTech, method: 'post'});
+      newTech.id = addedTechId;
+      setTechs([...techs, newTech].sort((a, b) => a.degree > b.degree));
+      setShowNewForm(false);
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   return (

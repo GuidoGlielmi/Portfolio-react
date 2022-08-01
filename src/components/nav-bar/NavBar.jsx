@@ -39,9 +39,13 @@ function DesktopNavBar({setShowLoginModal, logout, editLinks, setEditLinks}) {
   const {loggedIn, loadingUser, user, saveUser} = useContext(userContext);
   useEffect(() => !loggedIn && setEditLinks(false), [loggedIn, setEditLinks]);
 
-  function handleToggle() {
-    if (editLinks) saveUser();
-    setEditLinks(ps => !ps);
+  async function handleToggle() {
+    try {
+      if (editLinks) await saveUser();
+      setEditLinks(ps => !ps);
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   return (

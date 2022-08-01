@@ -17,14 +17,22 @@ export default function EducationItem({
   if (!loggedIn && showForm) setShowForm(false);
 
   async function deleteEducation() {
-    await makeRequest({url: `education/${id}`, method: 'delete'});
-    setEducations(pe => pe.filter(e => e.id !== id));
+    try {
+      await makeRequest({url: `education/${id}`, method: 'delete'});
+      setEducations(pe => pe.filter(e => e.id !== id));
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   async function updateEducation(newEducation) {
-    await makeRequest({url: 'education', body: newEducation, method: 'put'});
-    setEducations(pe => pe.map(e => (e.id === id ? newEducation : e)));
-    setShowForm(false);
+    try {
+      await makeRequest({url: 'education', body: newEducation, method: 'put'});
+      setEducations(pe => pe.map(e => (e.id === id ? newEducation : e)));
+      setShowForm(false);
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   const toggleEdit = () => setShowForm(ps => !ps);

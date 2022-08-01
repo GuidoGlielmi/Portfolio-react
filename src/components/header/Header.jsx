@@ -14,15 +14,19 @@ export default function Header() {
 
   useEffect(() => !loggedIn && setEditUserInfo(false), [loggedIn]);
 
-  function handleToggle() {
-    if (editUserInfo) {
-      saveUser({
-        firstName: firstName.current.value,
-        lastName: lastName.current.value,
-        profileImg: profileImg.current.value,
-      });
+  async function handleToggle() {
+    try {
+      if (editUserInfo) {
+        await saveUser({
+          firstName: firstName.current.value,
+          lastName: lastName.current.value,
+          profileImg: profileImg.current.value,
+        });
+      }
+      setEditUserInfo(ps => !ps);
+    } catch (err) {
+      console.log(err);
     }
-    setEditUserInfo(ps => !ps);
   }
 
   return (

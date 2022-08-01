@@ -19,9 +19,13 @@ export default function Skills() {
   useEffect(() => !loggedIn && setShowNewForm(false), [loggedIn]);
 
   async function addSkill(newSkill) {
-    await makeRequest({url: 'skills', body: newSkill, method: 'post'});
-    setSkills(ps => [...ps, newSkill]);
-    setShowNewForm(false);
+    try {
+      await makeRequest({url: 'skills', body: newSkill, method: 'post'});
+      setSkills(ps => [...ps, newSkill]);
+      setShowNewForm(false);
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   return (

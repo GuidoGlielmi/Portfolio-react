@@ -7,9 +7,9 @@ export default function TechForm({tech = initialTech, handleSubmit}) {
   const name = useRef(tech.name);
   const techImg = useRef(tech.techImg);
 
-  async function onSubmit(e) {
+  function onSubmit(e) {
     e.preventDefault();
-    await handleSubmit({
+    handleSubmit({
       ...tech,
       name: name.current.value,
       techImg: techImg.current.value,

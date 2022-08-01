@@ -11,9 +11,13 @@ export default function TechsAndInfo() {
     if (!loggedIn) setEditAboutMe(false);
   }, [loggedIn]);
 
-  function handleToggle() {
-    if (editAboutMe) saveUser();
-    setEditAboutMe(ps => !ps);
+  async function handleToggle() {
+    try {
+      if (editAboutMe) await saveUser();
+      setEditAboutMe(ps => !ps);
+    } catch (err) {
+      console.log(err.message);
+    }
   }
 
   return (

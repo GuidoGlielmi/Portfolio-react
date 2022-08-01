@@ -119,11 +119,15 @@ function ProjectUrlFormHandler({projectId, projectUrl = initialUrl, setUrls, set
   const updateExistentUrl = newUrl => setUrls(pu => pu.map(p => (p.id === newUrl.id ? newUrl : p)));
 
   async function addToExistentProject() {
-    const newUrl = url.current;
-    const addedUrlId = await makeRequest({url: 'projects/url', body: newUrl, method: 'post'});
-    newUrl.id = addedUrlId;
-    setUrls(pt => [...pt, newUrl]);
-    setShowNewUrl(false);
+    try {
+      const newUrl = url.current;
+      const addedUrlId = await makeRequest({url: 'projects/url', body: newUrl, method: 'post'});
+      newUrl.id = addedUrlId;
+      setUrls(pt => [...pt, newUrl]);
+      setShowNewUrl(false);
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   async function addToProject() {
@@ -133,8 +137,12 @@ function ProjectUrlFormHandler({projectId, projectUrl = initialUrl, setUrls, set
   }
 
   async function removeExistentUrl() {
-    await makeRequest({url: `projects/url/${projectUrl.id}`, method: 'delete'});
-    setUrls(pu => pu.urls.filter(u => u.id !== projectUrl.id));
+    try {
+      await makeRequest({url: `projects/url/${projectUrl.id}`, method: 'delete'});
+      setUrls(pu => pu.urls.filter(u => u.id !== projectUrl.id));
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   return (
@@ -209,27 +217,35 @@ function ProjectTechs({project: {id: projectId}, techs, setTechs}) {
   const remainingTechsNode = useRef();
 
   async function addTech(newTech) {
-    if (projectId) {
-      await makeRequest({
-        url: `projects/${projectId}/tech/${newTech.id}`,
-        body: newTech,
-        method: 'post',
-        feedbackMsg: 'The technology has been added',
-      });
+    try {
+      if (projectId) {
+        await makeRequest({
+          url: `projects/${projectId}/tech/${newTech.id}`,
+          body: newTech,
+          method: 'post',
+          feedbackMsg: 'The technology has been added',
+        });
+      }
+      setTechs(pt => [...pt, newTech]);
+      remainingTechsNode.current.value = '';
+    } catch (err) {
+      console.log(err);
     }
-    setTechs(pt => [...pt, newTech]);
-    remainingTechsNode.current.value = '';
   }
 
   async function removeTech(techId) {
-    if (projectId) {
-      await makeRequest({
-        url: `projects/${projectId}/tech/${techId}`,
-        method: 'delete',
-        feedbackMsg: 'The technology has been removed',
-      });
+    try {
+      if (projectId) {
+        await makeRequest({
+          url: `projects/${projectId}/tech/${techId}`,
+          method: 'delete',
+          feedbackMsg: 'The technology has been removed',
+        });
+      }
+      setTechs(pt => pt.filter(t => t.id !== techId));
+    } catch (err) {
+      console.log(err);
     }
-    setTechs(pt => pt.filter(t => t.id !== techId));
   }
 
   return (

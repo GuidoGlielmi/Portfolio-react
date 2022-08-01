@@ -12,14 +12,22 @@ export default function ExperienceItem({experience, setExperiences}) {
   if (!loggedIn && showForm) setShowForm(false);
 
   async function deleteExperience() {
-    await makeRequest({url: `experiences/${experience.id}`, method: 'delete'});
-    setExperiences(pe => pe.filter(({id}) => id !== experience.id));
+    try {
+      await makeRequest({url: `experiences/${experience.id}`, method: 'delete'});
+      setExperiences(pe => pe.filter(({id}) => id !== experience.id));
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   async function updateExperience(newExperience) {
-    await makeRequest({url: 'experiences', body: newExperience, method: 'put'});
-    setExperiences(pe => pe.map(e => (e.id === newExperience.id ? newExperience : e)));
-    setShowForm(false);
+    try {
+      await makeRequest({url: 'experiences', body: newExperience, method: 'put'});
+      setExperiences(pe => pe.map(e => (e.id === newExperience.id ? newExperience : e)));
+      setShowForm(false);
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   return (

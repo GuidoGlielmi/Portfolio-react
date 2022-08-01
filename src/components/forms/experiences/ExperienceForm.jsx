@@ -10,9 +10,9 @@ export default function ExperienceForm({experience = initialState, handleSubmit}
   const endDate = useRef(experience.endDate);
   const experienceImg = useRef(experience.experienceImg);
 
-  async function onSubmit(e) {
+  function onSubmit(e) {
     e.preventDefault();
-    await handleSubmit({
+    handleSubmit({
       ...experience,
       title: title.current.value,
       description: description.current.value,
