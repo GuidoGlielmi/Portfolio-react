@@ -15,7 +15,7 @@ export default function TechItem({tech}) {
 
   async function deleteTech() {
     try {
-      await makeRequest({url: `techs/${tech.id}`, method: 'delete'});
+      await makeRequest({url: `techs/${tech.id}`, method: 'delete'}, 'Technology deleted');
       setTechs(pt => pt.filter(({id}) => id !== tech.id));
     } catch (err) {
       console.log(err);
@@ -24,7 +24,7 @@ export default function TechItem({tech}) {
 
   async function updateTech(newTech) {
     try {
-      await makeRequest({url: 'techs', body: newTech, method: 'put'});
+      await makeRequest({url: 'techs', body: newTech, method: 'put'}, 'Technology updated');
       setTechs(pt => pt.map(e => (e.id === tech.id ? newTech : e)));
       setShowForm(false);
     } catch (err) {

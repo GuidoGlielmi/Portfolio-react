@@ -17,11 +17,14 @@ export default function Education() {
 
   async function addEducation(newEducation) {
     try {
-      const addedEducationId = await makeRequest({
-        url: 'education',
-        body: newEducation,
-        method: 'post',
-      });
+      const addedEducationId = await makeRequest(
+        {
+          url: 'education',
+          body: newEducation,
+          method: 'post',
+        },
+        'Education added successfully',
+      );
       newEducation.id = addedEducationId;
       setEducations(pe => [...pe, newEducation]);
       setShowNewForm(false);

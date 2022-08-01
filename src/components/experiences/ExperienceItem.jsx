@@ -13,7 +13,10 @@ export default function ExperienceItem({experience, setExperiences}) {
 
   async function deleteExperience() {
     try {
-      await makeRequest({url: `experiences/${experience.id}`, method: 'delete'});
+      await makeRequest(
+        {url: `experiences/${experience.id}`, method: 'delete'},
+        'Experience deleted',
+      );
       setExperiences(pe => pe.filter(({id}) => id !== experience.id));
     } catch (err) {
       console.log(err);
@@ -22,7 +25,10 @@ export default function ExperienceItem({experience, setExperiences}) {
 
   async function updateExperience(newExperience) {
     try {
-      await makeRequest({url: 'experiences', body: newExperience, method: 'put'});
+      await makeRequest(
+        {url: 'experiences', body: newExperience, method: 'put'},
+        'Experience modified',
+      );
       setExperiences(pe => pe.map(e => (e.id === newExperience.id ? newExperience : e)));
       setShowForm(false);
     } catch (err) {

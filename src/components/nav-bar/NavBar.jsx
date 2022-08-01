@@ -1,13 +1,13 @@
 import {useContext, useEffect, useRef, useState} from 'react';
 import {userContext} from 'components/contexts/user/UserContext';
 import Button from 'components/button/Button';
-import CloseAndEdit, {Edit} from 'components/close-icon/CloseAndEdit';
+import {Edit} from 'components/close-icon/CloseAndEdit';
 import DropDownIcon from 'components/drop-down-icon/DropDownIcon';
 import LoginModal from 'components/login-modal/LoginModal';
 import styles from './NavBar.module.css';
 
 export default function NavBar() {
-  const {setLoggedIn, user, makeRequest} = useContext(userContext);
+  const {setLoggedIn} = useContext(userContext);
 
   const [editLinks, setEditLinks] = useState('');
   const [showLoginModal, setShowLoginModal] = useState(false);

@@ -18,7 +18,7 @@ export default function EducationItem({
 
   async function deleteEducation() {
     try {
-      await makeRequest({url: `education/${id}`, method: 'delete'});
+      await makeRequest({url: `education/${id}`, method: 'delete'}, 'Education deleted');
       setEducations(pe => pe.filter(e => e.id !== id));
     } catch (err) {
       console.log(err);
@@ -27,7 +27,10 @@ export default function EducationItem({
 
   async function updateEducation(newEducation) {
     try {
-      await makeRequest({url: 'education', body: newEducation, method: 'put'});
+      await makeRequest(
+        {url: 'education', body: newEducation, method: 'put'},
+        'Education modified',
+      );
       setEducations(pe => pe.map(e => (e.id === id ? newEducation : e)));
       setShowForm(false);
     } catch (err) {
@@ -38,8 +41,7 @@ export default function EducationItem({
   const toggleEdit = () => setShowForm(ps => !ps);
 
   return (
-    <div /* className={`${styles.educationContainer} ${styles[`educationContainer${position}`]}`} */
-    >
+    <div>
       {loggedIn && <CloseAndEdit toggleEdit={toggleEdit} deleteItem={deleteEducation} />}
       {when(showForm)
         .return(<EducationForm education={education} handleSubmit={updateEducation} />)

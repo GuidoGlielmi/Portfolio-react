@@ -20,7 +20,10 @@ export default function Skills() {
 
   async function addSkill(newSkill) {
     try {
-      await makeRequest({url: 'skills', body: newSkill, method: 'post'});
+      await makeRequest(
+        {url: 'skills', body: newSkill, method: 'post'},
+        'Skill added successfully',
+      );
       setSkills(ps => [...ps, newSkill]);
       setShowNewForm(false);
     } catch (err) {

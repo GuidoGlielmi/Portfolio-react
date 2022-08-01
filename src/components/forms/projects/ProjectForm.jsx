@@ -121,7 +121,10 @@ function ProjectUrlFormHandler({projectId, projectUrl = initialUrl, setUrls, set
   async function addToExistentProject() {
     try {
       const newUrl = url.current;
-      const addedUrlId = await makeRequest({url: 'projects/url', body: newUrl, method: 'post'});
+      const addedUrlId = await makeRequest(
+        {url: 'projects/url', body: newUrl, method: 'post'},
+        'Url item added',
+      );
       newUrl.id = addedUrlId;
       setUrls(pt => [...pt, newUrl]);
       setShowNewUrl(false);
@@ -138,7 +141,10 @@ function ProjectUrlFormHandler({projectId, projectUrl = initialUrl, setUrls, set
 
   async function removeExistentUrl() {
     try {
-      await makeRequest({url: `projects/url/${projectUrl.id}`, method: 'delete'});
+      await makeRequest(
+        {url: `projects/url/${projectUrl.id}`, method: 'delete'},
+        'Url item deleted',
+      );
       setUrls(pu => pu.urls.filter(u => u.id !== projectUrl.id));
     } catch (err) {
       console.log(err);
@@ -219,12 +225,14 @@ function ProjectTechs({project: {id: projectId}, techs, setTechs}) {
   async function addTech(newTech) {
     try {
       if (projectId) {
-        await makeRequest({
-          url: `projects/${projectId}/tech/${newTech.id}`,
-          body: newTech,
-          method: 'post',
-          feedbackMsg: 'The technology has been added',
-        });
+        await makeRequest(
+          {
+            url: `projects/${projectId}/tech/${newTech.id}`,
+            body: newTech,
+            method: 'post',
+          },
+          'The technology has been added',
+        );
       }
       setTechs(pt => [...pt, newTech]);
       remainingTechsNode.current.value = '';
@@ -236,11 +244,13 @@ function ProjectTechs({project: {id: projectId}, techs, setTechs}) {
   async function removeTech(techId) {
     try {
       if (projectId) {
-        await makeRequest({
-          url: `projects/${projectId}/tech/${techId}`,
-          method: 'delete',
-          feedbackMsg: 'The technology has been removed',
-        });
+        await makeRequest(
+          {
+            url: `projects/${projectId}/tech/${techId}`,
+            method: 'delete',
+          },
+          'The technology has been removed',
+        );
       }
       setTechs(pt => pt.filter(t => t.id !== techId));
     } catch (err) {

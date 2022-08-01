@@ -8,31 +8,41 @@ export const userContext = createContext();
 
 export default function UserContext({children}) {
   const [loggedIn, setLoggedIn] = useState(!!localStorage.getItem('accessToken'));
+  const [isModalFadingOut, setIsModalFadingOut] = useState(true);
   const [globalLoading, setGlobalLoading] = useState(false);
   const [feedbackErrorMsg, setFeedbackErrorMsg] = useState('');
   const [feedbackMsg, setFeedbackMsg] = useState('');
 
-  useEffect(() => {
-    !loggedIn && localStorage.removeItem('accessToken');
-  }, [loggedIn]);
+  function showFeedbackMsgModal(msg, error) {
+    error ? setFeedbackErrorMsg(msg) : setFeedbackMsg(msg);
+    setIsModalFadingOut(false);
+  }
 
-  const makeRequest = useCallback(async ({url = '', method = 'get', body, feedbackMsg}) => {
+  const makeRequest = useCallback(async ({url = '', method = 'get', body}, feedbackMsg) => {
     setGlobalLoading(true);
     let data;
     try {
       data = await fetch[method](url, body);
-      if (feedbackMsg) setFeedbackMsg(feedbackMsg);
+      if (feedbackMsg) showFeedbackMsgModal(feedbackMsg);
       setGlobalLoading(false);
       return data;
     } catch (err) {
       if (err.status === 401) {
         setLoggedIn(false);
-        setFeedbackErrorMsg('Please, log in');
-      } else setFeedbackErrorMsg('Ha ocurrido un error');
+        showFeedbackMsgModal('Please, log in', true);
+      } else showFeedbackMsgModal('Ha ocurrido un error', true);
       setGlobalLoading(false);
-      throw Error(err);
+      throw Error(err.message);
     }
   }, []);
+
+  function clearUserFeedbackMsg() {
+    setIsModalFadingOut(true);
+    setTimeout(() => {
+      setFeedbackMsg('');
+      setFeedbackErrorMsg('');
+    }, 700);
+  }
 
   function useFetch({url = '', method = 'get', body}, initialValue = null, index) {
     const [data, setData] = useState(initialValue);
@@ -43,53 +53,51 @@ export default function UserContext({children}) {
           setData(index !== undefined ? data[index] : data);
         })();
       } catch (err) {
-        if (err.status === 500) setLoggedIn(false);
-        else setFeedbackErrorMsg('Ha ocurrido un error');
+        if (err.status === 401) setLoggedIn(false);
+        else showFeedbackMsgModal('Ha ocurrido un error', true);
       }
     }, [url, method, body, index]);
     return [(!data || !Object.values(data).length) && <LoadingIcon />, data, setData];
   }
 
-  const clearUserFeedback = useCallback(() => {
-    setFeedbackMsg('');
-    setFeedbackErrorMsg('');
-  }, [setFeedbackMsg]);
+  useEffect(() => {
+    setTimeout(() => (feedbackMsg || feedbackErrorMsg) && clearUserFeedbackMsg(), 5000);
+  }, [feedbackMsg, feedbackErrorMsg]);
 
-  /*   useEffect(() => {
-    setTimeout(() => clearUserFeedback(), 5000);
-  }, [feedbackMsg, feedbackErrorMsg, clearUserFeedback]); */
+  useEffect(() => {
+    !loggedIn && localStorage.removeItem('accessToken');
+  }, [loggedIn]);
 
   const [loadingTechs, techs, setTechs] = useFetch({url: 'techs'});
 
   const [loadingUser, user, setUser] = useFetch({url: 'users'}, [], 0);
-  // console.log(loadingUser, user);
 
   const saveUser = useCallback(async () => {
-    await makeRequest({url: 'userss', body: user, method: 'put'});
+    await makeRequest({url: 'users', body: user, method: 'put'}, 'User modified');
   }, [user, makeRequest]);
 
-  const contextObject = useMemo(
-    () => ({
-      user,
-      setUser,
-      loadingUser,
-      techs,
-      setTechs,
-      loadingTechs,
-      loggedIn,
-      setLoggedIn,
-      makeRequest,
-      useFetch,
-      saveUser,
-    }),
-    [loadingTechs, loadingUser, loggedIn, makeRequest, setTechs, setUser, techs, user, saveUser],
-  );
   return (
-    <userContext.Provider value={contextObject}>
+    <userContext.Provider
+      // eslint-disable-next-line react/jsx-no-constructed-context-values
+      value={{
+        user,
+        setUser,
+        loadingUser,
+        techs,
+        setTechs,
+        loadingTechs,
+        loggedIn,
+        setLoggedIn,
+        makeRequest,
+        useFetch,
+        saveUser,
+      }}
+    >
       <FeedbackMsgModal
         feedbackErrorMsg={feedbackErrorMsg}
         feedbackMsg={feedbackMsg}
-        clearUserFeedback={clearUserFeedback}
+        isModalFadingOut={isModalFadingOut}
+        clearUserFeedbackMsg={clearUserFeedbackMsg}
       />
       {globalLoading && <GlobalLoading />}
       {children}
@@ -97,17 +105,20 @@ export default function UserContext({children}) {
   );
 }
 
-function FeedbackMsgModal({feedbackErrorMsg, feedbackMsg, clearUserFeedback}) {
-  return (
-    <div
-      className={`${styles.feedbackMsg} ${feedbackErrorMsg && styles.error} ${
-        !feedbackMsg && !feedbackErrorMsg && styles.fadeOut
-      }`}
-    >
-      <p>{feedbackErrorMsg || feedbackMsg}</p>
-      <button onClick={clearUserFeedback} className={styles.closeFeedbackMsg}>
-        X
-      </button>
-    </div>
-  );
-}
+const FeedbackMsgModal = ({
+  feedbackErrorMsg,
+  feedbackMsg,
+  isModalFadingOut,
+  clearUserFeedbackMsg,
+}) => (
+  <div
+    className={`${styles.feedbackMsg} ${feedbackErrorMsg && styles.error} ${
+      isModalFadingOut && styles.fadeOut
+    }`}
+  >
+    <p>{feedbackErrorMsg || feedbackMsg}</p>
+    <button onClick={clearUserFeedbackMsg} className={styles.closeFeedbackMsg}>
+      X
+    </button>
+  </div>
+);

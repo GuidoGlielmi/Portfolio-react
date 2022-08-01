@@ -16,7 +16,7 @@ export default function TechsAndInfo() {
       if (editAboutMe) await saveUser();
       setEditAboutMe(ps => !ps);
     } catch (err) {
-      console.log(err.message);
+      console.log(err);
     }
   }
 
