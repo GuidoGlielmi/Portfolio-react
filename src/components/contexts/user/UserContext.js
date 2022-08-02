@@ -1,10 +1,11 @@
 import {createContext, useMemo, useCallback, useContext} from 'react';
+import useFetch from 'components/custom-hooks/useFetch';
 import {userFeedbackContext} from '../user-feedback/UserFeedbackContext';
 
 export const userContext = createContext();
 
 export default function UserContext({children}) {
-  const {useFetch, makeRequest} = useContext(userFeedbackContext);
+  const {makeRequest} = useContext(userFeedbackContext);
 
   const [loadingTechs, techs, setTechs] = useFetch({url: 'techs'});
 

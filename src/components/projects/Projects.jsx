@@ -1,13 +1,14 @@
 import {useContext, useEffect, useState} from 'react';
 import {loginContext} from 'components/contexts/login/LoginContext';
 import {userFeedbackContext} from 'components/contexts/user-feedback/UserFeedbackContext';
+import useFetch from 'components/custom-hooks/useFetch';
 import ProjectForm from 'components/forms/projects/ProjectForm';
 import Button from 'components/button/Button';
 import ProjectItem from './ProjectItem';
 import styles from './Projects.module.css';
 
 export default function Projects() {
-  const {makeRequest, useFetch} = useContext(userFeedbackContext);
+  const {makeRequest} = useContext(userFeedbackContext);
   const {loggedIn} = useContext(loginContext);
   const [loading, projects, setProjects] = useFetch({url: 'projects'});
 

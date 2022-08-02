@@ -1,6 +1,8 @@
 /* eslint-disable react/no-array-index-key */
 import {useEffect, useRef, useState} from 'react';
 import {CSSTransition} from 'react-transition-group';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {solid, brands} from '@fortawesome/fontawesome-svg-core/import.macro';
 import Header from 'components/header/Header';
 import NavBar from 'components/nav-bar/NavBar';
 import Footer from 'components/footer/Footer';
@@ -11,6 +13,7 @@ import Experiences from 'components/experiences/Experiences';
 import Skills from 'components/skills/Skills';
 import CircleButton from 'components/button/CircleButton';
 import './Admin.css';
+
 import styles from './Admin.module.css';
 
 const sectionsNames = ['Who am I', 'Projects', 'Experiences', 'My education', 'My skills'];
@@ -68,7 +71,7 @@ const Arrow = ({action}) => (
   <div>
     <div>
       <CircleButton action={action}>
-        <img style={{width: '100%'}} src='./assets/icons/arrow.png' alt='Previous section arrow' />
+        <FontAwesomeIcon style={{color: 'white'}} icon={solid('arrow-right')} />
       </CircleButton>
     </div>
   </div>

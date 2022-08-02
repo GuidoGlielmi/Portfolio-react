@@ -1,19 +1,20 @@
-import {useState, useEffect} from 'react';
+import {useState, useEffect, useContext} from 'react';
 import fetch from 'services/Fetch';
 import LoadingIcon from 'components/loading-icon/LoadingIcon';
+import {userFeedbackContext} from 'components/contexts/user-feedback/UserFeedbackContext';
 
 export default function useFetch({url = '', method = 'get', body}, initialValue = null, index) {
+  const {showFeedbackMsgModal} = useContext(userFeedbackContext);
   const [data, setData] = useState(initialValue);
-  const [error, setError] = useState(null);
   useEffect(() => {
-    try {
-      (async () => {
+    (async () => {
+      try {
         const data = await fetch[method](url, body);
         setData(index !== undefined ? data[index] : data);
-      })();
-    } catch (err) {
-      setError(err.status);
-    }
-  }, [url, method, body, index]);
-  return [(!data || !Object.values(data).length) && <LoadingIcon />, data, setData, error];
+      } catch (err) {
+        showFeedbackMsgModal('Ha ocurrido un error', true);
+      }
+    })();
+  }, [url, method, body, index, showFeedbackMsgModal]);
+  return [(!data || !Object.values(data).length) && <LoadingIcon />, data, setData];
 }

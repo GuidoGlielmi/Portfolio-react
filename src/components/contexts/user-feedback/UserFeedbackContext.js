@@ -1,4 +1,4 @@
-import {useState, createContext, useEffect, useCallback, useContext} from 'react';
+import {useState, createContext, useEffect, useCallback, useContext, useMemo} from 'react';
 import LoadingIcon from 'components/loading-icon/LoadingIcon';
 import GlobalLoading from 'components/loading-icon/GlobalLoading';
 import fetch from 'services/Fetch';
@@ -49,21 +49,6 @@ export default function UserFeedbackContext({children}) {
     [setLoggedIn],
   );
 
-  function useFetch({url = '', method = 'get', body}, initialValue = null, index) {
-    const [data, setData] = useState(initialValue);
-    useEffect(() => {
-      try {
-        (async () => {
-          const data = await fetch[method](url, body);
-          setData(index !== undefined ? data[index] : data);
-        })();
-      } catch (err) {
-        showFeedbackMsgModal('Ha ocurrido un error', true);
-      }
-    }, [url, method, body, index]);
-    return [(!data || !Object.values(data).length) && <LoadingIcon />, data, setData];
-  }
-
   useEffect(() => {
     setTimeout(() => (feedbackMsg || feedbackErrorMsg) && clearUserFeedbackMsg(), 5000);
   }, [feedbackMsg, feedbackErrorMsg]);
@@ -72,15 +57,10 @@ export default function UserFeedbackContext({children}) {
     !loggedIn && localStorage.removeItem('accessToken');
   }, [loggedIn]);
 
+  const contextObj = useMemo(() => ({makeRequest, showFeedbackMsgModal}), [makeRequest]);
+
   return (
-    <userFeedbackContext.Provider
-      // eslint-disable-next-line react/jsx-no-constructed-context-values
-      value={{
-        makeRequest,
-        useFetch,
-        showFeedbackMsgModal,
-      }}
-    >
+    <userFeedbackContext.Provider value={contextObj}>
       <FeedbackMsgModal
         feedbackErrorMsg={feedbackErrorMsg}
         feedbackMsg={feedbackMsg}
