@@ -41,7 +41,7 @@ class Fetch {
   }
 }
 // const apiConfig = new ApiConfig('https://yoprogramo-server.herokuapp.com/');
-const apiConfig = new ApiConfig('https://guido-portfolio-server.herokuapp.com/');
-// const apiConfig = new ApiConfig('http://localhost:8080/');
+// const apiConfig = new ApiConfig('https://guido-portfolio-server.herokuapp.com/');
+const apiConfig = new ApiConfig('http://localhost:8080/');
 
 export default new Fetch(apiConfig);
