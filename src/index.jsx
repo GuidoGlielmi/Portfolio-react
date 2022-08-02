@@ -1,6 +1,6 @@
 // import {StrictMode} from 'react';
 import ReactDOM from 'react-dom';
-import {BrowserRouter} from 'react-router-dom';
+import {BrowserRouter, HashRouter} from 'react-router-dom';
 import LoginContext from 'components/contexts/login/LoginContext';
 import UserFeedbackContext from 'components/contexts/user-feedback/UserFeedbackContext';
 import UserContext from 'components/contexts/user/UserContext';
@@ -13,9 +13,9 @@ ReactDOM.render(
   <LoginContext>
     <UserFeedbackContext>
       <UserContext>
-        <BrowserRouter>
+        <HashRouter>
           <App />
-        </BrowserRouter>
+        </HashRouter>
       </UserContext>
     </UserFeedbackContext>
   </LoginContext>,

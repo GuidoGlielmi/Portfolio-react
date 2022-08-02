@@ -54,7 +54,7 @@ function DesktopNavBar({setShowLoginModal, logout, editLinks, setEditLinks}) {
     <div className={styles.desktop}>
       <div className={styles.navLeftContainer}>
         <div className={styles.APLogoContainer}>
-          <img className={styles.navImg} src='assets/logos/AP.png' alt='AP logo' />
+          <img className={styles.navImg} src='./assets/logos/AP.png' alt='AP logo' />
         </div>
       </div>
       <div className={styles.navRightContainer}>
@@ -67,12 +67,12 @@ function DesktopNavBar({setShowLoginModal, logout, editLinks, setEditLinks}) {
               <a className={styles.imgLink} href={user.linkedInUrl}>
                 <img
                   className={styles.navImg}
-                  src='/assets/logos/GitHub-Mark-64px.png'
+                  src='./assets/logos/GitHub-Mark-64px.png'
                   alt='AP logo'
                 />
               </a>
               <a className={styles.imgLink} href={user.githubUrl}>
-                <img className={styles.navImg} src='/assets/logos/linkedin.png' alt='AP logo' />
+                <img className={styles.navImg} src='./assets/logos/linkedin.png' alt='AP logo' />
               </a>
             </div>
           ))}
@@ -145,12 +145,12 @@ function MobileNavBar({setShowLoginModal, logout, editLinks, setEditLinks}) {
                 <a className={styles.imgLink} href={user.linkedInUrl}>
                   <img
                     className={styles.navImg}
-                    src='/assets/logos/GitHub-Mark-64px.png'
+                    src='./assets/logos/GitHub-Mark-64px.png'
                     alt='AP logo'
                   />
                 </a>
                 <a className={styles.imgLink} href={user.githubUrl}>
-                  <img className={styles.navImg} src='/assets/logos/linkedin.png' alt='AP logo' />
+                  <img className={styles.navImg} src='./assets/logos/linkedin.png' alt='AP logo' />
                 </a>
               </>
             ) : (

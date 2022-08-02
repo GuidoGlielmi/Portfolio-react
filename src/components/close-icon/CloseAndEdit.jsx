@@ -11,7 +11,7 @@ export default function CloseAndEdit({toggleEdit, deleteItem}) {
       <img
         className={styles.editIcon}
         onClick={toggleEdit}
-        src='assets/icons/edit-icon.png'
+        src='./assets/icons/edit-icon.png'
         alt='edit icon'
       />
     </div>
@@ -23,7 +23,7 @@ export function Edit({toggleEdit}) {
       <img
         className={styles.editIcon}
         onClick={toggleEdit}
-        src='assets/icons/edit-icon.png'
+        src='./assets/icons/edit-icon.png'
         alt='edit icon'
       />
     </div>

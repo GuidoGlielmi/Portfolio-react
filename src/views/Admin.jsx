@@ -68,7 +68,7 @@ const Arrow = ({action}) => (
   <div>
     <div>
       <CircleButton action={action}>
-        <img style={{width: '100%'}} src='/assets/icons/arrow.png' alt='Previous section arrow' />
+        <img style={{width: '100%'}} src='./assets/icons/arrow.png' alt='Previous section arrow' />
       </CircleButton>
     </div>
   </div>
@@ -96,7 +96,7 @@ const Sections = ({sections, index, previousIndex}) => (
     <CircleButton action={previousSection}>
       <img
         style={{width: '100%'}}
-        src='/assets/icons/arrow.png'
+        src='./assets/icons/arrow.png'
         alt='Previous section arrow'
       />
     </CircleButton>
@@ -107,7 +107,7 @@ const Sections = ({sections, index, previousIndex}) => (
     <CircleButton action={nextSection}>
       <img
         style={{width: '100%'}}
-        src='/assets/icons/arrow.png'
+        src='./assets/icons/arrow.png'
         alt='Previous section arrow'
       />
     </CircleButton>
