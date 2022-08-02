@@ -83,8 +83,14 @@ function ProjectUrls({urls, setUrls, projectId}) {
     <div className={styles.urlsSection}>
       <p className={styles.projectLabel}>Urls</p>
       <div className={styles.urlsContainer}>
-        {urls.map(u => (
-          <ProjectUrlFormHandler key={u.id} projectUrl={u} setUrls={setUrls} />
+        {urls.map((u, i) => (
+          <ProjectUrlFormHandler
+            key={u.id || i}
+            index={i}
+            projectUrl={u}
+            setUrls={setUrls}
+            projectId={projectId}
+          />
         ))}
       </div>
       {showNewUrl && (
@@ -108,12 +114,18 @@ function ProjectUrls({urls, setUrls, projectId}) {
 }
 
 const initialUrl = {url: '', name: ''};
-function ProjectUrlFormHandler({projectId, projectUrl = initialUrl, setUrls, setShowNewUrl}) {
+function ProjectUrlFormHandler({
+  projectId,
+  projectUrl = initialUrl,
+  setUrls,
+  setShowNewUrl,
+  index,
+}) {
   const {makeRequest} = useContext(userFeedbackContext);
   const isRegisteredUrl = !!projectUrl.id;
-  const isExistentProject = !!projectUrl.projectId;
+  const isExistentProject = !!projectUrl.projectId || !!projectId;
   const isAlreadyAdded = projectUrl !== initialUrl;
-  const url = useRef({projectId, ...initialUrl});
+  const url = useRef({projectId, ...projectUrl});
 
   const updateNewUrl = newUrl => (url.current = newUrl);
 
@@ -146,16 +158,20 @@ function ProjectUrlFormHandler({projectId, projectUrl = initialUrl, setUrls, set
         {url: `projects/url/${projectUrl.id}`, method: 'delete'},
         'Url item deleted',
       );
-      setUrls(pu => pu.urls.filter(u => u.id !== projectUrl.id));
+      setUrls(pu => pu.filter(u => u.id !== projectUrl.id));
     } catch (err) {
       console.log(err);
     }
   }
 
+  async function removeUrl() {
+    setUrls(pu => pu.filter((_u, i) => i !== index));
+  }
+
   return (
     <div className={styles.urlItem}>
       <ProjectUrlForm
-        projectUrl={projectUrl}
+        projectUrl={url.current}
         handleChange={isRegisteredUrl ? updateExistentUrl : updateNewUrl}
       >
         {!isAlreadyAdded && (
@@ -168,7 +184,10 @@ function ProjectUrlFormHandler({projectId, projectUrl = initialUrl, setUrls, set
         )}
       </ProjectUrlForm>
       {isAlreadyAdded && (
-        <div className={styles.deleteButton} onClick={removeExistentUrl}>
+        <div
+          className={styles.deleteButton}
+          onClick={isRegisteredUrl ? removeExistentUrl : removeUrl}
+        >
           <CloseIcon size='20px' />
         </div>
       )}

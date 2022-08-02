@@ -18,7 +18,10 @@ export default function Projects() {
 
   async function addProject(newProject) {
     try {
-      const addedProjectId = await makeRequest({url: 'projects', body: newProject, method: 'post'});
+      const addedProjectId = await makeRequest(
+        {url: 'projects', body: newProject, method: 'post'},
+        'Project added successfully',
+      );
       newProject.id = addedProjectId;
       setProjects(pp => [...pp, newProject]);
       setShowNewForm(false);

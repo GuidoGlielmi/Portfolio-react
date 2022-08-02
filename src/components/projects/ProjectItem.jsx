@@ -18,7 +18,7 @@ export default function ProjectItem({
 
   async function deleteProject() {
     try {
-      await makeRequest({url: `projects/${id}`, method: 'delete'});
+      await makeRequest({url: `projects/${id}`, method: 'delete'}, 'Project deleted');
       setProjects(pp => pp.filter(p => p.id !== id));
     } catch (err) {
       console.log(err);
@@ -27,7 +27,7 @@ export default function ProjectItem({
 
   async function updateProject(newProject) {
     try {
-      await makeRequest({url: 'projects', body: newProject, method: 'put'});
+      await makeRequest({url: 'projects', body: newProject, method: 'put'}, 'Project updated');
       console.log(newProject);
       setProjects(pe => pe.map(e => (e.id === project.id ? newProject : e)));
       setShowForm(false);
