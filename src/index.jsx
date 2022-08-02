@@ -1,6 +1,8 @@
 // import {StrictMode} from 'react';
 import ReactDOM from 'react-dom';
 import {BrowserRouter} from 'react-router-dom';
+import LoginContext from 'components/contexts/login/LoginContext';
+import UserFeedbackContext from 'components/contexts/user-feedback/UserFeedbackContext';
 import UserContext from 'components/contexts/user/UserContext';
 import './index.css';
 import App from './App';
@@ -8,11 +10,15 @@ import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   // <StrictMode>
-  <UserContext>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
-  </UserContext>,
+  <LoginContext>
+    <UserFeedbackContext>
+      <UserContext>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </UserContext>
+    </UserFeedbackContext>
+  </LoginContext>,
   // </StrictMode>
   document.getElementById('root'),
 );

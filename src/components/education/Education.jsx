@@ -1,12 +1,14 @@
 import {useContext, useEffect, useState} from 'react';
-import {userContext} from 'components/contexts/user/UserContext';
+import {userFeedbackContext} from 'components/contexts/user-feedback/UserFeedbackContext';
+import {loginContext} from 'components/contexts/login/LoginContext';
 import EducationForm from 'components/forms/education/EducationForm';
 import Button from 'components/button/Button';
 import EducationItem from './EducationItem';
 import styles from './Education.module.css';
 
 export default function Education() {
-  const {loggedIn, makeRequest, useFetch} = useContext(userContext);
+  const {loggedIn} = useContext(loginContext);
+  const {makeRequest, useFetch} = useContext(userFeedbackContext);
   const [loading, educations, setEducations] = useFetch({url: 'education'});
 
   const [showNewForm, setShowNewForm] = useState(false);

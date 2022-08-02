@@ -1,4 +1,6 @@
 import {useContext, useEffect, useRef, useState} from 'react';
+import {loginContext} from 'components/contexts/login/LoginContext';
+import {userFeedbackContext} from 'components/contexts/user-feedback/UserFeedbackContext';
 import {userContext} from 'components/contexts/user/UserContext';
 import TechForm from 'components/forms/techs/TechForm';
 import Button from 'components/button/Button';
@@ -6,8 +8,9 @@ import TechItem from './TechItem';
 import styles from './Techs.module.css';
 
 export default function Techs() {
-  const {loggedIn, makeRequest, techs, setTechs, loadingTechs} = useContext(userContext);
-
+  const {techs, setTechs, loadingTechs} = useContext(userContext);
+  const {loggedIn} = useContext(loginContext);
+  const {makeRequest} = useContext(userFeedbackContext);
   const [showNewForm, setShowNewForm] = useState(false);
   const techImg = useRef('');
   const techsContainer = useRef('');

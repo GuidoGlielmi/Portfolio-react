@@ -1,11 +1,12 @@
 import {useContext, useEffect, useRef, useState} from 'react';
-import {userContext} from 'components/contexts/user/UserContext';
+import {loginContext} from 'components/contexts/login/LoginContext';
+import {userFeedbackContext} from 'components/contexts/user-feedback/UserFeedbackContext';
 import Button from 'components/button/Button';
 import styles from './LoginModal.module.css';
 
 export default function LoginModal({children, closeModal, willResetErrorMsg}) {
-  const {setLoggedIn, makeRequest} = useContext(userContext);
-
+  const {makeRequest} = useContext(userFeedbackContext);
+  const {setLoggedIn} = useContext(loginContext);
   const username = useRef('');
   const password = useRef('');
 

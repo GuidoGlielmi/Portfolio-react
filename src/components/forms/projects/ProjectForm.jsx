@@ -1,3 +1,4 @@
+import {userFeedbackContext} from 'components/contexts/user-feedback/UserFeedbackContext';
 import {userContext} from 'components/contexts/user/UserContext';
 import Button from 'components/button/Button';
 import CloseIcon from 'components/close-icon/CloseIcon';
@@ -108,7 +109,7 @@ function ProjectUrls({urls, setUrls, projectId}) {
 
 const initialUrl = {url: '', name: ''};
 function ProjectUrlFormHandler({projectId, projectUrl = initialUrl, setUrls, setShowNewUrl}) {
-  const {makeRequest} = useContext(userContext);
+  const {makeRequest} = useContext(userFeedbackContext);
   const isRegisteredUrl = !!projectUrl.id;
   const isExistentProject = !!projectUrl.projectId;
   const isAlreadyAdded = projectUrl !== initialUrl;
@@ -178,7 +179,6 @@ function ProjectUrlFormHandler({projectId, projectUrl = initialUrl, setUrls, set
 function ProjectUrlForm({children, projectUrl, handleChange}) {
   const url = useRef(projectUrl.url);
   const name = useRef(projectUrl.name);
-  console.log(projectUrl);
   const onChange = () =>
     handleChange({
       ...projectUrl,
@@ -218,7 +218,8 @@ function ProjectUrlForm({children, projectUrl, handleChange}) {
 }
 
 function ProjectTechs({project: {id: projectId}, techs, setTechs}) {
-  const {techs: allTechs, makeRequest} = useContext(userContext);
+  const {techs: allTechs} = useContext(userContext);
+  const {makeRequest} = useContext(userFeedbackContext);
   const remainingTechs = allTechs.filter(t => !techs.find(({id}) => t.id === id));
   const remainingTechsNode = useRef();
 

@@ -1,11 +1,13 @@
 import {useContext, useEffect, useRef, useState} from 'react';
+import {loginContext} from 'components/contexts/login/LoginContext';
 import {userContext} from 'components/contexts/user/UserContext';
 import CloseAndEdit from 'components/close-icon/CloseAndEdit';
 import UserForm from 'components/forms/user/UserForm';
 import styles from './Header.module.css';
 
 export default function Header() {
-  const {loggedIn, loadingUser, user, saveUser} = useContext(userContext);
+  const {loadingUser, user, saveUser} = useContext(userContext);
+  const {loggedIn} = useContext(loginContext);
 
   const [editUserInfo, setEditUserInfo] = useState(false);
   const firstName = useRef(user?.firstName);

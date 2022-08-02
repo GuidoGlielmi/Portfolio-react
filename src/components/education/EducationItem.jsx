@@ -1,5 +1,6 @@
 import {useContext, useState} from 'react';
-import {userContext} from 'components/contexts/user/UserContext';
+import {loginContext} from 'components/contexts/login/LoginContext';
+import {userFeedbackContext} from 'components/contexts/user-feedback/UserFeedbackContext';
 import CloseAndEdit from 'components/close-icon/CloseAndEdit';
 import EducationForm from 'components/forms/education/EducationForm';
 import {when} from 'components/techs-and-info/TechsAndInfo';
@@ -10,8 +11,8 @@ export default function EducationItem({
   education: {id, educationImg, school, degree, startDate, endDate},
   setEducations,
 }) {
-  const {loggedIn, makeRequest} = useContext(userContext);
-  // const position = i % 2 ? 'Left' : 'Right';
+  const {loggedIn} = useContext(loginContext);
+  const {makeRequest} = useContext(userFeedbackContext);
   const [showForm, setShowForm] = useState(false);
 
   if (!loggedIn && showForm) setShowForm(false);
@@ -46,7 +47,7 @@ export default function EducationItem({
       {when(showForm)
         .return(<EducationForm education={education} handleSubmit={updateEducation} />)
         .else(
-          <div className='educationInfo' /* className={styles[`education${position}`]} */>
+          <div className='educationInfo'>
             <div className={styles.educationImgContainer}>
               <img className={styles.educationImg} src={educationImg} alt={`${school} logo`} />
             </div>

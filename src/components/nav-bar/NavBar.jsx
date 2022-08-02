@@ -1,4 +1,5 @@
 import {useContext, useEffect, useRef, useState} from 'react';
+import {loginContext} from 'components/contexts/login/LoginContext';
 import {userContext} from 'components/contexts/user/UserContext';
 import Button from 'components/button/Button';
 import {Edit} from 'components/close-icon/CloseAndEdit';
@@ -7,7 +8,7 @@ import LoginModal from 'components/login-modal/LoginModal';
 import styles from './NavBar.module.css';
 
 export default function NavBar() {
-  const {setLoggedIn} = useContext(userContext);
+  const {setLoggedIn} = useContext(loginContext);
 
   const [editLinks, setEditLinks] = useState('');
   const [showLoginModal, setShowLoginModal] = useState(false);
@@ -36,7 +37,8 @@ export default function NavBar() {
 }
 
 function DesktopNavBar({setShowLoginModal, logout, editLinks, setEditLinks}) {
-  const {loggedIn, loadingUser, user, saveUser} = useContext(userContext);
+  const {loadingUser, user, saveUser} = useContext(userContext);
+  const {loggedIn} = useContext(loginContext);
   useEffect(() => !loggedIn && setEditLinks(false), [loggedIn, setEditLinks]);
 
   async function handleToggle() {
@@ -119,10 +121,10 @@ const UserForm = () => {
 };
 
 function MobileNavBar({setShowLoginModal, logout, editLinks, setEditLinks}) {
+  const {loadingUser, user, setUser, saveUser} = useContext(userContext);
+  const {loggedIn} = useContext(loginContext);
+
   const [dropDownDisplayed, setDropDownDisplayed] = useState(false);
-
-  const {loggedIn, loadingUser, user, setUser, saveUser} = useContext(userContext);
-
   useEffect(() => !loggedIn && setEditLinks(false), [loggedIn, setEditLinks]);
 
   function handleToggle() {

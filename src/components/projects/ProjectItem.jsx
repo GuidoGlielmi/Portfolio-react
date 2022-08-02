@@ -1,5 +1,6 @@
 import {useContext, useEffect, useState} from 'react';
-import {userContext} from 'components/contexts/user/UserContext';
+import {loginContext} from 'components/contexts/login/LoginContext';
+import {userFeedbackContext} from 'components/contexts/user-feedback/UserFeedbackContext';
 import CloseAndEdit from 'components/close-icon/CloseAndEdit';
 import ProjectForm from 'components/forms/projects/ProjectForm';
 import styles from './ProjectItem.module.css';
@@ -9,8 +10,8 @@ export default function ProjectItem({
   project: {id, techs: projectTechs, urls, title, description, projectImg},
   setProjects,
 }) {
-  const {loggedIn, makeRequest} = useContext(userContext);
-
+  const {makeRequest} = useContext(userFeedbackContext);
+  const {loggedIn} = useContext(loginContext);
   const [showForm, setShowForm] = useState(false);
 
   useEffect(() => !loggedIn && setShowForm(false), [loggedIn]);

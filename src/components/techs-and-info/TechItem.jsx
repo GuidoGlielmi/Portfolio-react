@@ -1,12 +1,15 @@
 import {useContext, useEffect, useState} from 'react';
+import {loginContext} from 'components/contexts/login/LoginContext';
+import {userFeedbackContext} from 'components/contexts/user-feedback/UserFeedbackContext';
 import {userContext} from 'components/contexts/user/UserContext';
 import CloseAndEdit from 'components/close-icon/CloseAndEdit';
 import TechForm from 'components/forms/techs/TechForm';
 import styles from './TechItem.module.css';
 
 export default function TechItem({tech}) {
-  const {loggedIn, makeRequest, setTechs} = useContext(userContext);
-
+  const {setTechs} = useContext(userContext);
+  const {loggedIn} = useContext(loginContext);
+  const {makeRequest} = useContext(userFeedbackContext);
   const [showForm, setShowForm] = useState(false);
 
   useEffect(() => {
