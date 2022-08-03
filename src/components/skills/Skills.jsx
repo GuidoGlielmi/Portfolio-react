@@ -1,7 +1,7 @@
 import {useContext, useEffect, useState} from 'react';
 import {loginContext} from 'components/contexts/login/LoginContext';
 import {userFeedbackContext} from 'components/contexts/user-feedback/UserFeedbackContext';
-import useFetch from 'components/custom-hooks/useFetch';
+import {userContext} from 'components/contexts/user/UserContext';
 import SkillForm from 'components/forms/skills/SkillForm';
 import Button from 'components/button/Button';
 import SkillItem from './SkillItem';
@@ -10,7 +10,7 @@ import styles from './Skills.module.css';
 export default function Skills() {
   const {makeRequest} = useContext(userFeedbackContext);
   const {loggedIn} = useContext(loginContext);
-  const [loading, skills, setSkills] = useFetch({url: 'skills'});
+  const {loadingSkills: loading, skills, setSkills} = useContext(userContext);
   const [showNewForm, setShowNewForm] = useState(false);
 
   const groups = skills?.reduce(

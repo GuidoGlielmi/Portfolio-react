@@ -1,7 +1,7 @@
 import {useContext, useEffect, useState} from 'react';
 import {loginContext} from 'components/contexts/login/LoginContext';
 import {userFeedbackContext} from 'components/contexts/user-feedback/UserFeedbackContext';
-import useFetch from 'components/custom-hooks/useFetch';
+import {userContext} from 'components/contexts/user/UserContext';
 import ExperienceForm from 'components/forms/experiences/ExperienceForm';
 import Button from 'components/button/Button';
 import ExperienceItem from './ExperienceItem';
@@ -10,7 +10,7 @@ import styles from './Experiences.module.css';
 export default function Experiences() {
   const {loggedIn} = useContext(loginContext);
   const {makeRequest} = useContext(userFeedbackContext);
-  const [loading, experiences, setExperiences] = useFetch({url: 'experiences'});
+  const {loadingExperiences: loading, experiences, setExperiences} = useContext(userContext);
 
   const [showNewForm, setShowNewForm] = useState(false);
 

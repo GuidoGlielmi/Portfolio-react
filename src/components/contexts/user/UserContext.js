@@ -11,6 +11,14 @@ export default function UserContext({children}) {
 
   const [loadingUser, user, setUser] = useFetch({url: 'users'}, [], 0);
 
+  const [loadingEducations, educations, setEducations] = useFetch({url: 'education'});
+
+  const [loadingExperiences, experiences, setExperiences] = useFetch({url: 'experiences'});
+
+  const [loadingProjects, projects, setProjects] = useFetch({url: 'projects'});
+
+  const [loadingSkills, skills, setSkills] = useFetch({url: 'skills'});
+
   const saveUser = useCallback(async () => {
     await makeRequest({url: 'users', body: user, method: 'put'}, 'User modified');
   }, [user, makeRequest]);
@@ -24,8 +32,40 @@ export default function UserContext({children}) {
       setTechs,
       loadingTechs,
       saveUser,
+      loadingEducations,
+      educations,
+      setEducations,
+      loadingExperiences,
+      experiences,
+      setExperiences,
+      loadingProjects,
+      projects,
+      setProjects,
+      loadingSkills,
+      skills,
+      setSkills,
     }),
-    [loadingTechs, loadingUser, saveUser, setTechs, setUser, techs, user],
+    [
+      educations,
+      experiences,
+      loadingEducations,
+      loadingExperiences,
+      loadingProjects,
+      loadingSkills,
+      loadingTechs,
+      loadingUser,
+      projects,
+      saveUser,
+      setEducations,
+      setExperiences,
+      setProjects,
+      setSkills,
+      setTechs,
+      setUser,
+      skills,
+      techs,
+      user,
+    ],
   );
 
   return <userContext.Provider value={contextObj}>{children}</userContext.Provider>;
