@@ -63,15 +63,11 @@ export default function Techs() {
 
   return (
     <div className={styles.techsSection}>
-      <p className={`${styles.techsTitle} textShadowSemiDark`}>
-        Some technologies i&apos;m familiar with
-      </p>
+      <h3>Some technologies i&apos;m familiar with</h3>
       {loadingTechs || (
-        <div ref={techsContainer} onWheel={e => onWheel(e)} className={styles.techsContainer}>
+        <div ref={techsContainer} onWheel={onWheel} className={styles.techsContainer}>
           <TechList techs={techs} techImg={techImg} setTechs={setTechs} />
-          <div className={styles.extraTechs}>
-            <TechList techs={techs} techImg={techImg} setTechs={setTechs} />
-          </div>
+          <TechList techs={techs} techImg={techImg} setTechs={setTechs} />
         </div>
       )}
       {showNewForm && <TechForm handleSubmit={addTech} />}

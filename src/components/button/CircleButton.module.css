@@ -6,19 +6,14 @@
   height: 35px;
   margin: 5px;
   padding: 25%;
-  background-color: #93b7a8;
-  box-shadow: 0.5px 0.5px 3px black;
+  background-color: #191722;
+  box-shadow: 0 0 3px rgb(49, 49, 49);
   border-radius: 50%;
+  transition: all 500ms cubic-bezier(0.3, 2.13, 0.38, 0.67);
 }
-/* switch transition always starts with true */
-.enter {
-  transform: scale(1.5);
+.button:hover {
+  box-shadow: 0 0 5px rgb(150, 150, 150) inset;
 }
-.enterActive {
-  transform: scale(1);
-  transition: transform 100ms ease;
-}
-.exitActive {
-  transform: scale(1.5);
-  transition: transform 100ms ease;
+.button:active {
+  transform: scale(1.2);
 }

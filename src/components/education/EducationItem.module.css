@@ -51,7 +51,7 @@
   height: min(75vw, 33vh);
   margin: 0 3vw;
 }
-.educationImg {
+.educationImgContainer * {
   max-width: 100%;
   max-height: 100%;
 }
@@ -61,11 +61,10 @@
   align-items: center;
   max-width: 60%;
 }
-.educationDegree,
-.educationDescription {
+.educationInfoContainer * {
   text-align: center;
 }
-.educationDegree {
+.educationInfoContainer h3 {
   padding: 10px 5vw;
   margin: 10px;
   font-weight: 400;
@@ -75,7 +74,7 @@
     1%;
   text-shadow: 0px 0px 1px #131313;
 }
-.educationP {
+.educationInfoContainer p {
   font-size: large;
   text-align: center;
 }

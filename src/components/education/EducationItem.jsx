@@ -49,13 +49,13 @@ export default function EducationItem({
         .else(
           <div className='educationInfo'>
             <div className={styles.educationImgContainer}>
-              <img className={styles.educationImg} src={educationImg} alt={`${school} logo`} />
+              <img src={educationImg} alt={`${school} logo`} />
             </div>
             <div className={styles.educationInfoContainer}>
-              <h3 className={styles.educationDegree}>{degree}</h3>
-              <p className={styles.educationP}>{school}</p>
-              <p className={styles.educationP}>{startDate}</p>
-              <p className={styles.educationP}>{endDate}</p>
+              <h3>{degree}</h3>
+              <p>{school}</p>
+              <p>{startDate}</p>
+              <p>{endDate}</p>
             </div>
           </div>,
         )}

@@ -17,30 +17,14 @@ export default function TechForm({tech = initialTech, handleSubmit}) {
   }
   return (
     <form onSubmit={onSubmit} className={styles.techForm}>
-      <div className={styles.techInputs}>
-        <div className={styles.inputLabel}>
-          <label className={styles.techLabel} htmlFor='name'>
-            Name
-          </label>
-          <input
-            defaultValue={tech.name}
-            className={styles.techInput}
-            ref={name}
-            name='name'
-            id='name'
-          />
+      <div>
+        <div>
+          <label htmlFor='name'>Name</label>
+          <input defaultValue={tech.name} ref={name} name='name' id='name' />
         </div>
-        <div className={styles.inputLabel}>
-          <label className={styles.techLabel} htmlFor='techImg'>
-            Technology image
-          </label>
-          <input
-            defaultValue={tech.techImg}
-            className={styles.techInput}
-            ref={techImg}
-            name='techImg'
-            id='techImg'
-          />
+        <div>
+          <label htmlFor='techImg'>Technology image</label>
+          <input defaultValue={tech.techImg} ref={techImg} name='techImg' id='techImg' />
         </div>
       </div>
       <div>

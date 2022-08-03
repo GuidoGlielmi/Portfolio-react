@@ -4,12 +4,13 @@
   flex-shrink: 0;
   width: 100%;
 }
-.titleContainer {
+.educationSection > :first-child {
   display: flex;
   justify-content: flex-end;
   padding-top: 10vh;
 }
-.title {
+.educationSection > :first-child * {
+  /*title*/
   position: relative;
   width: 55%;
   margin: 0 30px 30px 0;

@@ -24,62 +24,54 @@ export default function EducationForm({education = initialState, handleSubmit}) 
 
   return (
     <form onSubmit={onSubmit} className={styles.educationForm}>
-      <div className={styles.educationInputs}>
-        <div className={styles.inputLabel}>
-          <label className={styles.educationLabel} htmlFor='degree'>
-            Degree
-          </label>
+      <div /* className={styles.educationInputs} */>
+        <div className={styles.inputContainer}>
+          <label /* className={styles.educationLabel} */ htmlFor='degree'>Degree</label>
           <input
             defaultValue={degree.current}
-            className={styles.educationInput}
+            /* className={styles.educationInput} */
             ref={degree}
             name='degree'
             id='degree'
           />
         </div>
-        <div className={styles.inputLabel}>
-          <label className={styles.educationLabel} htmlFor='school'>
-            School
-          </label>
+        <div className={styles.inputContainer}>
+          <label /* className={styles.educationLabel} */ htmlFor='school'>School</label>
           <input
             defaultValue={school.current}
-            className={styles.educationInput}
+            /* className={styles.educationInput} */
             ref={school}
             name='school'
             id='school'
           />
         </div>
-        <div className={styles.inputLabel}>
-          <label className={styles.educationLabel} htmlFor='startDate'>
-            Start date
-          </label>
+        <div className={styles.inputContainer}>
+          <label /* className={styles.educationLabel} */ htmlFor='startDate'>Start date</label>
           <input
             defaultValue={startDate.current}
-            className={styles.educationInput}
+            /* className={styles.educationInput} */
             ref={startDate}
             name='startDate'
             id='startDate'
           />
         </div>
-        <div className={styles.inputLabel}>
-          <label className={styles.educationLabel} htmlFor='endDate'>
-            End date
-          </label>
+        <div className={styles.inputContainer}>
+          <label /* className={styles.educationLabel} */ htmlFor='endDate'>End date</label>
           <input
             defaultValue={endDate.current}
-            className={styles.educationInput}
+            /* className={styles.educationInput} */
             ref={endDate}
             name='endDate'
             id='endDate'
           />
         </div>
-        <div className={styles.inputLabel}>
-          <label className={styles.educationLabel} htmlFor='educationImg'>
+        <div className={styles.inputContainer}>
+          <label /* className={styles.educationLabel} */ htmlFor='educationImg'>
             Education image path
           </label>
           <input
             defaultValue={educationImg.current}
-            className={styles.educationInput}
+            /* className={styles.educationInput} */
             ref={educationImg}
             name='educationImg'
             id='educationImg'

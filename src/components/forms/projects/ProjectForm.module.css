@@ -4,19 +4,20 @@
   align-items: center;
 }
 
-.projectInputs {
+.projectForm > :first-child {
+  /* singleElements*/
   display: flex;
   flex-direction: column;
 }
-/* .projectInput {
-} */
-.inputLabel {
+
+.projectForm > :first-child > :first-child > * {
+  /*inputContainer*/
   display: flex;
   flex-direction: column;
   flex: 1;
   margin: 2% 2% 2% 0;
 }
-.singleElements {
+.projectForm > :first-child > :first-child {
   display: flex;
   flex-wrap: wrap;
 }
@@ -27,26 +28,27 @@
   margin: 2% 2% 2% 0;
   flex: 1;
 }
-.techContainer {
+.tech {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin: 5px 0;
 }
+
 .urlsSection {
   display: flex;
   flex-direction: column;
   margin: 2% 2% 2% 0;
 }
-.urlsContainer {
+.urls {
   display: flex;
   flex-direction: column;
 }
-.urlItem {
+.urlContainer {
   display: flex;
   align-items: center;
 }
-.urlContainer {
+.url {
   display: flex;
   flex-direction: column;
   flex: 1;
@@ -54,17 +56,17 @@
   border-left: 2px solid black;
   border-image: linear-gradient(to bottom, #202020 80%, rgba(0, 0, 0, 0)) 1%;
 }
-.urlInputContainer {
+.url > * {
   display: flex;
   align-items: center;
   margin: 2px 0;
 }
-.urlInput {
-  flex: 1;
-}
-.urlLabel {
+.url > * > label {
   margin: 0 10px;
   min-width: 15%;
+}
+.url > * > input {
+  flex: 1;
 }
 .toggleAddUrlButton {
   align-self: center;
@@ -80,21 +82,21 @@
   /*  .projectForm {
     align-items: initial;
   } */
-  .singleElements {
+  .projectForm > :first-child > :first-child {
     flex-direction: column;
     flex-wrap: nowrap;
   }
-  .inputLabel {
+  .inputContainer {
     flex: initial;
   }
   .techsSection {
     flex: initial;
     min-width: unset;
   }
-  .urlItem {
+  .urlContainer {
     flex-direction: column;
   }
-  .urlContainer {
+  .url {
     padding-left: 5px;
   }
   .urlInputContainer {

@@ -52,27 +52,30 @@ function DesktopNavBar({setShowLoginModal, logout, editLinks, setEditLinks}) {
 
   return (
     <div className={styles.desktop}>
-      <div className={styles.navLeftContainer}>
-        <div className={styles.APLogoContainer}>
+      <div /* className={styles.navLeftContainer} */>
+        <div /* className={styles.APLogoContainer} */>
           <img className={styles.navImg} src='./assets/logos/AP.png' alt='AP logo' />
         </div>
       </div>
-      <div className={styles.navRightContainer}>
+      <div /* className={styles.navRightContainer} */>
         {loggedIn && <Edit toggleEdit={handleToggle} />}
         {loadingUser ||
           (editLinks ? (
             <UserForm />
           ) : (
             <div className={styles.social}>
-              <a className={styles.imgLink} href={user.linkedInUrl}>
+              <a /* className={styles.imgLink} */ href={user.linkedInUrl}>
                 <img
-                  className={styles.navImg}
+                  /* className={styles.navImg} */
                   src='./assets/logos/GitHub-Mark-64px.png'
                   alt='AP logo'
                 />
               </a>
-              <a className={styles.imgLink} href={user.githubUrl}>
-                <img className={styles.navImg} src='./assets/logos/linkedin.png' alt='AP logo' />
+              <a /* className={styles.imgLink} */ href={user.githubUrl}>
+                <img
+                  /* className={styles.navImg} */ src='./assets/logos/linkedin.png'
+                  alt='AP logo'
+                />
               </a>
             </div>
           ))}
@@ -92,25 +95,19 @@ const UserForm = () => {
 
   return (
     <div className={styles.social}>
-      <div className={styles.inputLabel}>
-        <label className={styles.linksLabel} htmlFor='linkedInUrl'>
-          Linkedin Url
-        </label>
+      <div /* className={styles.inputLabel} */>
+        <label htmlFor='linkedInUrl'>Linkedin Url</label>
         <input
           defaultValue={user.linkedInUrl}
-          className={styles.linksInput}
           onChange={e => setUser(pu => ({...pu, linkedInUrl: e.target.value}))}
           name='linkedInUrl'
           id='linkedInUrl'
         />
       </div>
-      <div className={styles.inputLabel}>
-        <label className={styles.linksLabel} htmlFor='githubUrl'>
-          Github Url
-        </label>
+      <div /* className={styles.inputLabel} */>
+        <label htmlFor='githubUrl'>Github Url</label>
         <input
           defaultValue={user.githubUrl}
-          className={styles.linksInput}
           onChange={e => setUser(pu => ({...pu, githubUrl: e.target.value}))}
           name='githubUrl'
           id='githubUrl'
@@ -134,46 +131,41 @@ function MobileNavBar({setShowLoginModal, logout, editLinks, setEditLinks}) {
 
   return (
     <div className={styles.mobile}>
-      <div
-        className={`${styles.cellElements} ${!dropDownDisplayed && styles.cellElementsTransition}`}
-      >
+      <div className={!dropDownDisplayed && styles.cellElementsTransition}>
         <div style={{display: 'flex', alignItems: 'center'}}>
           {loggedIn && <Edit toggleEdit={handleToggle} />}
           {loadingUser ||
             (!editLinks ? (
               <>
-                <a className={styles.imgLink} href={user.linkedInUrl}>
+                <a /* className={styles.imgLink} */ href={user.linkedInUrl}>
                   <img
-                    className={styles.navImg}
+                    /* className={styles.navImg} */
                     src='./assets/logos/GitHub-Mark-64px.png'
                     alt='AP logo'
                   />
                 </a>
-                <a className={styles.imgLink} href={user.githubUrl}>
-                  <img className={styles.navImg} src='./assets/logos/linkedin.png' alt='AP logo' />
+                <a /* className={styles.imgLink} */ href={user.githubUrl}>
+                  <img
+                    /* className={styles.navImg} */ src='./assets/logos/linkedin.png'
+                    alt='AP logo'
+                  />
                 </a>
               </>
             ) : (
-              <div className={styles.socialInputs}>
-                <div className={styles.inputLabel}>
-                  <label className={styles.linksLabel} htmlFor='linkedInUrl'>
-                    Linkedin Url
-                  </label>
+              <div className={styles.social}>
+                <div /* className={styles.inputLabel} */>
+                  <label htmlFor='linkedInUrl'>Linkedin Url</label>
                   <input
                     defaultValue={user.linkedInUrl}
-                    className={styles.linksInput}
                     onChange={e => setUser(pu => ({...pu, linkedInUrl: e.target.value}))}
                     name='linkedInUrl'
                     id='linkedInUrl'
                   />
                 </div>
-                <div className={styles.inputLabel}>
-                  <label className={styles.linksLabel} htmlFor='githubUrl'>
-                    Github Url
-                  </label>
+                <div /* className={styles.inputLabel} */>
+                  <label htmlFor='githubUrl'>Github Url</label>
                   <input
                     defaultValue={user.githubUrl}
-                    className={styles.linksInput}
                     onChange={e => setUser(pu => ({...pu, githubUrl: e.target.value}))}
                     name='githubUrl'
                     id='githubUrl'

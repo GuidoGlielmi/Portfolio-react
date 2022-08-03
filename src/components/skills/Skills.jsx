@@ -51,10 +51,8 @@ export default function Skills() {
 
 function TypeGroup({title, skills, setSkills}) {
   return (
-    <div className={styles.softAndHard}>
-      <div className={styles.titleContainer}>
-        <p className={`${styles.title} textShadowLight`}>{title}</p>
-      </div>
+    <div className={styles.group}>
+      <h2>{title}</h2>
       <div className={styles.skills}>
         {skills.map(s => (
           <SkillItem skill={s} key={s.id} setSkills={setSkills} />

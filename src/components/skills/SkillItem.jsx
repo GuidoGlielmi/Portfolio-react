@@ -42,7 +42,7 @@ export default function SkillItem({skill, setSkills}) {
         <SkillForm skill={skill} handleSubmit={updateSkill} />
       ) : (
         <div className={styles.skill}>
-          <p className={styles.skillName}>{skill.name}</p>
+          <p>{skill.name}</p>
           <ProgressRing percentage={skill.abilityPercentage} />
         </div>
       )}

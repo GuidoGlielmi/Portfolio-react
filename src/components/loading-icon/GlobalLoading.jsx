@@ -3,7 +3,7 @@ import styles from './GlobalLoading.module.css';
 
 const GlobalLoading = () => (
   <div className={styles.globalLoadingBackground}>
-    <div className={styles.loadingIcon}>
+    <div>
       <LoadingIcon />
     </div>
   </div>

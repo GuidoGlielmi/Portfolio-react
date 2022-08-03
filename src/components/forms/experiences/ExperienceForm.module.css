@@ -4,22 +4,23 @@
   align-items: center;
 }
 
-.experienceInputs {
+.experienceForm > :first-child {
   display: flex;
   flex-wrap: wrap;
 }
-.inputLabel {
+.inputContainer {
   display: flex;
   flex-direction: column;
   width: 46%;
   margin: 2%;
 }
+
 @media (max-width: 650px) {
-  .experienceInputs {
+  .experienceForm > :first-child {
     flex-direction: column;
     flex-wrap: nowrap;
   }
-  .inputLabel {
+  .inputContainer {
     width: unset;
   }
 }

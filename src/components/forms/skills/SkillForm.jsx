@@ -19,42 +19,23 @@ export default function SkillForm({skill = initialSkill, handleSubmit}) {
   }
   return (
     <form onSubmit={onSubmit} className={styles.skillForm}>
-      <div className={styles.skillInputs}>
-        <div className={styles.inputLabel}>
-          <label className={styles.skillLabel} htmlFor='name'>
-            Name
-          </label>
-          <input
-            defaultValue={skill.name}
-            className={styles.skillInput}
-            ref={name}
-            name='name'
-            id='name'
-          />
+      <div>
+        <div>
+          <label htmlFor='name'>Name</label>
+          <input defaultValue={skill.name} ref={name} name='name' id='name' />
         </div>
-        <div className={styles.inputLabel}>
-          <label className={styles.skillLabel} htmlFor='abilityPercentage'>
-            Ability percentage
-          </label>
+        <div>
+          <label htmlFor='abilityPercentage'>Ability percentage</label>
           <input
             defaultValue={skill.abilityPercentage}
-            className={styles.skillInput}
             ref={abilityPercentage}
             name='abilityPercentage'
             id='abilityPercentage'
           />
         </div>
-        <div className={styles.inputLabel}>
-          <label className={styles.skillLabel} htmlFor='type'>
-            Type
-          </label>
-          <input
-            defaultValue={skill.type}
-            className={styles.skillInput}
-            ref={type}
-            name='type'
-            id='type'
-          />
+        <div>
+          <label htmlFor='type'>Type</label>
+          <input defaultValue={skill.type} ref={type} name='type' id='type' />
         </div>
       </div>
       <div>

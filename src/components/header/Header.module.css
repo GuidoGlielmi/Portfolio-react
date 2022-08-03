@@ -18,12 +18,7 @@ header {
   position: relative;
   top: min(52.5vw, 21.25vh); /* (profileImg + fullName)/2 */
 }
-.headerTitleContainer {
-  display: flex;
-  justify-content: center;
-  width: 60%;
-}
-.headerTitle {
+.infoContainer h2 {
   position: relative;
   margin-left: 8%;
   padding-top: 2vh;
@@ -32,7 +27,7 @@ header {
   text-shadow: 0.8px 0.8px rgb(0, 0, 0);
   color: rgb(200, 200, 200);
 }
-.headerTitle::before {
+.infoContainer h2::before {
   content: '';
   position: absolute;
   width: 117%;
@@ -40,7 +35,7 @@ header {
   top: 0;
   border-top: 3px solid rgb(200, 200, 200);
 }
-.userInfo {
+.infoContainer > div {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -54,24 +49,24 @@ header {
   flex-direction: column;
   align-items: center;
 }
-.profileImg {
+.profileImgContainer img {
   height: min(80vw, 30vh);
   margin-top: 15px;
   border-radius: 50%;
   box-shadow: 0 0 5px #08001e;
 }
-.fullName {
+.profileImgContainer h1 {
   line-height: min(15vw, 7vh);
   font-size: x-large;
   font-weight: lighter;
 }
 @media (max-width: 650px) {
-  .headerTitle {
+  .infoContainer h2 {
     margin-bottom: 15px;
     margin-left: 0;
     text-align: center;
   }
-  .headerTitle::before {
+  .infoContainer h2::before {
     width: 78%;
     right: 18%;
   }
@@ -79,7 +74,7 @@ header {
     flex-direction: column;
     align-items: center;
   }
-  .userInfo {
+  .infoContainer > div {
     margin: 0;
   }
 }

@@ -1,25 +1,25 @@
-.CloseAndEditContainer {
+.container {
   display: flex;
   margin: 4px;
 }
-.closeIconContainer,
-.editIcon {
+.container > * {
   margin: 0 5px;
 }
-.closeIconContainer {
-  height: max(2.5vw, 2.5vh);
-  width: max(2.5vw, 2.5vh);
-  min-height: 20px;
-  min-width: 20px;
-  max-width: 50px;
-  max-height: 50px;
+.container > *:hover {
+  transition: all 0.2s ease;
 }
-.editIcon {
+.container > *:hover {
+  opacity: 0.9;
+  transform: scale(1.1);
+}
+.icon {
+  filter: drop-shadow(0 0 1px #bdbdfd);
+  width: 2em;
+  height: 2em;
   cursor: pointer;
-  height: max(2.5vw, 2.5vh);
-  width: max(2.5vw, 2.5vh);
-  min-height: 20px;
-  min-width: 20px;
-  max-width: 50px;
-  max-height: 50px;
+  transition: all 0.1s ease;
+}
+.close {
+  width: 2.25em;
+  height: 2.25em;
 }
