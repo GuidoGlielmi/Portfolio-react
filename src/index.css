@@ -6,6 +6,17 @@
   list-style: none;
   font-family: Raleway, sans-serif;
 }
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+span,
+p {
+  font-size: inherit;
+  font-weight: 400;
+}
 :root {
   --global-primary-color: #ff452b;
   --global-bg-color-soft: #fafafa;
@@ -20,8 +31,8 @@
   --global-secondary-font: Comfortaa;
   --global-primary-font-color: rgb(236, 236, 236);
   --global-secondary-font-color: rgb(19, 19, 19);
-  --global-font-small: 0.75rem;
-  --global-font-medium: 1rem;
+  --global-font-small: 0.5rem;
+  --global-font-medium: 0.75rem;
   --global-font-large: 1.25rem;
   --global-font-doubleSmall: 1.5rem;
   --global-font-doubleMedium: 2rem;
@@ -57,8 +68,8 @@ code {
 
 @media (max-width: 768px) {
   :root {
-    --global-font-small: 0.5rem;
-    --global-font-medium: 0.75rem;
+    --global-font-small: 0.35rem;
+    --global-font-medium: 0.55rem;
     --global-font-large: 1rem;
     --global-font-doubleSmall: 1rem;
     --global-font-doubleMedium: 1.5rem;
@@ -67,8 +78,8 @@ code {
 }
 @media (min-width: 1200px) {
   :root {
-    --global-font-small: 1rem;
-    --global-font-medium: 1.3rem;
+    --global-font-small: 0.75rem;
+    --global-font-medium: 1rem;
     --global-font-large: 1.75rem;
     --global-font-doubleSmall: 2rem;
     --global-font-doubleMedium: 2.6rem;

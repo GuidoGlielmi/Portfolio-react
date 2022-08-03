@@ -35,20 +35,16 @@ export default function Experiences() {
 
   return (
     <section className={styles.experiencesSection}>
-      <div className={styles.titleContainer}>
-        <p /* className={`${styles.title} textShadowLight`} */>My Experiences</p>
-      </div>
-      <div className={styles.experiences}>
-        {loading ||
-          experiences.map(e => (
-            <ExperienceItem key={e.id} experience={e} setExperiences={setExperiences} />
-          ))}
-      </div>
+      <p>My Experiences</p>
+      {loading ||
+        experiences.map(e => (
+          <ExperienceItem key={e.id} experience={e} setExperiences={setExperiences} />
+        ))}
       {showNewForm && <ExperienceForm handleSubmit={addExperience} />}
       {loggedIn && (
-        <div onClick={toggleNewForm} className={styles.addButton}>
+        <span onClick={toggleNewForm} className={styles.addButton}>
           <Button>Add experience</Button>
-        </div>
+        </span>
       )}
     </section>
   );

@@ -9,7 +9,6 @@ export default function useFetch({url = '', method = 'get', body}, initialValue 
   useEffect(() => {
     (async () => {
       try {
-        console.log('Fetching data', url);
         const data = await fetch[method](url, body);
         setData(index !== undefined ? data[index] : data);
       } catch (err) {

@@ -1,4 +1,72 @@
+.projectContainer {
+  font-size: var(--global-font-large);
+}
 .experienceImgContainer {
+  width: max(15vw, 15vh);
+}
+
+.experienceImgContainer * {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.experienceInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15%;
+}
+
+.experienceInfo h3 {
+  padding: 0 5vw 10px 5vw;
+  margin: 0 10px 10px 10px;
+  font-weight: 400;
+  border-bottom: 2px solid rgba(0, 0, 0, 0);
+}
+
+.experienceInfo > :not(h3) {
+  font-size: 0.7em;
+  margin: 3px 0;
+}
+.experienceInfo > a {
+  color: rgb(150, 190, 255);
+  transition: all 0.2s ease;
+}
+.experienceInfo > a:hover {
+  opacity: 0.8;
+}
+@media (max-width: 650px) {
+  .titleContainer {
+    padding-top: 0;
+  }
+}
+
+@media (max-width: 650px) {
+  .experiencesSection > div > * {
+    min-height: 45vh;
+  }
+  .experiencesSection > div > * > * {
+    align-self: center;
+    align-items: center;
+    width: 80%;
+    margin: 0;
+  }
+  .experiencePadding {
+    padding-bottom: 35vh;
+  }
+  .experiencesSection > div > * > * > * > * {
+    flex-direction: column;
+  }
+  .experienceImgContainer {
+    height: max(60vw, 30vh);
+    width: max(60vw, 30vh);
+  }
+  .experiencesSection > div > .experienceInfoContainer {
+    max-width: unset;
+  }
+}
+
+/* .experienceImgContainer {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -13,26 +81,10 @@
 .experienceInfoContainer > * {
   text-align: center;
 }
-.experienceInfoContainer h3 {
-  /*title*/
-  padding: 10px 5vw;
-  margin: 10px;
-  font-weight: 400;
-  font-size: x-large;
-  border-bottom: 2px solid rgb(37, 37, 37);
-  border-image: linear-gradient(to right, rgba(0, 0, 0, 0), #202020 20% 80%, rgba(0, 0, 0, 0)) 0 0
-    1%;
-  text-shadow: 0px 0px 1px #131313;
-}
 
-.experienceInfoContainer > p,
-.experienceInfoContainer > div {
-  font-size: large;
-}
 
-.experienceInfoContainer > div {
-  margin: 10px 0;
-}
+
+
 
 @media (max-width: 650px) {
   .experiencePadding {
@@ -45,7 +97,7 @@
     height: max(60vw, 30vh);
     width: max(60vw, 30vh);
   }
-}
+} */
 
 /* .experienceSectionRight,
 .experienceSectionLeft,

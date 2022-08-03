@@ -4,12 +4,13 @@ footer {
   align-items: center;
   justify-content: center;
   gap: 10%;
-  padding-top: 10vh;
   font-family: var(--global-main-font);
   height: 60vh;
-  background-color: #130c27cc;
+  background: linear-gradient(160deg, rgb(80, 144, 159) -10%, rgba(29, 11, 37, 0.95));
   font-size: var(--global-font-medium);
   color: #eee;
+  border-top: 3.5px solid rgba(0, 0, 0, 0.329);
+  box-shadow: 0 0 20px 11px #00000047;
 }
 
 .linkList {
@@ -25,6 +26,9 @@ footer {
 }
 .linkList *:hover {
   opacity: 0.6;
+}
+footer a {
+  color: inherit;
 }
 @media (max-width: 650px) {
   footer {

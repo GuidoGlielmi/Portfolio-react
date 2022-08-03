@@ -4,21 +4,16 @@
   flex-shrink: 0;
   width: 100%;
 }
-.titleContainer {
-  display: flex;
-  justify-content: flex-end;
-  padding-top: 10vh;
-}
-.titleContainer * {
+.experiencesSection > p {
   position: relative;
   width: 55%;
   margin: 0 30px 30px 0;
   text-align: left;
-  margin-bottom: 20px;
+  margin: 0 2% 20px auto;
   padding-top: 1vh;
   font-size: x-large;
 }
-.titleContainer *::before {
+.experiencesSection > p::before {
   content: '';
   position: absolute;
   width: 97%;
@@ -26,112 +21,46 @@
   top: 0;
   border-top: 2px solid #2a2a2a;
 }
-.experiences {
+
+.experiencesSection > div {
+  /* projectContainer */
   display: flex;
   flex-direction: column;
-}
-.addButton {
-  align-self: center;
-  margin: 20px 0;
+  justify-content: center;
 }
 
-.experiences > * {
-  /* experienceSectionRight and experienceSectionLeft */
-  display: flex;
-  flex-direction: column;
-  min-height: max(45vw, 70vh);
-}
-.experiences > :nth-child(odd) {
-  /* experienceSectionRight */
-  background-image: linear-gradient(
-    185deg,
-    rgba(228, 228, 228, 0.1) 70%,
-    rgba(34, 0, 62, 0.8) 70.2%
-  );
-}
-.experiences > :nth-child(even) {
-  /* experienceSectionLeft */
-  background-image: linear-gradient(175deg, rgba(34, 0, 62, 0.8) 70%, rgba(0, 0, 0, 0) 70.2%);
-}
-
-.experiences > * > * {
-  /* experienceContainerRight and experienceContainerLeft*/
-  position: relative;
-  width: 70%;
-}
-
-.experiences > :nth-child(odd) > * {
-  /* experienceContainerRight */
-  align-self: flex-end;
-  display: flex;
+.experiencesSection > div:nth-child(even) {
+  /* p is first item*/
   justify-content: flex-end;
-  margin-right: 7%;
+  align-items: flex-end;
+  min-height: 50vh;
+}
+.experiencesSection > div:nth-child(odd) {
+  align-items: flex-start;
+  min-height: 100vh;
+  background: rgba(34, 0, 62, 0.8);
+  clip-path: ellipse(115% 50% at 93% 50%);
+  color: whitesmoke;
 }
 
-.experiences > :nth-child(even) > * {
-  /* experienceContainerLeft */
-  align-self: flex-start;
-  display: flex;
-  justify-content: flex-start;
-  margin-left: 7%;
-}
-
-.experiences > * > * > * > * {
-  /* experienceRight and experienceLeft */
+.experiencesSection > div > * {
+  /* project */
   display: flex;
   align-items: center;
-  position: relative;
-}
-.experiences > .experienceInfoContainer {
-  /* experienceInfoContainerRight experienceInfoContainerLeft */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  max-width: 60%;
-}
-.experiences > :nth-child(odd) .experienceInfoContainer {
-  /* experienceInfoContainerRight */
-  color: #2b2b2b;
-  text-shadow: 0px 0px 1px #131313;
-}
-.experiences > :nth-child(even) .experienceInfoContainer {
-  /* experienceInfoContainerLeft */
-  color: #eae4db !important;
-  text-shadow: 0 0 1px #eeeeee;
+  margin: 2vw 6vw;
 }
 
-.experiences > :nth-child(odd) > * > * > * {
-  /* experienceRight */
+.experiencesSection > div:nth-child(even) > * {
   flex-direction: row-reverse;
+  margin-bottom: 5%;
 }
-
-@media (max-width: 650px) {
-  .titleContainer {
-    padding-top: 0;
-  }
+.experiencesSection > div:nth-child(even) h3 {
+  text-shadow: 0px 0px 1px #131313;
+  border-image: linear-gradient(to right, rgba(0, 0, 0, 0), #2b2b2b 20% 80%, rgba(0, 0, 0, 0)) 0 0
+    1%;
 }
-
-@media (max-width: 650px) {
-  .experiences > * {
-    min-height: 45vh;
-  }
-  .experiences > * > * {
-    align-self: center;
-    align-items: center;
-    width: 80%;
-    margin: 0;
-  }
-  .experiencePadding {
-    padding-bottom: 35vh;
-  }
-  .experiences > * > * > * > * {
-    flex-direction: column;
-  }
-  .experienceImgContainer {
-    height: max(60vw, 30vh);
-    width: max(60vw, 30vh);
-  }
-  .experiences > .experienceInfoContainer {
-    max-width: unset;
-  }
+.experiencesSection > div:nth-child(odd) h3 {
+  text-shadow: 0px 0px 1px #dfdfdf;
+  border-image: linear-gradient(to right, rgba(0, 0, 0, 0), #afafaf 20% 80%, rgba(0, 0, 0, 0)) 0 0
+    1%;
 }

@@ -1,4 +1,4 @@
-import {useContext, useEffect, useState} from 'react';
+import {useContext, useEffect, useRef, useState} from 'react';
 import {loginContext} from 'components/contexts/login/LoginContext';
 import {userFeedbackContext} from 'components/contexts/user-feedback/UserFeedbackContext';
 import {userContext} from 'components/contexts/user/UserContext';
@@ -11,7 +11,7 @@ export default function TechItem({tech}) {
   const {loggedIn} = useContext(loginContext);
   const {makeRequest} = useContext(userFeedbackContext);
   const [showForm, setShowForm] = useState(false);
-
+  const techNode = useRef();
   useEffect(() => {
     if (!loggedIn) setShowForm(false);
   }, [loggedIn]);
@@ -36,13 +36,13 @@ export default function TechItem({tech}) {
   }
 
   return (
-    <div className={styles.techContainer}>
+    <div className={styles.techContainer} ref={techNode}>
       <div className={styles.techImageContainer}>
         {loggedIn && (
           <CloseAndEdit toggleEdit={() => setShowForm(ps => !ps)} deleteItem={deleteTech} />
         )}
         {!showForm ? (
-          <img src={tech.techImg} alt={`${tech.techName} logo`} />
+          <img src={tech.techImg} alt={`${tech.techName} logo`} title={tech.name} />
         ) : (
           <TechForm tech={tech} handleSubmit={updateTech} />
         )}

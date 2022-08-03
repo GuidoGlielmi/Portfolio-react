@@ -52,30 +52,19 @@ function DesktopNavBar({setShowLoginModal, logout, editLinks, setEditLinks}) {
 
   return (
     <div className={styles.desktop}>
-      <div /* className={styles.navLeftContainer} */>
-        <div /* className={styles.APLogoContainer} */>
-          <img className={styles.navImg} src='./assets/logos/AP.png' alt='AP logo' />
-        </div>
-      </div>
-      <div /* className={styles.navRightContainer} */>
+      <h2>Guido Glielmi</h2>
+      <div>
         {loggedIn && <Edit toggleEdit={handleToggle} />}
         {loadingUser ||
           (editLinks ? (
             <UserForm />
           ) : (
             <div className={styles.social}>
-              <a /* className={styles.imgLink} */ href={user.linkedInUrl}>
-                <img
-                  /* className={styles.navImg} */
-                  src='./assets/logos/GitHub-Mark-64px.png'
-                  alt='AP logo'
-                />
+              <a href={user.linkedInUrl} target='_blank' rel='noreferrer'>
+                <img src='./assets/logos/GitHub-Mark-64px.png' alt='LinkedIn external link' />
               </a>
-              <a /* className={styles.imgLink} */ href={user.githubUrl}>
-                <img
-                  /* className={styles.navImg} */ src='./assets/logos/linkedin.png'
-                  alt='AP logo'
-                />
+              <a href={user.githubUrl} target='_blank' rel='noreferrer'>
+                <img src='./assets/logos/linkedin.png' alt='Github external link' />
               </a>
             </div>
           ))}
@@ -95,7 +84,7 @@ const UserForm = () => {
 
   return (
     <div className={styles.social}>
-      <div /* className={styles.inputLabel} */>
+      <div>
         <label htmlFor='linkedInUrl'>Linkedin Url</label>
         <input
           defaultValue={user.linkedInUrl}
@@ -104,7 +93,7 @@ const UserForm = () => {
           id='linkedInUrl'
         />
       </div>
-      <div /* className={styles.inputLabel} */>
+      <div>
         <label htmlFor='githubUrl'>Github Url</label>
         <input
           defaultValue={user.githubUrl}
@@ -137,18 +126,11 @@ function MobileNavBar({setShowLoginModal, logout, editLinks, setEditLinks}) {
           {loadingUser ||
             (!editLinks ? (
               <>
-                <a /* className={styles.imgLink} */ href={user.linkedInUrl}>
-                  <img
-                    /* className={styles.navImg} */
-                    src='./assets/logos/GitHub-Mark-64px.png'
-                    alt='AP logo'
-                  />
+                <a href={user.linkedInUrl} target='_blank' rel='noreferrer'>
+                  <img src='./assets/logos/GitHub-Mark-64px.png' alt='LinkedIn external link' />
                 </a>
-                <a /* className={styles.imgLink} */ href={user.githubUrl}>
-                  <img
-                    /* className={styles.navImg} */ src='./assets/logos/linkedin.png'
-                    alt='AP logo'
-                  />
+                <a href={user.githubUrl} target='_blank' rel='noreferrer'>
+                  <img src='./assets/logos/linkedin.png' alt='Github external link' />
                 </a>
               </>
             ) : (

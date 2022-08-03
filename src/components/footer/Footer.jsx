@@ -10,7 +10,9 @@ const Footer = ({sections, setLinkIndex}) => (
         </li>
       ))}
     </ul>
-    <address>guidoglielmi@gmail.com</address>
+    <a href='mailto:guidoglielmi@gmail.com' target='_blank' rel='noreferrer'>
+      <address>guidoglielmi@gmail.com</address>
+    </a>
   </footer>
 );
 export default Footer;

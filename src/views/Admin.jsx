@@ -78,18 +78,16 @@ const SectionLinks = ({index, setIndex}) => (
 
 const Sections = ({sections, index, previousIndex}) => (
   <div className={styles.sectionsContainer}>
-    <div>
-      {sections.map((s, i) => (
-        <CSSTransition
-          key={i}
-          in={index === i}
-          timeout={650}
-          classNames={previousIndex.current > index ? 'next' : 'previous'}
-          unmountOnExit
-        >
-          {s}
-        </CSSTransition>
-      ))}
-    </div>
+    {sections.map((s, i) => (
+      <CSSTransition
+        key={i}
+        in={index === i}
+        timeout={650}
+        classNames={previousIndex.current > index ? 'next' : 'previous'}
+        unmountOnExit
+      >
+        {s}
+      </CSSTransition>
+    ))}
   </div>
 );

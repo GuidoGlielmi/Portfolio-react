@@ -22,10 +22,11 @@
 }
 .techsContainer {
   display: flex;
-  overflow: auto;
+  overflow: scroll;
   scrollbar-width: none;
   scroll-behavior: smooth;
   overscroll-behavior-block: contain;
+  /* scroll-snap-type: x; */
   margin: 0 2vw 5vh 2vw;
   border-left: 2px solid black;
   border-right: 2px solid black;

@@ -7,7 +7,6 @@
 .educationSection > :first-child {
   display: flex;
   justify-content: flex-end;
-  padding-top: 10vh;
 }
 .educationSection > :first-child * {
   /*title*/

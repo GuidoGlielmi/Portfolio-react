@@ -3,7 +3,7 @@
   flex-direction: column;
   flex-shrink: 0;
   width: 100%;
-  padding-top: 10vh;
+  font-size: var(--global-font-medium);
 }
 .projectsSection > p {
   position: relative;
@@ -12,7 +12,7 @@
   text-align: left;
   margin-bottom: 20px;
   padding-top: 1vh;
-  font-size: x-large;
+  font-size: 1.5em;
 }
 .projectsSection > p::before {
   content: '';

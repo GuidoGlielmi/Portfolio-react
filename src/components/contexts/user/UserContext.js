@@ -7,8 +7,6 @@ export const userContext = createContext();
 export default function UserContext({children}) {
   const {makeRequest} = useContext(userFeedbackContext);
 
-  const [loadingTechs, techs, setTechs] = useFetch({url: 'techs'});
-
   const [loadingUser, user, setUser] = useFetch({url: 'users'}, [], 0);
 
   const [loadingEducations, educations, setEducations] = useFetch({url: 'education'});
@@ -18,6 +16,8 @@ export default function UserContext({children}) {
   const [loadingProjects, projects, setProjects] = useFetch({url: 'projects'});
 
   const [loadingSkills, skills, setSkills] = useFetch({url: 'skills'});
+
+  const [loadingTechs, techs, setTechs] = useFetch({url: 'techs'});
 
   const saveUser = useCallback(async () => {
     await makeRequest({url: 'users', body: user, method: 'put'}, 'User modified');

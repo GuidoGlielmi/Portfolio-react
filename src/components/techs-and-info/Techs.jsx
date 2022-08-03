@@ -24,18 +24,14 @@ export default function Techs() {
     const currentValue = techsContainer.current.scrollLeft;
     const maxValue = techsContainer.current.scrollLeftMax;
     const totalWidth = techsContainer.current.scrollWidth;
-    // console.log(scrollUnit, currentValue, maxValue, totalWidth, e.deltaY);
-    // console.log(maxValue - currentValue < scrollUnit);
     if (e.deltaY > 0) {
       if (maxValue - currentValue < scrollUnit) {
-        // console.log(techsContainer.current.scrollLeft);
         techsContainer.current.style['scroll-behavior'] = 'auto';
         techsContainer.current.scrollLeft = currentValue - totalWidth / 2;
         techsContainer.current.style['scroll-behavior'] = 'smooth';
         techsContainer.current.scrollLeft = currentValue - totalWidth / 2 + scrollUnit;
       } else {
         techsContainer.current.scrollLeft = currentValue + scrollUnit;
-        // console.log(techsContainer.current.scrollLeft);
       }
     } else if (currentValue - scrollUnit < scrollUnit) {
       techsContainer.current.style['scroll-behavior'] = 'auto';
@@ -81,8 +77,8 @@ export default function Techs() {
 }
 
 const TechList = ({techs, techImg}) =>
-  techs.map(t => (
-    <div key={t.id} ref={techImg}>
-      <TechItem tech={t} />
+  techs.map((t, i) => (
+    <div key={t.id} ref={techImg} /* style={{scrollSnapAlign: 'start'}} */>
+      <TechItem tech={t} index={i} />
     </div>
   ));

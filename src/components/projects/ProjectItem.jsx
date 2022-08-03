@@ -7,7 +7,7 @@ import styles from './ProjectItem.module.css';
 
 export default function ProjectItem({
   project,
-  project: {id, techs: projectTechs, urls, title, description, projectImg},
+  project: {id, techs: projectTechs, urls, title, description, projectImg, deployUrl},
   setProjects,
 }) {
   const {makeRequest} = useContext(userFeedbackContext);
@@ -49,8 +49,13 @@ export default function ProjectItem({
           <ProjectForm project={project} handleSubmit={updateProject} setProjects={setProjects} />
         ) : (
           <div className={styles.projectInfoContainer}>
-            <h3 /* className={styles.projectTitle} */>{title}</h3>
-            <p /* className={styles.projectDescription} */>{description}</p>
+            <h3>{title}</h3>
+            <p>{description}</p>
+            {deployUrl && (
+              <a href={deployUrl} target='_blank' rel='noreferrer'>
+                {title} live app
+              </a>
+            )}
             <div className={styles.urls}>
               {urls.map(u => (
                 <a
@@ -59,7 +64,7 @@ export default function ProjectItem({
                   rel='noreferrer'
                   key={u.id}
                 >
-                  {u.name}
+                  {`${u.name} Repo`}
                 </a>
               ))}
             </div>
