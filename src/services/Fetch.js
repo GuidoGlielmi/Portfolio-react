@@ -41,7 +41,8 @@ class Fetch {
   }
 }
 // const apiConfig = new ApiConfig('https://yoprogramo-server.herokuapp.com/');
-const apiConfig = new ApiConfig('https://guido-portfolio-server.herokuapp.com/');
-// const apiConfig = new ApiConfig('http://localhost:8080/');
+// const apiConfig = new ApiConfig('https://guido-portfolio-server.herokuapp.com/');
+const apiConfig = new ApiConfig('http://localhost:8080/');
+// "homepage": "https://guidoglielmi.github.io/Portfolio-react",
 
 export default new Fetch(apiConfig);

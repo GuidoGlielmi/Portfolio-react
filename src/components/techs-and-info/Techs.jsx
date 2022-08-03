@@ -22,24 +22,44 @@ export default function Techs() {
   function onWheel(e) {
     const scrollUnit = techImg.current.offsetWidth;
     const currentValue = techsContainer.current.scrollLeft;
-    const maxValue = techsContainer.current.scrollLeftMax;
+    const maxValue = techsContainer.current.scrollWidth - techsContainer.current.clientWidth;
     const totalWidth = techsContainer.current.scrollWidth;
     if (e.deltaY > 0) {
       if (maxValue - currentValue < scrollUnit) {
-        techsContainer.current.style['scroll-behavior'] = 'auto';
-        techsContainer.current.scrollLeft = currentValue - totalWidth / 2;
-        techsContainer.current.style['scroll-behavior'] = 'smooth';
-        techsContainer.current.scrollLeft = currentValue - totalWidth / 2 + scrollUnit;
+        techsContainer.current.scrollTo({
+          left: currentValue - totalWidth / 2,
+          top: 0,
+          behavior: 'instant',
+        });
+        techsContainer.current.scrollTo({
+          left: currentValue - totalWidth / 2 + scrollUnit,
+          top: 0,
+          behavior: 'smooth',
+        });
       } else {
-        techsContainer.current.scrollLeft = currentValue + scrollUnit;
+        techsContainer.current.scrollTo({
+          left: currentValue + scrollUnit,
+          top: 0,
+          behavior: 'smooth',
+        });
       }
     } else if (currentValue - scrollUnit < scrollUnit) {
-      techsContainer.current.style['scroll-behavior'] = 'auto';
-      techsContainer.current.scrollLeft = currentValue - totalWidth / 2;
-      techsContainer.current.style['scroll-behavior'] = 'smooth';
-      techsContainer.current.scrollLeft = totalWidth / 2 + Math.abs(currentValue - scrollUnit);
+      techsContainer.current.scrollTo({
+        left: currentValue - totalWidth / 2,
+        top: 0,
+        behavior: 'instant',
+      });
+      techsContainer.current.scrollTo({
+        left: totalWidth / 2 + Math.abs(currentValue - scrollUnit),
+        top: 0,
+        behavior: 'smooth',
+      });
     } else {
-      techsContainer.current.scrollLeft = currentValue - scrollUnit;
+      techsContainer.current.scrollTo({
+        left: currentValue - scrollUnit,
+        top: 0,
+        behavior: 'smooth',
+      });
     }
   }
 
@@ -78,7 +98,7 @@ export default function Techs() {
 
 const TechList = ({techs, techImg}) =>
   techs.map((t, i) => (
-    <div key={t.id} ref={techImg} /* style={{scrollSnapAlign: 'start'}} */>
+    <div key={t.id} ref={techImg} style={{scrollSnapAlign: 'start'}}>
       <TechItem tech={t} index={i} />
     </div>
   ));

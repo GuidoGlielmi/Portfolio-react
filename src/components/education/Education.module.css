@@ -42,7 +42,6 @@
 .education > :nth-child(even) {
   /* educationContainerRight */
   align-self: flex-end;
-  justify-content: flex-end;
   margin-right: 7%;
 }
 .education > :nth-child(even)::before {

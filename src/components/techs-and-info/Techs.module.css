@@ -20,13 +20,19 @@
   top: 0;
   border-top: 2px solid #2a2a2a;
 }
+.techsContainer::-webkit-scrollbar {
+  display: none;
+}
 .techsContainer {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
   display: flex;
-  overflow: scroll;
+  overflow-x: scroll;
   scrollbar-width: none;
   scroll-behavior: smooth;
-  overscroll-behavior-block: contain;
-  /* scroll-snap-type: x; */
+  overscroll-behavior-x: contain;
+  overscroll-behavior-y: none;
+  scroll-snap-type: x proximity;
   margin: 0 2vw 5vh 2vw;
   border-left: 2px solid black;
   border-right: 2px solid black;

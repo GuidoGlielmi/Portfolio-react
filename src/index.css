@@ -42,9 +42,14 @@ p {
   --global-text-shadow-dark: 0px 0px 3.5px #3a3a3a;
   --global-box-shadow-light: 2px 3px 6px rgb(175, 175, 175);
 }
+html::-webkit-scrollbar {
+  display: none;
+}
 html {
   scroll-behavior: smooth;
   overflow-x: hidden;
+  -ms-overflow-style: none;
+  /* scroll-padding-top: 6vh; */
 }
 body {
   margin: 0;

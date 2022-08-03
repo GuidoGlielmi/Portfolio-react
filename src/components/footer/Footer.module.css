@@ -10,7 +10,7 @@ footer {
   font-size: var(--global-font-medium);
   color: #eee;
   border-top: 3.5px solid rgba(0, 0, 0, 0.329);
-  box-shadow: 0 0 20px 11px #00000047;
+  box-shadow: 0 0 20px 11px #00000028;
 }
 
 .linkList {

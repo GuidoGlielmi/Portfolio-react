@@ -24,9 +24,10 @@ export default function Admin() {
   const section = useRef('');
   const previousIndex = useRef(0);
 
-  useEffect(() => {
+  function scrollIntoView(i) {
     section.current.scrollIntoView();
-  }, [index]);
+    setIndex(i);
+  }
 
   const previousSection = () => setIndex(!index ? sections.length - 1 : index - 1);
   const nextSection = () => setIndex(index === sections.length - 1 ? 0 : index + 1);
@@ -42,11 +43,16 @@ export default function Admin() {
           <Arrow action={previousSection} />
           <Arrow action={nextSection} />
         </div>
-        <div ref={section} className={styles.bottomPart}>
+        <div className={styles.bottomPart}>
           <SectionLinks index={index} setIndex={setIndex} />
-          <Sections sections={sections} index={index} previousIndex={previousIndex} />
+          <Sections
+            sections={sections}
+            section={section}
+            index={index}
+            previousIndex={previousIndex}
+          />
         </div>
-        <Footer sections={sectionsNames} setLinkIndex={setIndex} />
+        <Footer sections={sectionsNames} setLinkIndex={scrollIntoView} />
       </div>
     </>
   );
@@ -76,8 +82,8 @@ const SectionLinks = ({index, setIndex}) => (
   </div>
 );
 
-const Sections = ({sections, index, previousIndex}) => (
-  <div className={styles.sectionsContainer}>
+const Sections = ({sections, index, previousIndex, section}) => (
+  <div ref={section} className={styles.sectionsContainer}>
     {sections.map((s, i) => (
       <CSSTransition
         key={i}
