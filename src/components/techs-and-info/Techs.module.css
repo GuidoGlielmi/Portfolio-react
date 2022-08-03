@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
 }
-.techsTitle {
+.techsSection > h3 {
   align-self: flex-end;
   position: relative;
   width: 55%;
@@ -12,7 +12,7 @@
   padding-top: 1vh;
   font-size: x-large;
 }
-.techsTitle::before {
+.techsSection > h3::before {
   content: '';
   position: absolute;
   width: 97%;
@@ -22,36 +22,16 @@
 }
 .techsContainer {
   display: flex;
-  overflow: auto;
+  overflow: scroll;
   scrollbar-width: none;
   scroll-behavior: smooth;
   overscroll-behavior-block: contain;
+  /* scroll-snap-type: x; */
   margin: 0 2vw 5vh 2vw;
   border-left: 2px solid black;
   border-right: 2px solid black;
 }
-
-.techContainer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-shrink: 0;
-  height: 100%;
-}
-.techImageContainer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  flex-shrink: 0;
-  margin: 1vw;
-  padding: max(3vw, 4vh);
-  border-radius: 50%;
-  box-shadow: 0 0 5px #08001e;
-}
-.techImg {
-  height: 8.55vw;
-}
-.extraTechs {
+.techsContainer > div:last-child {
   display: flex;
 }
 .addButton {
@@ -59,10 +39,10 @@
   margin: 20px 0;
 }
 @media (max-width: 650px) {
-  .techsTitle {
+  .techsSection > h3 {
     width: 75%;
   }
-  .extraTechs {
+  .techsContainer > div:last-child {
     display: none;
   }
 }

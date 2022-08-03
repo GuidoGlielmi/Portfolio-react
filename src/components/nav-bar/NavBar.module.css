@@ -2,34 +2,38 @@ nav {
   display: flex;
   flex-direction: column;
   position: fixed;
+  top: 0;
   width: 100%;
-  z-index: 2;
+  padding: 2vh 0;
+  z-index: 100;
   box-shadow: 0 -10px 20px 1px #363636;
-  background: rgb(97, 67, 121);
+  background: linear-gradient(175deg, rgb(141, 190, 201), rgb(61, 129, 145));
+  border-radius: 0 0 15px 15px;
+  font-size: var(--global-font-medium);
+  font-family: var(--global-secondary-font);
 }
 .desktop {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 0 1vw;
 }
-.navLeftContainer,
-.navRightContainer {
+.desktop > * {
   display: flex;
   align-items: center;
 }
-.APLogoContainer {
-  min-height: 40px;
-  height: 10vh;
-  margin-right: 2vh;
-  flex-shrink: 0;
+.desktop > :first-child {
+  text-shadow: 0.5px 0.5px 3px #131a23;
+  font-size: 1.3em;
+  color: #eaeaea;
 }
-.imgLink {
+nav a {
   display: flex;
   align-items: center;
   height: 6vh;
   margin: 2vh;
 }
-.navImg {
+nav img {
   max-height: 100%;
   max-width: 100%;
   min-width: 20px;
@@ -38,7 +42,7 @@ nav {
   display: flex;
   align-items: center;
 }
-.socialInputs {
+.mobileInputs {
   display: flex;
   align-items: center;
 }
@@ -50,43 +54,56 @@ nav {
   flex-direction: column;
   align-items: center;
 }
-.linksInputs {
-  display: flex;
-  flex-wrap: wrap;
-}
-.inputLabel {
+
+.social > * {
+  /*inputLabel*/
   display: flex;
   flex-direction: column;
   margin: 0 5px;
 }
-.cellphone {
+
+.modalBackground {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  z-index: 2;
+  opacity: 1;
+  background: rgba(0, 0, 0, 0.4);
+  transition: opacity 0.5s ease, z-index 0.5s ease;
+}
+.modalBackgroundFade {
+  z-index: -1;
+  opacity: 0;
+}
+
+.mobile {
   display: none;
 }
+
 @media (max-width: 650px) {
-  .navRightContainer {
+  .desktop {
     display: none;
   }
-  .cellphone {
+  .mobile {
     display: flex;
     flex-direction: column;
     align-items: center;
   }
-  .cellElements {
+  .mobile > :first-child {
     display: flex;
     flex-direction: column;
     align-items: center;
     height: 15vh;
     transition: height 200ms ease, transform 200ms ease;
   }
-  .desktop {
-    justify-content: center;
-    align-items: stretch;
-  }
   .cellElementsTransition {
     transform: scaleY(0);
     height: 0;
   }
-  .socialInputs {
+  .mobileInputs {
     flex-direction: column;
   }
 }

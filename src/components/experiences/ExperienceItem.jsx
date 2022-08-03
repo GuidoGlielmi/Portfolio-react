@@ -1,86 +1,67 @@
-import { InfoContext } from 'App';
+import {useContext, useState} from 'react';
+import {loginContext} from 'components/contexts/login/LoginContext';
+import {userFeedbackContext} from 'components/contexts/user-feedback/UserFeedbackContext';
 import CloseAndEdit from 'components/close-icon/CloseAndEdit';
 import ExperienceForm from 'components/forms/experiences/ExperienceForm';
-import React, { useContext, useEffect, useState } from 'react';
-import { adminApi } from 'index';
 import styles from './ExperienceItem.module.css';
 
-export default function ExperienceItem({ e, i, isLastItem }) {
-  const loggedIn = useContext(InfoContext).loggedIn;
-  const experiences = useContext(InfoContext).experiences;
-  const setExperiences = useContext(InfoContext).setExperiences;
-
+export default function ExperienceItem({experience, setExperiences}) {
+  const {loggedIn} = useContext(loginContext);
+  const {makeRequest} = useContext(userFeedbackContext);
   const [showForm, setShowForm] = useState(false);
 
-  useEffect(() => !loggedIn && setShowForm(false), [loggedIn]);
+  if (!loggedIn && showForm) setShowForm(false);
+
   async function deleteExperience() {
-    await adminApi.delete(`/experiences/${e.id}`);
-    experiences.splice(i, 1);
-    setExperiences([...experiences]);
+    try {
+      await makeRequest(
+        {url: `experiences/${experience.id}`, method: 'delete'},
+        'Experience deleted',
+      );
+      setExperiences(pe => pe.filter(({id}) => id !== experience.id));
+    } catch (err) {
+      console.log(err);
+    }
   }
-  return i % 2 === 0 ? (
-    <div className={!isLastItem ? styles.experienceSectionRight : styles.lastSection}>
-      <div className={styles.experienceContainerRight}>
-        <div className={styles.experiencePadding}>
-          <div className={styles.experienceRight}>
-            {loggedIn && (
-              <CloseAndEdit
-                toggleEdit={() => setShowForm(!showForm)}
-                deleteItem={deleteExperience}
-              />
-            )}
-            <div className={styles.experienceImgContainer}>
-              <img className={styles.experienceImg} src={e.experienceImg} alt={`${e.title} logo`} />
-            </div>
-            {!showForm ? (
-              <div className={styles.experienceInfoContainerRight}>
-                <h3 className={styles.experienceTitle}>{e.title}</h3>
-                <div className={styles.dates}>
-                  <span>{e.startDate} - </span>
-                  <span>{e.endDate}</span>
-                </div>
-                <p className={styles.experienceDescription}>{e.description}</p>
-                {e.certificate && (
-                  <a href={e.certificate} target='_blank' rel='noreferrer'>
-                    Certificate
-                  </a>
-                )}
-              </div>
-            ) : (
-              <ExperienceForm e={e} i={i} hideForm={() => setShowForm(!showForm)} />
+
+  async function updateExperience(newExperience) {
+    try {
+      await makeRequest(
+        {url: 'experiences', body: newExperience, method: 'put'},
+        'Experience modified',
+      );
+      setExperiences(pe => pe.map(e => (e.id === newExperience.id ? newExperience : e)));
+      setShowForm(false);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  return (
+    <div className={styles.projectContainer}>
+      {loggedIn && (
+        <CloseAndEdit toggleEdit={() => setShowForm(ps => !ps)} deleteItem={deleteExperience} />
+      )}
+      <div>
+        <div className={styles.experienceImgContainer}>
+          <img src={experience.experienceImg} alt={`${experience.title} logo`} />
+        </div>
+        {!showForm ? (
+          <div className={styles.experienceInfo}>
+            <h3>{experience.title}</h3>
+            <span>
+              {experience.startDate} - {experience.endDate}
+            </span>
+            <p>{experience.description}</p>
+            {experience.certificate && (
+              <a href={experience.certificate} target='_blank' rel='noreferrer'>
+                Certificate
+              </a>
             )}
           </div>
-        </div>
-      </div>
-    </div>
-  ) : (
-    <div className={!isLastItem ? styles.experienceSectionLeft : styles.lastSection}>
-      <div className={styles.experienceContainerLeft}>
-        <div className={styles.experiencePadding}>
-          <div className={styles.experienceLeft}>
-            {loggedIn && <CloseAndEdit toggleEdit={() => setShowForm(!showForm)} />}
-            <div className={styles.experienceImgContainer}>
-              <img className={styles.experienceImg} src={e.experienceImg} alt={`${e.title} logo`} />
-            </div>
-            {!showForm ? (
-              <div className={styles.experienceInfoContainerLeft}>
-                <h3 className={styles.experienceTitle}>{e.title}</h3>
-                <div className={styles.dates}>
-                  <span>{e.startDate} - </span>
-                  <span>{e.endDate}</span>
-                </div>
-                <p className={styles.experienceDescription}>{e.description}</p>
-                {e.certificate && (
-                  <a href={e.certificate} target='_blank' rel='noreferrer'>
-                    Certificate
-                  </a>
-                )}
-              </div>
-            ) : (
-              <ExperienceForm e={e} i={i} hideForm={() => setShowForm(!showForm)} />
-            )}
-          </div>
-        </div>
+        ) : (
+          <ExperienceForm experience={experience} handleSubmit={updateExperience} />
+        )}
       </div>
     </div>
   );

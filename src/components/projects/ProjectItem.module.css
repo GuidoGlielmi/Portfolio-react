@@ -1,48 +1,3 @@
-.projectContainer {
-  position: relative;
-  width: 70%;
-  padding-bottom: 30px;
-  margin: 10vh 0;
-}
-.projectContainerRight {
-  align-self: flex-end;
-  display: flex;
-  justify-content: flex-end;
-  margin-right: 7%;
-}
-.projectContainerLeft {
-  align-self: flex-start;
-  display: flex;
-  justify-content: flex-start;
-  margin-left: 7%;
-}
-.projectContainerRight::before {
-  content: '';
-  position: absolute;
-  right: 2vw;
-  bottom: 0;
-  width: 100%;
-  border-bottom: 2px solid #363636;
-  border-image: linear-gradient(to left, #202020, rgba(0, 0, 0, 0)) 0 0 1%;
-}
-.projectContainerLeft::before {
-  content: '';
-  position: absolute;
-  left: 2vw;
-  bottom: 0;
-  width: 100%;
-  border-bottom: 2px solid #363636;
-  border-image: linear-gradient(to right, #202020, rgba(0, 0, 0, 0)) 0 0 1%;
-}
-.projectRight,
-.projectLeft {
-  display: flex;
-  align-items: center;
-  position: relative;
-}
-.projectRight {
-  flex-direction: row-reverse;
-}
 .projectImgContainer {
   display: flex;
   align-items: center;
@@ -51,7 +6,7 @@
   height: max(15vw, 15vh);
   margin: 0 3vw;
 }
-.projectImg {
+.projectImgContainer img {
   max-width: 100%;
   max-height: 100%;
   border-radius: 50%;
@@ -60,24 +15,28 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 5px;
   max-width: 60%;
 }
-.projectTitle,
-.projectDescription {
+.projectInfoContainer * {
   text-align: center;
 }
-.projectTitle {
+.projectInfoContainer > h3 {
   padding: 10px 5vw;
   margin: 10px;
   font-weight: 400;
-  font-size: x-large;
+  font-size: 1.5em;
   border-bottom: 2px solid rgb(37, 37, 37);
   border-image: linear-gradient(to right, rgba(0, 0, 0, 0), #202020 20% 80%, rgba(0, 0, 0, 0)) 0 0
     1%;
   text-shadow: 0px 0px 1px #131313;
 }
-.projectDescription {
-  font-size: large;
+.projectInfoContainer > p,
+.projectInfoContainer > a:first-of-type {
+  font-size: 1.2em;
+}
+.projectInfoContainer > a:first-of-type {
+  text-shadow: 0px 0px 1px #464646;
 }
 .urls {
   display: flex;
@@ -85,7 +44,7 @@
   align-items: center;
   margin: 5px 0;
 }
-.url {
+.projectInfoContainer a {
   display: inline-block;
   position: relative;
   margin: 3px 0;
@@ -93,15 +52,14 @@
   right: 0;
   color: #1870f0;
 }
-.url:hover {
+.projectInfoContainer a:hover {
   margin: 7px 0;
   color: rgb(214, 0, 0);
 }
 .techs {
   text-align: center;
 }
-/* .tech {
-} */
+
 @media (max-width: 650px) {
   .projectContainer {
     width: 85%;

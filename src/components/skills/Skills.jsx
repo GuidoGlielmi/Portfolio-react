@@ -1,47 +1,63 @@
-import React, { useContext, useEffect, useState } from 'react';
-import SkillItem from './SkillItem';
-import { InfoContext } from 'App';
-import styles from './Skills.module.css';
+import {useContext, useEffect, useState} from 'react';
+import {loginContext} from 'components/contexts/login/LoginContext';
+import {userFeedbackContext} from 'components/contexts/user-feedback/UserFeedbackContext';
+import {userContext} from 'components/contexts/user/UserContext';
 import SkillForm from 'components/forms/skills/SkillForm';
 import Button from 'components/button/Button';
-import LoadingIcon from 'components/loading-icon/LoadingIcon';
+import SkillItem from './SkillItem';
+import styles from './Skills.module.css';
+
 export default function Skills() {
-  const skills = useContext(InfoContext).skills;
+  const {makeRequest} = useContext(userFeedbackContext);
+  const {loggedIn} = useContext(loginContext);
+  const {loadingSkills: loading, skills, setSkills} = useContext(userContext);
   const [showNewForm, setShowNewForm] = useState(false);
-  const loggedIn = useContext(InfoContext).loggedIn;
+
+  const groups = skills?.reduce(
+    (p, c) => ({...p, [c.type]: p[c.type] ? [...p[c.type], c] : [c]}),
+    {},
+  );
+
   useEffect(() => !loggedIn && setShowNewForm(false), [loggedIn]);
+
+  async function addSkill(newSkill) {
+    try {
+      await makeRequest(
+        {url: 'skills', body: newSkill, method: 'post'},
+        'Skill added successfully',
+      );
+      setSkills(ps => [...ps, newSkill]);
+      setShowNewForm(false);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   return (
     <section className={styles.skillsSection}>
-      <div className={styles.softAndHard}>
-        <div className={styles.titleContainer}>
-          <p className={`${styles.title} textShadowLight`}>Soft and Hard Skills</p>
-        </div>
-        {skills ? (
-          <div className={styles.skills}>
-            {skills.map((s, i) => s.type === 'HardAndSoft' && <SkillItem s={s} i={i} key={s.id} />)}
-          </div>
-        ) : (
-          <LoadingIcon />
-        )}
-      </div>
-      <div className={styles.languages}>
-        <div className={styles.titleContainer}>
-          <p className={`${styles.title} textShadowSemiDark`}>Languages</p>
-        </div>
-        {skills ? (
-          <div className={styles.skills}>
-            {skills.map((s, i) => s.type === 'language' && <SkillItem s={s} i={i} key={s.id} />)}
-          </div>
-        ) : (
-          <LoadingIcon />
-        )}
-      </div>
-      {showNewForm && <SkillForm />}
+      {loading ||
+        Object.entries(groups).map(([title, skills]) => (
+          <TypeGroup title={title} skills={skills} setSkills={setSkills} key={title} />
+        ))}
+      {showNewForm && <SkillForm handleSubmit={addSkill} />}
       {loggedIn && (
         <div onClick={() => setShowNewForm(!showNewForm)} className={styles.addButton}>
           <Button>Add skill</Button>
         </div>
       )}
     </section>
+  );
+}
+
+function TypeGroup({title, skills, setSkills}) {
+  return (
+    <div className={styles.group}>
+      <h2>{title}</h2>
+      <div className={styles.skills}>
+        {skills.map(s => (
+          <SkillItem skill={s} key={s.id} setSkills={setSkills} />
+        ))}
+      </div>
+    </div>
   );
 }

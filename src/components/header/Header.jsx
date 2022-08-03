@@ -1,40 +1,58 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { InfoContext } from 'App';
-import styles from './Header.module.css';
+import {useContext, useEffect, useRef, useState} from 'react';
+import {loginContext} from 'components/contexts/login/LoginContext';
+import {userContext} from 'components/contexts/user/UserContext';
 import CloseAndEdit from 'components/close-icon/CloseAndEdit';
 import UserForm from 'components/forms/user/UserForm';
-import LoadingIcon from 'components/loading-icon/LoadingIcon';
-export default function Header({ user, i }) {
-  const [editUserInfo, setEditUserInfo] = useState(false);
+import styles from './Header.module.css';
 
-  const loggedIn = useContext(InfoContext).loggedIn;
+export default function Header() {
+  const {loadingUser, user, saveUser} = useContext(userContext);
+  const {loggedIn} = useContext(loginContext);
+
+  const [editUserInfo, setEditUserInfo] = useState(false);
+  const firstName = useRef(user.firstName);
+  const lastName = useRef(user.lastName);
+  const profileImg = useRef(user.profileImg);
 
   useEffect(() => !loggedIn && setEditUserInfo(false), [loggedIn]);
+
+  async function handleToggle() {
+    try {
+      if (editUserInfo) {
+        await saveUser({
+          firstName: firstName.current.value,
+          lastName: lastName.current.value,
+          profileImg: profileImg.current.value,
+        });
+      }
+      setEditUserInfo(ps => !ps);
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
   return (
     <header>
       <div className={styles.infoAndTitle}>
-        {user ? (
+        {loadingUser || (
           <div className={styles.infoContainer}>
-            <h2 className={styles.headerTitle}>Welcome to my personal page!</h2>
-            <div className={styles.userInfo}>
-              {loggedIn && <CloseAndEdit toggleEdit={() => setEditUserInfo(!editUserInfo)} />}
+            <h2 /* className={styles.headerTitle} */>Welcome to my personal page!</h2>
+            <div /* className={styles.userInfo} */>
+              {loggedIn && <CloseAndEdit toggleEdit={handleToggle} />}
               <div className={styles.profileImgContainer}>
-                {!editUserInfo ? (
+                {editUserInfo ? (
+                  <UserForm firstName={firstName} lastName={lastName} profileImg={profileImg} />
+                ) : (
                   <>
-                    <img className={styles.profileImg} src={user.profileImg} alt='profile' />
-                    <h1 className={`${`${styles.fullName} textShadowLight`} darkFont`}>
-                      {user.firstName + ' ' + user.lastName}
+                    <img /* className={styles.profileImg} */ src={user.profileImg} alt='profile' />
+                    <h1 /* className={`${`${styles.fullName} textShadowLight`} darkFont`} */>
+                      {`${user.firstName} ${user.lastName}`}
                     </h1>
                   </>
-                ) : (
-                  <UserForm u={user} i={i} />
                 )}
               </div>
             </div>
           </div>
-        ) : (
-          <LoadingIcon />
         )}
       </div>
     </header>

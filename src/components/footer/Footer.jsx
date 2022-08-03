@@ -1,22 +1,18 @@
+/* eslint-disable react/no-array-index-key */
 import styles from './Footer.module.css';
 
-export default function Footer({ sections, setLinkIndex, scrollToSection }) {
-  return (
-    <footer>
-      <ul className={styles.linkList}>
-        {sections.map((s, i) => (
-          <li
-            onClick={() => {
-              setLinkIndex(i);
-              scrollToSection();
-            }}
-            key={i}
-            className={styles.link}
-          >
-            {s}
-          </li>
-        ))}
-      </ul>
-    </footer>
-  );
-}
+const Footer = ({sections, setLinkIndex}) => (
+  <footer>
+    <ul className={styles.linkList}>
+      {sections.map((s, i) => (
+        <li onClick={() => setLinkIndex(i)} key={s} /* className={styles.link} */>
+          {s}
+        </li>
+      ))}
+    </ul>
+    <a href='mailto:guidoglielmi@gmail.com' target='_blank' rel='noreferrer'>
+      <address>guidoglielmi@gmail.com</address>
+    </a>
+  </footer>
+);
+export default Footer;

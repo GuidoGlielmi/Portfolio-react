@@ -4,21 +4,16 @@
   flex-shrink: 0;
   width: 100%;
 }
-.titleContainer {
-  display: flex;
-  justify-content: flex-end;
-  padding-top: 10vh;
-}
-.title {
+.experiencesSection > p {
   position: relative;
   width: 55%;
   margin: 0 30px 30px 0;
   text-align: left;
-  margin-bottom: 20px;
+  margin: 0 2% 20px auto;
   padding-top: 1vh;
   font-size: x-large;
 }
-.title::before {
+.experiencesSection > p::before {
   content: '';
   position: absolute;
   width: 97%;
@@ -26,16 +21,46 @@
   top: 0;
   border-top: 2px solid #2a2a2a;
 }
-.experiences {
+
+.experiencesSection > div {
+  /* projectContainer */
   display: flex;
   flex-direction: column;
+  justify-content: center;
 }
-.addButton {
-  align-self: center;
-  margin: 20px 0;
+
+.experiencesSection > div:nth-child(even) {
+  /* p is first item*/
+  justify-content: flex-end;
+  align-items: flex-end;
+  min-height: 50vh;
 }
-@media (max-width: 650px) {
-  .titleContainer {
-    padding-top: 0;
-  }
+.experiencesSection > div:nth-child(odd) {
+  align-items: flex-start;
+  min-height: 100vh;
+  background: rgba(34, 0, 62, 0.8);
+  clip-path: ellipse(115% 50% at 93% 50%);
+  color: whitesmoke;
+}
+
+.experiencesSection > div > * {
+  /* project */
+  display: flex;
+  align-items: center;
+  margin: 2vw 6vw;
+}
+
+.experiencesSection > div:nth-child(even) > * {
+  flex-direction: row-reverse;
+  margin-bottom: 5%;
+}
+.experiencesSection > div:nth-child(even) h3 {
+  text-shadow: 0px 0px 1px #131313;
+  border-image: linear-gradient(to right, rgba(0, 0, 0, 0), #2b2b2b 20% 80%, rgba(0, 0, 0, 0)) 0 0
+    1%;
+}
+.experiencesSection > div:nth-child(odd) h3 {
+  text-shadow: 0px 0px 1px #dfdfdf;
+  border-image: linear-gradient(to right, rgba(0, 0, 0, 0), #afafaf 20% 80%, rgba(0, 0, 0, 0)) 0 0
+    1%;
 }

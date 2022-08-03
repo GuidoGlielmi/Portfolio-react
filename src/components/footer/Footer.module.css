@@ -1,25 +1,34 @@
 footer {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 70vh;
-  background-color: #130c27cc;
+  gap: 10%;
+  font-family: var(--global-main-font);
+  height: 60vh;
+  background: linear-gradient(160deg, rgb(80, 144, 159) -10%, rgba(29, 11, 37, 0.95));
+  font-size: var(--global-font-medium);
+  color: #eee;
+  border-top: 3.5px solid rgba(0, 0, 0, 0.329);
+  box-shadow: 0 0 20px 11px #00000047;
 }
+
 .linkList {
   display: flex;
   text-align: center;
 }
-.link {
+.linkList * {
   margin: max(2vw, 10px);
-  font-size: large;
-  color: #eee;
   text-shadow: 0px 0px 1px #eeeeee;
   cursor: pointer;
   transition: opacity 0.1s ease;
   opacity: 1;
 }
-.link:hover {
+.linkList *:hover {
   opacity: 0.6;
+}
+footer a {
+  color: inherit;
 }
 @media (max-width: 650px) {
   footer {

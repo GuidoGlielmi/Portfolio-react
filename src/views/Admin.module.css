@@ -1,19 +1,3 @@
-.modalBackground {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: fixed;
-  width: 100%;
-  height: 100vh;
-  z-index: 2;
-  opacity: 1;
-  background: rgba(0, 0, 0, 0.4);
-  transition: opacity 0.5s ease, z-index 0.5s ease;
-}
-.modalBackgroundFade {
-  z-index: -1;
-  opacity: 0;
-}
 .responseMsgContainer,
 .responseMsgErrorContainer {
   display: flex;
@@ -45,44 +29,79 @@
   color: #0e0e0e;
   border: none;
 }
+.main {
+  position: relative;
+}
 .bottomPart {
-  background-image: linear-gradient(rgba(81, 59, 82, 0.1), 75%, rgba(19, 12, 39, 0.8));
+  background-image: linear-gradient(rgba(44, 33, 45, 0.17), 90%, rgba(44, 33, 45, 0.51));
 }
 .sectionLinks {
   display: flex;
   justify-content: space-around;
   width: 62%;
-  padding: 0 20px;
+  box-shadow: 0px 0px 14px -6px #999 inset;
+  border-radius: 0 0 40px 0;
+  font-size: var(--global-font-small);
+  border-bottom: 1px #3d4e4f44 solid;
 }
 
-.sectionLink {
-  line-height: 70px;
-  transform: scale(1);
-  transition: transform 0.2s ease, color 0.2s ease, text-shadow 0.2s ease;
+.sectionLinks > * {
+  line-height: 60px;
   cursor: pointer;
   flex-grow: 1;
   text-align: center;
-  border: none;
+  border-radius: 0 0 40px 0;
+  font-size: 1.2em;
+  transition: all 0.2s ease;
 }
-.sectionLink:hover {
-  transform: scale(1.02);
+.sectionLinks > *:hover {
+  font-size: 1.25em;
   color: rgb(59, 20, 75);
   text-shadow: 0 0 0.5px rgb(59, 20, 75);
+  box-shadow: -7px 0px 14px -12px #999 inset;
 }
 .clickedSectionLink {
-  border-bottom: 1.5px solid black;
+  border-right: 2px solid rgb(48, 54, 62);
+  box-shadow: -12px -4px 14px -17px #6c868c inset;
 }
 .sectionsContainer {
   display: flex;
-  padding: 15vh 0;
+  padding: 22vh 0;
 }
-.section {
+/* .sectionsContainer > div {
   display: flex;
   width: 100%;
   position: relative;
   overflow-x: hidden;
+} */
+
+.main > :first-child > * {
+  /* previousArrowContainer nextArrowContainer */
+  position: absolute;
+  height: 100%;
+  z-index: 2;
 }
-.previousArrowContainer,
+.main > :first-child > :nth-child(even) {
+  /* nextArrowContainer*/
+  right: 0;
+}
+.main > :first-child > * > * {
+  /* nextArrow previousArrow*/
+  position: sticky;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 50%;
+  cursor: pointer;
+  transform: scale(1);
+  transition: transform 200ms ease;
+}
+.main > :first-child > :nth-child(odd) > * {
+  /* previousArrow*/
+  transform: rotate(180deg);
+}
+
+/* .previousArrowContainer,
 .nextArrowContainer {
   position: absolute;
   height: 100%;
@@ -90,7 +109,7 @@
 }
 .nextArrowContainer {
   right: 0;
-}
+} 
 .nextArrow,
 .previousArrow {
   position: sticky;
@@ -104,18 +123,17 @@
 }
 .flip {
   transform: rotate(180deg);
-}
+}*/
 @media (max-width: 650px) {
   .bottomPart {
     padding-top: min(50vw, 17.5vh);
   }
-  .sectionLinks {
+  .sectionLinks > *ionLinks {
     flex-direction: column;
     margin: auto;
     width: 50%;
   }
-  .previousArrowContainer,
-  .nextArrowContainer {
+  .main > :first-child > * {
     display: none;
   }
 }

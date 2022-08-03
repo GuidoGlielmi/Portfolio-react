@@ -1,125 +1,64 @@
-import { InfoContext } from 'App';
+import {userFeedbackContext} from 'components/contexts/user-feedback/UserFeedbackContext';
+import {userContext} from 'components/contexts/user/UserContext';
 import Button from 'components/button/Button';
 import CloseIcon from 'components/close-icon/CloseIcon';
-import { adminApi } from 'index';
-import React, { useContext, useRef, useState } from 'react';
+import {useContext, useRef, useState} from 'react';
 import styles from './ProjectForm.module.css';
 
-export default function ProjectForm({
-  p = { title: '', description: '', projectImg: '', techs: [], urls: [] },
-  i,
-  hideForm,
-}) {
-  const projects = useContext(InfoContext).projects;
-  const setProjects = useContext(InfoContext).setProjects;
-  const techs = useContext(InfoContext).techs;
+const initialProject = {title: '', description: '', projectImg: '', techs: [], urls: []};
+export default function ProjectForm({project = initialProject, handleSubmit}) {
+  const [urls, setUrls] = useState(project.urls);
+  const [techs, setTechs] = useState(project.techs);
+  const title = useRef(project.title);
+  const description = useRef(project.description);
+  const projectImg = useRef(project.projectImg);
 
-  const remainingTechs = [];
-
-  const title = useRef(p.title);
-  const description = useRef(p.description);
-  const projectImg = useRef(p.projectImg);
-  const newUrl = useRef('');
-  const newUrlName = useRef('');
-  const selectedTech = useRef('');
-
-  const [showNewUrl, setShowNewUrl] = useState(false);
-
-  for (const tech of techs) {
-    if (!p.techs.find((pt) => tech.id === pt.id)) {
-      remainingTechs.push(tech);
-    }
-  }
-  async function submitHandler(event) {
-    event.preventDefault();
-    const newProject = {
-      ...p,
+  function onSubmit(e) {
+    e.preventDefault();
+    handleSubmit({
+      ...project,
       title: title.current.value,
       description: description.current.value,
       projectImg: projectImg.current.value,
-    };
-    if (!!p.id) {
-      await adminApi.put('/projects', newProject);
-      projects[i] = newProject;
-      hideForm();
-    } else {
-      const generatedId = await adminApi.post('/projects', newProject);
-      newProject.id = generatedId;
-      projects.push(newProject);
-      projects.sort((a, b) => a.title > b.title);
-      title.current.value = '';
-      description.current.value = '';
-      projectImg.current.value = '';
-    }
-    setProjects([...projects]);
+      urls,
+      techs,
+    });
   }
-  function addTech(i) {
-    /* remainingTechs.forEach((rt, i) => {
-      if (rt.id === selectedTech.current.value) {
-        p.techs.push(rt);
-        p.techs.sort((a, b) => a.name > b.name);
-        remainingTechs.splice(i, 1);
-      }
-    }); */
-    p.techs.push(remainingTechs[i]);
-    p.techs.sort((a, b) => a.name > b.name);
-    selectedTech.current.value = 'default';
-    setProjects([...projects]);
-  }
-  function removeTech(i) {
-    p.techs.splice(i, 1);
-    setProjects([...projects]);
-  }
-  function addUrl() {
-    const newUrlItem = {
-      url: newUrl.current.value,
-      name: newUrlName.current.value,
-    };
-    p.urls.push(newUrlItem);
-    p.urls.sort((a, b) => a.name > b.name);
-    setShowNewUrl(false);
-    newUrl.current.value = '';
-    newUrlName.current.value = '';
-    setProjects([...projects]);
-  }
-  function removeUrl(i) {
-    p.urls.splice(i, 1);
-    setProjects([...projects]);
-  }
+
   return (
-    <form onSubmit={submitHandler} className={styles.projectForm}>
-      <div className={styles.projectInputs}>
-        <div className={styles.singleElements}>
-          <div className={styles.inputLabel}>
+    <form onSubmit={onSubmit} className={styles.projectForm}>
+      <div /* className={styles.projectInputs} */>
+        <div /* className={styles.singleElements} */>
+          <div className={styles.inputContainer}>
             <label className={styles.projectLabel} htmlFor='title'>
               Title
             </label>
             <input
-              defaultValue={p.title}
+              defaultValue={project.title}
               className={styles.projectInput}
               ref={title}
               name='title'
               id='title'
             />
           </div>
-          <div className={styles.inputLabel}>
+          <div className={styles.inputContainer}>
             <label className={styles.projectLabel} htmlFor='description'>
               Description
             </label>
             <input
-              defaultValue={p.description}
+              defaultValue={project.description}
               className={styles.projectInput}
               ref={description}
               name='description'
               id='description'
             />
           </div>
-          <div className={styles.inputLabel}>
+          <div className={styles.inputContainer}>
             <label className={styles.projectLabel} htmlFor='projectImg'>
               Project image path
             </label>
             <input
-              defaultValue={p.projectImg}
+              defaultValue={project.projectImg}
               className={styles.projectInput}
               ref={projectImg}
               name='projectImg'
@@ -127,101 +66,239 @@ export default function ProjectForm({
             />
           </div>
         </div>
-        <div className={styles.urlsSection}>
-          <p className={styles.projectLabel}>Urls</p>
-          <div className={styles.urlsContainer}>
-            {p.urls.map((pu, i) => (
-              <div key={pu.id ? pu.id : i} className={styles.urlItem}>
-                <div className={styles.urlContainer}>
-                  <div className={styles.urlInputContainer}>
-                    <label className={styles.urlLabel} htmlFor={pu.id}>
-                      Name
-                    </label>
-                    <input
-                      defaultValue={pu.name}
-                      className={styles.urlInput}
-                      name='urlItem'
-                      id={pu.id}
-                    />
-                  </div>
-                  <div className={styles.urlInputContainer}>
-                    <label className={styles.urlLabel} htmlFor={pu.id}>
-                      Url
-                    </label>
-                    <input
-                      defaultValue={pu.url}
-                      className={styles.urlInput}
-                      name='urlItem'
-                      id={pu.id}
-                    />
-                  </div>
-                </div>
-                <div className={styles.deleteButton} onClick={() => removeUrl(i)}>
-                  <CloseIcon size='20px' />
-                </div>
-              </div>
-            ))}
-          </div>
-          {showNewUrl && (
-            <div className={styles.urlContainer}>
-              <div className={styles.urlInputContainer}>
-                <label className={styles.urlLabel} htmlFor='newUrlName'>
-                  Name
-                </label>
-                <input
-                  ref={newUrlName}
-                  className={styles.urlInput}
-                  name='newUrlName'
-                  id='newUrlName'
-                />
-              </div>
-              <div className={styles.urlInputContainer}>
-                <label className={styles.urlLabel} htmlFor='newUrl'>
-                  Url
-                </label>
-                <input ref={newUrl} className={styles.urlInput} name='newUrl' id='newUrl' />
-              </div>
-              <div onClick={addUrl} className={styles.addButton}>
-                <CloseIcon size='20px' />
-              </div>
-            </div>
-          )}
-          <div
-            className={styles.toggleAddUrlButton}
-            onClick={(e) => {
-              e.preventDefault();
-              setShowNewUrl(!showNewUrl);
-            }}
-          >
-            <Button>Add url</Button>
-          </div>
-        </div>
-        <div className={styles.techsSection}>
-          <p className={styles.projectLabel}>Techs</p>
-          {p.techs.map((pt, i) => (
-            <div key={pt.id} className={styles.techContainer}>
-              <span>{pt.name}</span>
-              <div onClick={() => removeTech(i)}>
-                <CloseIcon size='20px' />
-              </div>
-            </div>
-          ))}
-          <select ref={selectedTech} defaultValue='default'>
-            <option value='default' disabled>
-              Add a tech
-            </option>
-            {remainingTechs.map((rt, i) => (
-              <option onClick={() => addTech(i)} key={rt.id} value={rt.id}>
-                {rt.name}
-              </option>
-            ))}
-          </select>
-        </div>
+        <ProjectUrls urls={urls} setUrls={setUrls} projectId={project.id} />
+        <ProjectTechs project={project} techs={techs} setTechs={setTechs} projectId={project.id} />
       </div>
       <div>
-        <Button onClick={(e) => submitHandler(e)}>Save</Button>
+        <Button>Save</Button>
       </div>
     </form>
   );
 }
-//
+
+function ProjectUrls({urls, setUrls, projectId}) {
+  const [showNewUrl, setShowNewUrl] = useState(false);
+
+  return (
+    <div className={styles.urlsSection}>
+      <h4 /* className={styles.projectLabel} */>Urls</h4>
+      <div className={styles.urls}>
+        {urls.map((u, i) => (
+          <ProjectUrlFormHandler
+            key={u.id || i}
+            index={i}
+            projectUrl={u}
+            setUrls={setUrls}
+            projectId={projectId}
+          />
+        ))}
+      </div>
+      {showNewUrl && (
+        <ProjectUrlFormHandler
+          setUrls={setUrls}
+          setShowNewUrl={setShowNewUrl}
+          projectId={projectId}
+        />
+      )}
+      <div
+        className={styles.toggleAddUrlButton}
+        onClick={e => {
+          e.preventDefault();
+          setShowNewUrl(ps => !ps);
+        }}
+      >
+        <Button>Add url</Button>
+      </div>
+    </div>
+  );
+}
+
+const initialUrl = {url: '', name: ''};
+function ProjectUrlFormHandler({
+  projectId,
+  projectUrl = initialUrl,
+  setUrls,
+  setShowNewUrl,
+  index,
+}) {
+  const {makeRequest} = useContext(userFeedbackContext);
+  const isRegisteredUrl = !!projectUrl.id;
+  const isExistentProject = !!projectUrl.projectId || !!projectId;
+  const isAlreadyAdded = projectUrl !== initialUrl;
+  const url = useRef({projectId, ...projectUrl});
+
+  const updateNewUrl = newUrl => (url.current = newUrl);
+
+  const updateExistentUrl = newUrl => setUrls(pu => pu.map(p => (p.id === newUrl.id ? newUrl : p)));
+
+  async function addToExistentProject() {
+    try {
+      const newUrl = url.current;
+      const addedUrlId = await makeRequest(
+        {url: 'projects/url', body: newUrl, method: 'post'},
+        'Url item added',
+      );
+      newUrl.id = addedUrlId;
+      setUrls(pt => [...pt, newUrl]);
+      setShowNewUrl(false);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  function addToProject() {
+    const newUrl = url.current;
+    setUrls(pu => [...pu, newUrl]);
+    setShowNewUrl(false);
+  }
+
+  async function removeExistentUrl() {
+    try {
+      await makeRequest(
+        {url: `projects/url/${projectUrl.id}`, method: 'delete'},
+        'Url item deleted',
+      );
+      setUrls(pu => pu.filter(u => u.id !== projectUrl.id));
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  const removeUrl = () => setUrls(pu => pu.filter((_u, i) => i !== index));
+
+  return (
+    <div className={styles.urlContainer}>
+      <ProjectUrlForm
+        projectUrl={url.current}
+        handleChange={isRegisteredUrl ? updateExistentUrl : updateNewUrl}
+      >
+        {!isAlreadyAdded && (
+          <div
+            onClick={isExistentProject ? addToExistentProject : addToProject}
+            className={styles.addButton}
+          >
+            <CloseIcon size='20px' />
+          </div>
+        )}
+      </ProjectUrlForm>
+      {isAlreadyAdded && (
+        <div
+          className={styles.deleteButton}
+          onClick={isRegisteredUrl ? removeExistentUrl : removeUrl}
+        >
+          <CloseIcon size='20px' />
+        </div>
+      )}
+    </div>
+  );
+}
+
+function ProjectUrlForm({children, projectUrl, handleChange}) {
+  const url = useRef(projectUrl.url);
+  const name = useRef(projectUrl.name);
+  const onChange = () =>
+    handleChange({
+      ...projectUrl,
+      url: url.current.value,
+      name: name.current.value,
+    });
+
+  return (
+    <div className={styles.url}>
+      <div /* className={styles.urlInputContainer} */>
+        <label /* className={styles.urlLabel} */ htmlFor={projectUrl.id || 'name'}>Name</label>
+        <input
+          defaultValue={name.current}
+          ref={name}
+          onChange={onChange}
+          /* className={styles.urlInput} */
+          id={projectUrl.id || 'name'}
+        />
+      </div>
+      <div /* className={styles.urlInputContainer} */>
+        <label /* className={styles.urlLabel} */ htmlFor={projectUrl.id || 'url'}>Url</label>
+        <input
+          defaultValue={url.current}
+          ref={url}
+          onChange={onChange}
+          /* className={styles.urlInput} */
+          id={projectUrl.id || 'url'}
+        />
+      </div>
+      {children}
+    </div>
+  );
+}
+
+function ProjectTechs({project: {id: projectId}, techs, setTechs}) {
+  const {techs: allTechs} = useContext(userContext);
+  const {makeRequest} = useContext(userFeedbackContext);
+  const remainingTechs = allTechs.filter(t => !techs.find(({id}) => t.id === id));
+  const remainingTechsNode = useRef();
+
+  async function addTech(newTech) {
+    try {
+      if (projectId) {
+        await makeRequest(
+          {
+            url: `projects/${projectId}/tech/${newTech.id}`,
+            body: newTech,
+            method: 'post',
+          },
+          'The technology has been added',
+        );
+      }
+      setTechs(pt => [...pt, newTech]);
+      remainingTechsNode.current.value = '';
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  async function removeTech(techId) {
+    try {
+      if (projectId) {
+        await makeRequest(
+          {
+            url: `projects/${projectId}/tech/${techId}`,
+            method: 'delete',
+          },
+          'The technology has been removed',
+        );
+      }
+      setTechs(pt => pt.filter(t => t.id !== techId));
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  return (
+    <div className={styles.techsSection}>
+      <h4 /* className={styles.projectLabel} */>Techs</h4>
+      {techs.map(t => (
+        <ProjectTech key={t.id} tech={t} removeTech={removeTech} />
+      ))}
+      <select ref={remainingTechsNode} defaultValue=''>
+        <option value='' disabled>
+          Add a tech
+        </option>
+        {remainingTechs.map(rt => (
+          <option onClick={() => addTech(rt)} key={rt.id} value={rt.id}>
+            {rt.name}
+          </option>
+        ))}
+      </select>
+    </div>
+  );
+}
+function ProjectTech({tech: {id, name}, removeTech}) {
+  const handleRemoveTech = () => removeTech(id);
+  return (
+    <div key={id} className={styles.tech}>
+      <span>{name}</span>
+      <div onClick={handleRemoveTech}>
+        <CloseIcon size='20px' />
+      </div>
+    </div>
+  );
+}

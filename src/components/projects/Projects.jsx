@@ -1,33 +1,46 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { InfoContext } from 'App';
-import styles from './Projects.module.css';
-import ProjectItem from './ProjectItem';
+import {useContext, useEffect, useState} from 'react';
+import {loginContext} from 'components/contexts/login/LoginContext';
+import {userFeedbackContext} from 'components/contexts/user-feedback/UserFeedbackContext';
+import {userContext} from 'components/contexts/user/UserContext';
 import ProjectForm from 'components/forms/projects/ProjectForm';
 import Button from 'components/button/Button';
-import LoadingIcon from 'components/loading-icon/LoadingIcon';
+import ProjectItem from './ProjectItem';
+import styles from './Projects.module.css';
+
 export default function Projects() {
-  const projects = useContext(InfoContext).projects;
-  const loggedIn = useContext(InfoContext).loggedIn;
+  const {makeRequest} = useContext(userFeedbackContext);
+  const {loggedIn} = useContext(loginContext);
+  const {loadingProjects: loading, projects, setProjects} = useContext(userContext);
 
   const [showNewForm, setShowNewForm] = useState(false);
 
   useEffect(() => !loggedIn && setShowNewForm(false), [loggedIn]);
+  const toggleNewForm = () => setShowNewForm(ps => !ps);
+
+  async function addProject(newProject) {
+    try {
+      const addedProjectId = await makeRequest(
+        {url: 'projects', body: newProject, method: 'post'},
+        'Project added successfully',
+      );
+      newProject.id = addedProjectId;
+      setProjects(pp => [...pp, newProject]);
+      setShowNewForm(false);
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
   return (
     <section className={styles.projectsSection}>
-      <div className={styles.titleContainer}>
-        <p className={`${styles.title} textShadowLight`}>Projects i've worked on</p>
-      </div>
+      <p /* className={`${styles.title} textShadowLight`} */>Projects i&apos;ve worked on</p>
       <div className={styles.projects}>
-        {projects ? (
-          projects.map((p, i) => <ProjectItem p={p} i={i} key={p.id} />)
-        ) : (
-          <LoadingIcon />
-        )}
+        {loading ||
+          projects.map(p => <ProjectItem project={p} key={p.id} setProjects={setProjects} />)}
       </div>
-      {showNewForm && <ProjectForm />}
+      {showNewForm && <ProjectForm handleSubmit={addProject} setProjects={setProjects} />}
       {loggedIn && (
-        <div onClick={() => setShowNewForm(!showNewForm)} className={styles.addButton}>
+        <div onClick={toggleNewForm} className={styles.addButton}>
           <Button>Add project</Button>
         </div>
       )}

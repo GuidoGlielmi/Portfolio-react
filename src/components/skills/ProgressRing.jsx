@@ -1,7 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import {useState, useEffect} from 'react';
 import styles from './ProgressRing.module.css';
 
-export default function ProgressRing({ percentage = 100 }) {
+export function debounce(fn, delay) {
+  let timer;
+  return () => {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      timer = null;
+      fn();
+    }, delay);
+  };
+}
+export default function ProgressRing({percentage = 100}) {
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
   const sizeMultiplier = screenWidth > 650 ? 1 : 3;
   const radius = 7 * sizeMultiplier;
@@ -11,16 +21,6 @@ export default function ProgressRing({ percentage = 100 }) {
   const offset = (circumference * (100 - percentage)) / 100;
   const cxy = radius + strokeWidth / 2;
   useEffect(() => {
-    function debounce(fn, ms) {
-      let timer;
-      return () => {
-        clearTimeout(timer);
-        timer = setTimeout(() => {
-          timer = null;
-          fn.apply(this, arguments);
-        }, ms);
-      };
-    }
     const handleResize = debounce(() => setScreenWidth(window.innerWidth), 100);
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
@@ -28,8 +28,8 @@ export default function ProgressRing({ percentage = 100 }) {
 
   return (
     <div className={styles.circleBox}>
-      <p className={styles.percentage}>{percentage}%</p>
-      <svg className={styles.circleContainer} width={`${diameter}vw`} height={`${diameter}vw`}>
+      <p>{percentage}%</p>
+      <svg width={`${diameter}vw`} height={`${diameter}vw`}>
         <circle
           className={styles.grayCircle}
           strokeWidth={`${strokeWidth}vw`}

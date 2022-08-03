@@ -5,11 +5,11 @@
   position: relative;
   margin: 10px;
 }
-.percentage {
+.circleBox > p {
   position: absolute;
   font-size: max(2vw, 2vh);
 }
-.circleContainer {
+.circleBox svg {
   transform: rotate(-90deg) scale(1, -1);
   border-radius: 50%;
   box-shadow: 0px 0px 5px 0px #08001e;

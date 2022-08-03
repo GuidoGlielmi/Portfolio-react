@@ -3,11 +3,7 @@
   flex-direction: column;
   align-items: center;
 }
-.userInputs {
-  display: flex;
-  flex-wrap: wrap;
-}
-.inputLabel {
+.userInfoForm > * {
   display: flex;
   flex-direction: column;
 }

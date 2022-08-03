@@ -1,33 +1,50 @@
-import { InfoContext } from 'App';
+import {useContext, useState} from 'react';
+import {loginContext} from 'components/contexts/login/LoginContext';
+import {userFeedbackContext} from 'components/contexts/user-feedback/UserFeedbackContext';
 import CloseAndEdit from 'components/close-icon/CloseAndEdit';
 import SkillForm from 'components/forms/skills/SkillForm';
-import { adminApi } from 'index';
-import { useContext, useState } from 'react';
 import ProgressRing from './ProgressRing';
 import styles from './SkillItem.module.css';
-export default function SkillItem({ s, i }) {
+
+export default function SkillItem({skill, setSkills}) {
+  const {makeRequest} = useContext(userFeedbackContext);
+  const {loggedIn} = useContext(loginContext);
   const [showForm, setShowForm] = useState(false);
-  const loggedIn = useContext(InfoContext).loggedIn;
-  const skills = useContext(InfoContext).skills;
-  const setSkill = useContext(InfoContext).setSkills;
+
   async function deleteSkill() {
-    await adminApi.delete(`/skills/${s.id}`);
-    skills.splice(i, 1);
-    const newSkill = [...skills];
-    setSkill(newSkill);
+    try {
+      await makeRequest({url: `skills/${skill.id}`, method: 'delete'}, 'Skill deleted');
+      setSkills(ps => ps.filter(s => s.skill !== skill.id));
+    } catch (err) {
+      console.log(err);
+    }
   }
+
+  async function updateSkill(newSkill) {
+    try {
+      await makeRequest(
+        {url: `skills/${skill.id}`, body: newSkill, method: 'put'},
+        'Skill updated',
+      );
+      setSkills(ps => ps.filter(s => s.skill !== skill.id));
+      setShowForm(false);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   return (
     <div className={styles.skillContainer}>
       {loggedIn && (
-        <CloseAndEdit toggleEdit={() => setShowForm(!showForm)} deleteItem={deleteSkill} />
+        <CloseAndEdit toggleEdit={() => setShowForm(ps => !ps)} deleteItem={deleteSkill} />
       )}
-      {!showForm ? (
-        <div className={styles.skill}>
-          <p className={styles.skillName}>{s.name}</p>
-          <ProgressRing percentage={s.abilityPercentage} />
-        </div>
+      {showForm ? (
+        <SkillForm skill={skill} handleSubmit={updateSkill} />
       ) : (
-        <SkillForm s={s} i={i} hideForm={() => setShowForm(!showForm)} />
+        <div className={styles.skill}>
+          <p>{skill.name}</p>
+          <ProgressRing percentage={skill.abilityPercentage} />
+        </div>
       )}
     </div>
   );

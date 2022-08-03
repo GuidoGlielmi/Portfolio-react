@@ -1,12 +1,11 @@
-import React from 'react';
 import LoadingIcon from './LoadingIcon';
 import styles from './GlobalLoading.module.css';
-export default function GlobalLoading() {
-  return (
-    <div className={styles.globalLoadingBackground}>
-      <div className={styles.loadingIcon}>
-        <LoadingIcon />
-      </div>
+
+const GlobalLoading = () => (
+  <div className={styles.globalLoadingBackground}>
+    <div>
+      <LoadingIcon />
     </div>
-  );
-}
+  </div>
+);
+export default GlobalLoading;

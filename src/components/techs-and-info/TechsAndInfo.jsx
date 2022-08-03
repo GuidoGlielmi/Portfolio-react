@@ -1,51 +1,56 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { InfoContext } from 'App';
-import styles from './TechsAndInfo.module.css';
+import {useContext, useEffect, useState} from 'react';
+import {loginContext} from 'components/contexts/login/LoginContext';
+import {userContext} from 'components/contexts/user/UserContext';
 import CloseAndEdit from 'components/close-icon/CloseAndEdit';
-import LoadingIcon from 'components/loading-icon/LoadingIcon';
 import Techs from './Techs';
-export default function TechsAndInfo({ user, i }) {
-  const loggedIn = useContext(InfoContext).loggedIn;
+import styles from './TechsAndInfo.module.css';
+
+export default function TechsAndInfo() {
+  const {user, setUser, loadingUser, saveUser} = useContext(userContext);
+  const {loggedIn} = useContext(loginContext);
+
   const [editAboutMe, setEditAboutMe] = useState(false);
-  const users = useContext(InfoContext).users;
-  const setUsers = useContext(InfoContext).setUsers;
   useEffect(() => {
-    if (!loggedIn) {
-      setEditAboutMe(false);
-    }
+    if (!loggedIn) setEditAboutMe(false);
   }, [loggedIn]);
+
+  async function handleToggle() {
+    try {
+      if (editAboutMe) await saveUser();
+      setEditAboutMe(ps => !ps);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   return (
     <section className={styles.techsAndInfoSection}>
       <div className={styles.personalInfo}>
-        <h2 className={`${styles.personalInfoTitle} textShadowLight`}>I'm a web developer</h2>
-        {user ? (
-          !loggedIn ? (
-            <p className={styles.aboutMe}>{user.aboutMe}</p>
-          ) : (
-            <>
-              <CloseAndEdit toggleEdit={() => setEditAboutMe(!editAboutMe)} />
-              {editAboutMe ? (
-                <textarea
-                  defaultValue={user.aboutMe}
-                  className={styles.aboutMeInput}
-                  onInput={({ target: { value } }) => {
-                    users[i] = {
-                      ...user,
-                      aboutMe: value,
-                    };
-                    setUsers([...users]);
-                  }}
-                />
-              ) : (
-                <p className={styles.aboutMe}>{user.aboutMe}</p>
-              )}
-            </>
-          )
-        ) : (
-          <LoadingIcon />
-        )}
+        <h2>I&apos;m a web developer</h2>
+        {loadingUser ||
+          when(!loggedIn)
+            .return(<p>{user.aboutMe}</p>)
+            .else(
+              <>
+                <CloseAndEdit toggleEdit={handleToggle} />
+                {when(!editAboutMe)
+                  .return(<p>{user.aboutMe}</p>)
+                  .else(
+                    <textarea
+                      defaultValue={user.aboutMe}
+                      onChange={e => setUser(pu => ({...pu, aboutMe: e.target.value}))}
+                    />,
+                  )}
+              </>,
+            )}
       </div>
       <Techs />
     </section>
   );
 }
+export const when = (condition, value) => ({
+  elseWhen: newCondition => when(condition || newCondition, value),
+  return: v => when(condition, condition === true ? value ?? v : null),
+  else: v => value ?? v,
+  get: value,
+});

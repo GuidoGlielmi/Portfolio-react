@@ -5,11 +5,11 @@
   min-width: 17vw;
 }
 
-.skillInputs {
+.skillForm > :first-child {
   display: flex;
   flex-direction: column;
 }
-.inputLabel {
+.skillForm > :first-child > * {
   display: flex;
   flex-direction: column;
   margin: 2%;

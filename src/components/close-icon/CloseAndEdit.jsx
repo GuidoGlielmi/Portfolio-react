@@ -1,19 +1,26 @@
-import React from 'react';
-import CloseIcon from './CloseIcon';
+/* eslint-disable react/jsx-no-useless-fragment */
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {solid} from '@fortawesome/fontawesome-svg-core/import.macro';
 import styles from './CloseAndEdit.module.css';
 
-export default function CloseAndEdit({ toggleEdit, deleteItem }) {
+export default function CloseAndEdit({toggleEdit, deleteItem}) {
   return (
-    <div className={styles.CloseAndEditContainer}>
-      <div className={styles.closeIconContainer} onClick={deleteItem}>
-        <CloseIcon />
+    <div className={styles.container}>
+      <div onClick={deleteItem}>
+        <FontAwesomeIcon className={`${styles.icon} ${styles.close}`} icon={solid('xmark')} />
       </div>
-      <img
-        className={styles.editIcon}
-        onClick={toggleEdit}
-        src='assets/icons/edit-icon.png'
-        alt='edit icon'
-      />
+      <div onClick={toggleEdit}>
+        <FontAwesomeIcon className={styles.icon} icon={solid('pen-to-square')} />
+      </div>
+    </div>
+  );
+}
+export function Edit({toggleEdit}) {
+  return (
+    <div className={styles.container}>
+      <div onClick={toggleEdit}>
+        <FontAwesomeIcon className={styles.icon} icon={solid('pen-to-square')} />
+      </div>
     </div>
   );
 }

@@ -15,7 +15,7 @@
   border-radius: 50%;
   box-shadow: 0 0 5px #08001e;
 }
-.techImg {
+.techImageContainer img {
   height: 8.55vw;
 }
 @media (max-width: 650px) {
