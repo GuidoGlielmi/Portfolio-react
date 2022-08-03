@@ -24,10 +24,6 @@ export default function LoginModal({children, closeModal, willResetErrorMsg}) {
       const token = await makeRequest({url: 'login', body: user, method: 'post'});
       localStorage.setItem('accessToken', token);
       setLoggedIn(true);
-      setInterval(() => {
-        localStorage.removeItem('accessToken');
-        setLoggedIn(false);
-      }, 1000 * 60 * 60);
       if (closeModal) closeModal();
     } catch ({message, status}) {
       setUnexistentUser(true);
@@ -36,27 +32,21 @@ export default function LoginModal({children, closeModal, willResetErrorMsg}) {
 
   return (
     <div className={styles.modal}>
-      <div className={styles.title}>
-        <p>Login</p>
-      </div>
-      <form onSubmit={login} className={styles.inputs}>
-        <div className={styles.input}>
-          <label htmlFor='user' className={styles.label}>
-            Account
-          </label>
+      <p>Login</p>
+      <form onSubmit={login}>
+        <div>
+          <label htmlFor='user'>Account</label>
           <input ref={username} name='user' id='user' />
         </div>
-        <div className={styles.input}>
-          <label htmlFor='password' className={styles.label}>
-            Password
-          </label>
+        <div>
+          <label htmlFor='password'>Password</label>
           <input ref={password} type='password' name='password' id='password' />
         </div>
-        <div className={styles.setloggedInButton}>
+        <div>
           <Button>Log in</Button>
         </div>
         {children}
-        {unexistentUser && <div className={styles.unexistentUser}>Invalid credentials</div>}
+        {unexistentUser && <span className={styles.unexistentUser}>Invalid credentials</span>}
       </form>
     </div>
   );

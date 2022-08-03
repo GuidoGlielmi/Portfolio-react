@@ -1,4 +1,53 @@
-.experienceSectionRight,
+.experienceImgContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: max(15vw, 15vh);
+  width: max(15vw, 15vh);
+  margin: 0 3vw;
+}
+.experienceImgContainer * {
+  max-width: 100%;
+  max-height: 100%;
+}
+.experienceInfoContainer > * {
+  text-align: center;
+}
+.experienceInfoContainer h3 {
+  /*title*/
+  padding: 10px 5vw;
+  margin: 10px;
+  font-weight: 400;
+  font-size: x-large;
+  border-bottom: 2px solid rgb(37, 37, 37);
+  border-image: linear-gradient(to right, rgba(0, 0, 0, 0), #202020 20% 80%, rgba(0, 0, 0, 0)) 0 0
+    1%;
+  text-shadow: 0px 0px 1px #131313;
+}
+
+.experienceInfoContainer > p,
+.experienceInfoContainer > div {
+  font-size: large;
+}
+
+.experienceInfoContainer > div {
+  margin: 10px 0;
+}
+
+@media (max-width: 650px) {
+  .experiencePadding {
+    padding-bottom: 35vh;
+  }
+  .experiencePadding {
+    margin: auto;
+  }
+  .experienceImgContainer {
+    height: max(60vw, 30vh);
+    width: max(60vw, 30vh);
+  }
+}
+
+/* .experienceSectionRight,
 .experienceSectionLeft,
 .lastSection {
   display: flex;
@@ -32,11 +81,11 @@
   display: flex;
   justify-content: flex-start;
   margin-left: 7%;
-}
+} */
 .experiencePadding {
   padding-bottom: 20vh;
 }
-.experienceRight,
+/* .experienceRight,
 .experienceLeft {
   display: flex;
   align-items: center;
@@ -44,20 +93,8 @@
 }
 .experienceRight {
   flex-direction: row-reverse;
-}
-.experienceImgContainer {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: max(15vw, 15vh);
-  width: max(15vw, 15vh);
-  margin: 0 3vw;
-}
-.experienceImg {
-  max-width: 100%;
-  max-height: 100%;
-}
-.experienceInfoContainerRight,
+} */
+/* .experienceInfoContainerRight,
 .experienceInfoContainerLeft {
   display: flex;
   flex-direction: column;
@@ -71,58 +108,4 @@
 .experienceInfoContainerLeft {
   color: #eae4db !important;
   text-shadow: 0 0 1px #eeeeee;
-}
-.experienceTitle,
-.experienceDescription,
-.dates {
-  text-align: center;
-}
-.experienceTitle {
-  padding: 10px 5vw;
-  margin: 10px;
-  font-weight: 400;
-  font-size: x-large;
-  border-bottom: 2px solid rgb(37, 37, 37);
-  border-image: linear-gradient(to right, rgba(0, 0, 0, 0), #202020 20% 80%, rgba(0, 0, 0, 0)) 0 0
-    1%;
-  text-shadow: 0px 0px 1px #131313;
-}
-.experienceDescription,
-.dates {
-  font-size: large;
-}
-.dates {
-  margin: 10px 0;
-}
-@media (max-width: 650px) {
-  .experienceSectionRight,
-  .experienceSectionLeft,
-  .lastSection {
-    min-height: 45vh;
-  }
-  .experienceContainerRight,
-  .experienceContainerLeft {
-    align-self: center;
-    align-items: center;
-    width: 80%;
-    margin: 0;
-  }
-  .experiencePadding {
-    padding-bottom: 35vh;
-  }
-  .experienceRight,
-  .experienceLeft {
-    flex-direction: column;
-  }
-  .experiencePadding {
-    margin: auto;
-  }
-  .experienceImgContainer {
-    height: max(60vw, 30vh);
-    width: max(60vw, 30vh);
-  }
-  .experienceInfoContainerLeft,
-  .experienceInfoContainerRight {
-    max-width: unset;
-  }
-}
+} */

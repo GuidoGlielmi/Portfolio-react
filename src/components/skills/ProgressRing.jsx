@@ -28,8 +28,8 @@ export default function ProgressRing({percentage = 100}) {
 
   return (
     <div className={styles.circleBox}>
-      <p className={styles.percentage}>{percentage}%</p>
-      <svg className={styles.circleContainer} width={`${diameter}vw`} height={`${diameter}vw`}>
+      <p>{percentage}%</p>
+      <svg width={`${diameter}vw`} height={`${diameter}vw`}>
         <circle
           className={styles.grayCircle}
           strokeWidth={`${strokeWidth}vw`}

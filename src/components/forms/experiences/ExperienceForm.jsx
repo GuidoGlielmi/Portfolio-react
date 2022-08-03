@@ -24,61 +24,53 @@ export default function ExperienceForm({experience = initialState, handleSubmit}
   return (
     <form onSubmit={onSubmit} className={styles.experienceForm}>
       <div className={styles.experienceInputs}>
-        <div className={styles.inputLabel}>
-          <label className={styles.experienceLabel} htmlFor='title'>
-            Degree
-          </label>
+        <div className={styles.inputContainer}>
+          <label /* className={styles.experienceLabel} */ htmlFor='title'>Degree</label>
           <input
             defaultValue={experience.title}
-            className={styles.experienceInput}
+            /* className={styles.experienceInput} */
             ref={title}
             name='title'
             id='title'
           />
         </div>
-        <div className={styles.inputLabel}>
-          <label className={styles.experienceLabel} htmlFor='description'>
-            School
-          </label>
+        <div className={styles.inputContainer}>
+          <label /* className={styles.experienceLabel} */ htmlFor='description'>School</label>
           <input
             defaultValue={experience.description}
-            className={styles.experienceInput}
+            /* className={styles.experienceInput} */
             ref={description}
             name='description'
             id='description'
           />
         </div>
-        <div className={styles.inputLabel}>
-          <label className={styles.experienceLabel} htmlFor='startDate'>
-            Start date
-          </label>
+        <div className={styles.inputContainer}>
+          <label /* className={styles.experienceLabel} */ htmlFor='startDate'>Start date</label>
           <input
             defaultValue={experience.startDate}
-            className={styles.experienceInput}
+            /* className={styles.experienceInput} */
             ref={startDate}
             name='startDate'
             id='startDate'
           />
         </div>
-        <div className={styles.inputLabel}>
-          <label className={styles.experienceLabel} htmlFor='endDate'>
-            End date
-          </label>
+        <div className={styles.inputContainer}>
+          <label /* className={styles.experienceLabel} */ htmlFor='endDate'>End date</label>
           <input
             defaultValue={experience.endDate}
-            className={styles.experienceInput}
+            /* className={styles.experienceInput} */
             ref={endDate}
             name='endDate'
             id='endDate'
           />
         </div>
-        <div className={styles.inputLabel}>
-          <label className={styles.experienceLabel} htmlFor='experienceImg'>
+        <div className={styles.inputContainer}>
+          <label /* className={styles.experienceLabel} */ htmlFor='experienceImg'>
             Experience image path
           </label>
           <input
             defaultValue={experience.experienceImg}
-            className={styles.experienceInput}
+            /* className={styles.experienceInput} */
             ref={experienceImg}
             name='experienceImg'
             id='experienceImg'

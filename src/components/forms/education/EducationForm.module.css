@@ -4,26 +4,23 @@
   align-items: center;
 }
 
-.educationInputs {
+.educationForm > :first-child {
   display: flex;
   flex-wrap: wrap;
 }
-.inputLabel {
+.inputContainer {
   display: flex;
   flex-direction: column;
   width: 46%;
   margin: 2%;
 }
-.educationInput {
-}
-.educationLabel {
-}
+
 @media (max-width: 650px) {
-  .educationInputs {
+  .educationForm > :first-child {
     flex-direction: column;
     flex-wrap: nowrap;
   }
-  .inputLabel {
+  .inputContainer {
     width: unset;
   }
 }

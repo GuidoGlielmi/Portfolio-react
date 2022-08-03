@@ -12,6 +12,7 @@ export default function useFetch({url = '', method = 'get', body}, initialValue 
         const data = await fetch[method](url, body);
         setData(index !== undefined ? data[index] : data);
       } catch (err) {
+        // if the token expires, it return 500
         showFeedbackMsgModal('Ha ocurrido un error', true);
       }
     })();

@@ -29,6 +29,9 @@
   color: #0e0e0e;
   border: none;
 }
+.main {
+  position: relative;
+}
 .bottomPart {
   background-image: linear-gradient(rgba(81, 59, 82, 0.1), 75%, rgba(19, 12, 39, 0.8));
 }
@@ -36,31 +39,33 @@
   display: flex;
   justify-content: space-around;
   width: 62%;
-  padding: 0 20px;
+  box-shadow: 0px 0px 14px -6px #999 inset;
+  border-radius: 0 0 40px 0;
 }
 
-.sectionLink {
+.sectionLinks > * {
   line-height: 70px;
   transform: scale(1);
-  transition: transform 0.2s ease, color 0.2s ease, text-shadow 0.2s ease;
+  transition: all 0.2s ease;
   cursor: pointer;
   flex-grow: 1;
   text-align: center;
-  border: none;
+  border-radius: 0 0 40px 0;
 }
-.sectionLink:hover {
-  transform: scale(1.02);
+.sectionLinks > *:hover {
+  transform: sca le(1.02);
   color: rgb(59, 20, 75);
   text-shadow: 0 0 0.5px rgb(59, 20, 75);
+  box-shadow: -7px 0px 14px -12px #999 inset;
 }
 .clickedSectionLink {
-  border-bottom: 1.5px solid black;
+  border-bottom: 2px solid rgb(48, 54, 62);
 }
 .sectionsContainer {
   display: flex;
   padding: 15vh 0;
 }
-.section {
+.sectionsContainer > div {
   display: flex;
   width: 100%;
   position: relative;
@@ -120,7 +125,7 @@
   .bottomPart {
     padding-top: min(50vw, 17.5vh);
   }
-  .sectionLinks {
+  .sectionLinks > *ionLinks {
     flex-direction: column;
     margin: auto;
     width: 50%;

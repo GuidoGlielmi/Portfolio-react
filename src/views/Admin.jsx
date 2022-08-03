@@ -2,7 +2,7 @@
 import {useEffect, useRef, useState} from 'react';
 import {CSSTransition} from 'react-transition-group';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {solid, brands} from '@fortawesome/fontawesome-svg-core/import.macro';
+import {solid} from '@fortawesome/fontawesome-svg-core/import.macro';
 import Header from 'components/header/Header';
 import NavBar from 'components/nav-bar/NavBar';
 import Footer from 'components/footer/Footer';
@@ -13,7 +13,6 @@ import Experiences from 'components/experiences/Experiences';
 import Skills from 'components/skills/Skills';
 import CircleButton from 'components/button/CircleButton';
 import './Admin.css';
-
 import styles from './Admin.module.css';
 
 const sectionsNames = ['Who am I', 'Projects', 'Experiences', 'My education', 'My skills'];
@@ -38,7 +37,7 @@ export default function Admin() {
     <>
       <NavBar />
       <Header />
-      <div className={styles.main} style={{position: 'relative'}}>
+      <div className={styles.main}>
         <div>
           <Arrow action={previousSection} />
           <Arrow action={nextSection} />
@@ -53,20 +52,6 @@ export default function Admin() {
   );
 }
 
-const SectionLinks = ({index, setIndex}) => (
-  <div className={styles.sectionLinks}>
-    {sectionsNames.map((sn, i) => (
-      <span
-        key={sn}
-        onClick={() => setIndex(i)}
-        className={`${styles.sectionLink} ${index === i && styles.clickedSectionLink}`}
-      >
-        {sn}
-      </span>
-    ))}
-  </div>
-);
-
 const Arrow = ({action}) => (
   <div>
     <div>
@@ -76,9 +61,24 @@ const Arrow = ({action}) => (
     </div>
   </div>
 );
+
+const SectionLinks = ({index, setIndex}) => (
+  <div className={styles.sectionLinks}>
+    {sectionsNames.map((sn, i) => (
+      <span
+        key={sn}
+        onClick={() => setIndex(i)}
+        className={index === i && styles.clickedSectionLink}
+      >
+        {sn}
+      </span>
+    ))}
+  </div>
+);
+
 const Sections = ({sections, index, previousIndex}) => (
   <div className={styles.sectionsContainer}>
-    <div className={styles.section}>
+    <div>
       {sections.map((s, i) => (
         <CSSTransition
           key={i}
@@ -93,26 +93,3 @@ const Sections = ({sections, index, previousIndex}) => (
     </div>
   </div>
 );
-
-/* <div className={styles.previousArrowContainer}>
-  <div className={`${styles.previousArrow} ${styles.flip}`}>
-    <CircleButton action={previousSection}>
-      <img
-        style={{width: '100%'}}
-        src='./assets/icons/arrow.png'
-        alt='Previous section arrow'
-      />
-    </CircleButton>
-  </div>
-</div> 
-<div className={styles.nextArrowContainer}>
-  <div className={styles.previousArrow}>
-    <CircleButton action={nextSection}>
-      <img
-        style={{width: '100%'}}
-        src='./assets/icons/arrow.png'
-        alt='Previous section arrow'
-      />
-    </CircleButton>
-  </div>
-</div> */

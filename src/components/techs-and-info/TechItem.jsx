@@ -42,7 +42,7 @@ export default function TechItem({tech}) {
           <CloseAndEdit toggleEdit={() => setShowForm(ps => !ps)} deleteItem={deleteTech} />
         )}
         {!showForm ? (
-          <img className={styles.techImg} src={tech.techImg} alt={`${tech.techName} logo`} />
+          <img src={tech.techImg} alt={`${tech.techName} logo`} />
         ) : (
           <TechForm tech={tech} handleSubmit={updateTech} />
         )}

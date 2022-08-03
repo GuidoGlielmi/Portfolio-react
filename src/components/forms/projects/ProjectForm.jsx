@@ -27,9 +27,9 @@ export default function ProjectForm({project = initialProject, handleSubmit}) {
 
   return (
     <form onSubmit={onSubmit} className={styles.projectForm}>
-      <div className={styles.projectInputs}>
-        <div className={styles.singleElements}>
-          <div className={styles.inputLabel}>
+      <div /* className={styles.projectInputs} */>
+        <div /* className={styles.singleElements} */>
+          <div className={styles.inputContainer}>
             <label className={styles.projectLabel} htmlFor='title'>
               Title
             </label>
@@ -41,7 +41,7 @@ export default function ProjectForm({project = initialProject, handleSubmit}) {
               id='title'
             />
           </div>
-          <div className={styles.inputLabel}>
+          <div className={styles.inputContainer}>
             <label className={styles.projectLabel} htmlFor='description'>
               Description
             </label>
@@ -53,7 +53,7 @@ export default function ProjectForm({project = initialProject, handleSubmit}) {
               id='description'
             />
           </div>
-          <div className={styles.inputLabel}>
+          <div className={styles.inputContainer}>
             <label className={styles.projectLabel} htmlFor='projectImg'>
               Project image path
             </label>
@@ -81,8 +81,8 @@ function ProjectUrls({urls, setUrls, projectId}) {
 
   return (
     <div className={styles.urlsSection}>
-      <p className={styles.projectLabel}>Urls</p>
-      <div className={styles.urlsContainer}>
+      <h4 /* className={styles.projectLabel} */>Urls</h4>
+      <div className={styles.urls}>
         {urls.map((u, i) => (
           <ProjectUrlFormHandler
             key={u.id || i}
@@ -146,7 +146,7 @@ function ProjectUrlFormHandler({
     }
   }
 
-  async function addToProject() {
+  function addToProject() {
     const newUrl = url.current;
     setUrls(pu => [...pu, newUrl]);
     setShowNewUrl(false);
@@ -164,12 +164,10 @@ function ProjectUrlFormHandler({
     }
   }
 
-  async function removeUrl() {
-    setUrls(pu => pu.filter((_u, i) => i !== index));
-  }
+  const removeUrl = () => setUrls(pu => pu.filter((_u, i) => i !== index));
 
   return (
-    <div className={styles.urlItem}>
+    <div className={styles.urlContainer}>
       <ProjectUrlForm
         projectUrl={url.current}
         handleChange={isRegisteredUrl ? updateExistentUrl : updateNewUrl}
@@ -206,28 +204,24 @@ function ProjectUrlForm({children, projectUrl, handleChange}) {
     });
 
   return (
-    <div className={styles.urlContainer}>
-      <div className={styles.urlInputContainer}>
-        <label className={styles.urlLabel} htmlFor={projectUrl.id || 'name'}>
-          Name
-        </label>
+    <div className={styles.url}>
+      <div /* className={styles.urlInputContainer} */>
+        <label /* className={styles.urlLabel} */ htmlFor={projectUrl.id || 'name'}>Name</label>
         <input
           defaultValue={name.current}
           ref={name}
           onChange={onChange}
-          className={styles.urlInput}
+          /* className={styles.urlInput} */
           id={projectUrl.id || 'name'}
         />
       </div>
-      <div className={styles.urlInputContainer}>
-        <label className={styles.urlLabel} htmlFor={projectUrl.id || 'url'}>
-          Url
-        </label>
+      <div /* className={styles.urlInputContainer} */>
+        <label /* className={styles.urlLabel} */ htmlFor={projectUrl.id || 'url'}>Url</label>
         <input
           defaultValue={url.current}
           ref={url}
           onChange={onChange}
-          className={styles.urlInput}
+          /* className={styles.urlInput} */
           id={projectUrl.id || 'url'}
         />
       </div>
@@ -280,7 +274,7 @@ function ProjectTechs({project: {id: projectId}, techs, setTechs}) {
 
   return (
     <div className={styles.techsSection}>
-      <p className={styles.projectLabel}>Techs</p>
+      <h4 /* className={styles.projectLabel} */>Techs</h4>
       {techs.map(t => (
         <ProjectTech key={t.id} tech={t} removeTech={removeTech} />
       ))}
@@ -300,7 +294,7 @@ function ProjectTechs({project: {id: projectId}, techs, setTechs}) {
 function ProjectTech({tech: {id, name}, removeTech}) {
   const handleRemoveTech = () => removeTech(id);
   return (
-    <div key={id} className={styles.techContainer}>
+    <div key={id} className={styles.tech}>
       <span>{name}</span>
       <div onClick={handleRemoveTech}>
         <CloseIcon size='20px' />

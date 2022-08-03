@@ -4,11 +4,11 @@
   align-items: center;
 }
 
-.techInputs {
+.techForm > :first-child {
   display: flex;
   flex-direction: column;
 }
-.inputLabel {
+.techForm > :first-child > * {
   display: flex;
   flex-direction: column;
   margin: 2%;

@@ -12,13 +12,13 @@
   width: 50%;
   margin: 0 0 20vh 3vw;
 }
-.personalInfoTitle {
+.personalInfo > h2 {
   margin-bottom: 20px;
   padding-top: 1vh;
   font-size: x-large;
   font-weight: 500;
 }
-.personalInfoTitle::before {
+.personalInfo > h2::before {
   content: '';
   position: absolute;
   width: 60%;
@@ -26,12 +26,12 @@
   top: 0;
   border-top: 2px solid #2a2a2a;
 }
-.aboutMe {
+.personalInfo > p {
   width: 90%;
   text-align: justify;
 }
 
-.aboutMeInput {
+.personalInfo textarea {
   height: 80px;
   width: 100%;
   padding: 2px;
@@ -43,7 +43,7 @@
   .personalInfo {
     width: 90%;
   }
-  .personalInfoTitle::before {
+  .personalInfo > h2::before {
     width: 82%;
   }
 }

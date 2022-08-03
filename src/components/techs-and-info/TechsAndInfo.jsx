@@ -26,19 +26,18 @@ export default function TechsAndInfo() {
   return (
     <section className={styles.techsAndInfoSection}>
       <div className={styles.personalInfo}>
-        <h2 className={`${styles.personalInfoTitle} textShadowLight`}>I&apos;m a web developer</h2>
+        <h2>I&apos;m a web developer</h2>
         {loadingUser ||
           when(!loggedIn)
-            .return(<p className={styles.aboutMe}>{user.aboutMe}</p>)
+            .return(<p>{user.aboutMe}</p>)
             .else(
               <>
                 <CloseAndEdit toggleEdit={handleToggle} />
                 {when(!editAboutMe)
-                  .return(<p className={styles.aboutMe}>{user.aboutMe}</p>)
+                  .return(<p>{user.aboutMe}</p>)
                   .else(
                     <textarea
                       defaultValue={user.aboutMe}
-                      className={styles.aboutMeInput}
                       onChange={e => setUser(pu => ({...pu, aboutMe: e.target.value}))}
                     />,
                   )}

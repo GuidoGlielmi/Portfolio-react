@@ -43,17 +43,22 @@ export default function ProjectItem({
           <CloseAndEdit toggleEdit={() => setShowForm(ps => !ps)} deleteItem={deleteProject} />
         )}
         <div className={styles.projectImgContainer}>
-          <img className={styles.projectImg} src={projectImg} alt={`${title} logo`} />
+          <img src={projectImg} alt={`${title} logo`} />
         </div>
         {showForm ? (
           <ProjectForm project={project} handleSubmit={updateProject} setProjects={setProjects} />
         ) : (
           <div className={styles.projectInfoContainer}>
-            <h3 className={styles.projectTitle}>{title}</h3>
-            <p className={styles.projectDescription}>{description}</p>
+            <h3 /* className={styles.projectTitle} */>{title}</h3>
+            <p /* className={styles.projectDescription} */>{description}</p>
             <div className={styles.urls}>
               {urls.map(u => (
-                <a className={styles.url} href={u.url} target='_blank' rel='noreferrer' key={u.id}>
+                <a
+                  /* className={styles.url} */ href={u.url}
+                  target='_blank'
+                  rel='noreferrer'
+                  key={u.id}
+                >
                   {u.name}
                 </a>
               ))}
@@ -61,13 +66,9 @@ export default function ProjectItem({
             <div className={styles.techs}>
               {projectTechs.map((t, i) =>
                 i !== projectTechs.length - 1 ? (
-                  <span className={styles.tech} key={t.id}>
-                    {t.name} -{' '}
-                  </span>
+                  <span /* className={styles.tech} */ key={t.id}>{t.name} - </span>
                 ) : (
-                  <span className={styles.tech} key={t.id}>
-                    {t.name}
-                  </span>
+                  <span /* className={styles.tech} */ key={t.id}>{t.name}</span>
                 ),
               )}
             </div>

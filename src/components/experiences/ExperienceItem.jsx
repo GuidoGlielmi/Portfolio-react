@@ -49,20 +49,16 @@ export default function ExperienceItem({experience, setExperiences}) {
               />
             )}
             <div className={styles.experienceImgContainer}>
-              <img
-                className={styles.experienceImg}
-                src={experience.experienceImg}
-                alt={`${experience.title} logo`}
-              />
+              <img src={experience.experienceImg} alt={`${experience.title} logo`} />
             </div>
             {!showForm ? (
               <div className='experienceInfoContainer'>
-                <h3 className={styles.experienceTitle}>{experience.title}</h3>
-                <div className={styles.dates}>
+                <h3 /* className={styles.experienceTitle} */>{experience.title}</h3>
+                <div /* className={styles.dates} */>
                   <span>{experience.startDate} - </span>
                   <span>{experience.endDate}</span>
                 </div>
-                <p className={styles.experienceDescription}>{experience.description}</p>
+                <p /* className={styles.experienceDescription} */>{experience.description}</p>
                 {experience.certificate && (
                   <a href={experience.certificate} target='_blank' rel='noreferrer'>
                     Certificate
@@ -76,39 +72,5 @@ export default function ExperienceItem({experience, setExperiences}) {
         </div>
       </div>
     </div>
-    /*  ) : (
-    <div className={!isLastItem ? styles.experienceSectionLeft : styles.lastSection}>
-      <div className={styles.experienceContainerLeft}>
-        <div className={styles.experiencePadding}>
-          <div className={styles.experienceLeft}>
-            {loggedIn && <CloseAndEdit toggleEdit={() => setShowForm(ps => !ps)} />}
-            <div className={styles.experienceImgContainer}>
-              <img
-                className={styles.experienceImg}
-                src={experience.experienceImg}
-                alt={`${experience.title} logo`}
-              />
-            </div>
-            {!showForm ? (
-              <div className={styles.experienceInfoContainerLeft}>
-                <h3 className={styles.experienceTitle}>{experience.title}</h3>
-                <div className={styles.dates}>
-                  <span>{experience.startDate} - </span>
-                  <span>{experience.endDate}</span>
-                </div>
-                <p className={styles.experienceDescription}>{experience.description}</p>
-                {experience.certificate && (
-                  <a href={experience.certificate} target='_blank' rel='noreferrer'>
-                    Certificate
-                  </a>
-                )}
-              </div>
-            ) : (
-              <ExperienceForm experience={experience} handleSubmit={updateExperience} />
-            )}
-          </div>
-        </div>
-      </div>
-    </div> */
   );
 }

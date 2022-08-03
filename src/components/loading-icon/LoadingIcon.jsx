@@ -2,10 +2,9 @@ import styles from './LoadingIcon.module.css';
 
 const LoadingIcon = () => (
   <div className={styles.loadingContainer}>
-    <span className={styles.loadingMsg}>Loading...</span>
-    <div className={styles.loadingIconContainer}>
+    <span>Loading...</span>
+    <div>
       <svg
-        className={styles.loadingIcon}
         version='1.1'
         id='loader-1'
         xmlns='http://www.w3.org/2000/svg'
