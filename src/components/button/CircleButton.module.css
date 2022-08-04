@@ -6,7 +6,7 @@
   height: 35px;
   margin: 5px;
   padding: 25%;
-  background-color: #191722;
+  background-color: #2b2936;
   box-shadow: 0 0 3px rgb(49, 49, 49);
   border-radius: 50%;
   transition: all 500ms cubic-bezier(0.3, 2.13, 0.38, 0.67);
@@ -16,4 +16,10 @@
 }
 .button:active {
   transform: scale(1.2);
+}
+@media (max-width: 650px) {
+  .button {
+    height: 12vh;
+    border-radius: 5px;
+  }
 }

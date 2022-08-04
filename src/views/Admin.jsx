@@ -38,7 +38,7 @@ export default function Admin() {
     <>
       <NavBar />
       <Header />
-      <div className={styles.main}>
+      <main className={styles.main}>
         <div>
           <Arrow action={previousSection} />
           <Arrow action={nextSection} />
@@ -53,13 +53,13 @@ export default function Admin() {
           />
         </div>
         <Footer sections={sectionsNames} setLinkIndex={scrollIntoView} />
-      </div>
+      </main>
     </>
   );
 }
 
 const Arrow = ({action}) => (
-  <div>
+  <div className={styles.arrowTrack}>
     <div>
       <CircleButton action={action}>
         <FontAwesomeIcon style={{color: 'white'}} icon={solid('arrow-right')} />

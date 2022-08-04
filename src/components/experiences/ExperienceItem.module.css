@@ -1,6 +1,10 @@
 .experienceContainer {
   font-size: var(--global-font-large);
 }
+.experienceContainer > div {
+  filter: drop-shadow(30px 30px 0px rgba(170, 57, 57, 0.151));
+}
+
 .experienceImgContainer {
   width: min(55vw, 35vh);
 }
@@ -15,6 +19,9 @@
   flex-direction: column;
   align-items: center;
   gap: 15%;
+}
+.experienceInfo * {
+  text-align: center;
 }
 
 .experienceInfo h3 {

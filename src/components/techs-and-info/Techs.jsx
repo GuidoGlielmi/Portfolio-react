@@ -82,8 +82,12 @@ export default function Techs() {
       <h3>Some technologies i&apos;m familiar with</h3>
       {loadingTechs || (
         <div ref={techsContainer} onWheel={onWheel} className={styles.techsContainer}>
-          <TechList techs={techs} techImg={techImg} setTechs={setTechs} />
-          <TechList techs={techs} techImg={techImg} setTechs={setTechs} />
+          {techs.map((t, i) => (
+            <TechItem tech={t} index={i} key={t.id} ref={techImg} />
+          ))}
+          {techs.map((t, i) => (
+            <TechItem tech={t} index={i} key={t.id} ref={techImg} />
+          ))}
         </div>
       )}
       {showNewForm && <TechForm handleSubmit={addTech} />}
@@ -96,9 +100,4 @@ export default function Techs() {
   );
 }
 
-const TechList = ({techs, techImg}) =>
-  techs.map((t, i) => (
-    <div key={t.id} ref={techImg} style={{scrollSnapAlign: 'start'}}>
-      <TechItem tech={t} index={i} />
-    </div>
-  ));
+// <div  style={{scrollSnapAlign: 'start'}}>

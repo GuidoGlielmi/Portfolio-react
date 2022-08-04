@@ -6,8 +6,8 @@
 }
 .experiencesSection > p {
   position: relative;
-  width: 55%;
-  margin: 0 30px 30px 0;
+  width: 40%;
+  top: 4%;
   text-align: left;
   margin: 0 2% 20px auto;
   padding-top: 1vh;
@@ -28,35 +28,32 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: 2vw 6vw;
-}
-
-.experiencesSection > div:nth-child(2) {
-  justify-content: flex-end !important;
-  min-height: 30vh !important;
-}
-.experiencesSection > div:nth-child(even) {
-  /* p is first item*/
-  justify-content: flex-start;
-  align-items: flex-end;
-  flex-direction: row-reverse;
-  margin-bottom: 5%;
-  min-height: 50vh;
-}
-.experiencesSection > div:nth-child(odd) {
-  align-items: flex-start;
+  padding: 2vw 8vw;
   min-height: 100vh;
-  background: rgba(34, 0, 62, 0.8);
-  clip-path: ellipse(115% 50% at 93% 50%);
+  background: linear-gradient(170deg, rgba(51, 11, 83, 0.8), rgba(17, 4, 27, 0.8));
   color: whitesmoke;
 }
 
-.experiencesSection > div:nth-child(even) h3 {
-  text-shadow: 0px 0px 1px #131313;
-  border-image: linear-gradient(to right, rgba(0, 0, 0, 0), #2b2b2b 20% 80%, rgba(0, 0, 0, 0)) 0 0
-    1%;
+.experiencesSection > div:not(:first-of-type) {
+  margin-top: -20%;
 }
-.experiencesSection > div:nth-child(odd) h3 {
+.experiencesSection > div:nth-child(even) {
+  /* p is first item*/
+  align-items: flex-start;
+  /* clip-path: ellipse(55% 50% at 0% 50%); */
+  clip-path: ellipse(40% 77% at 10% 50%);
+  /* clip-path: polygon(84% 32%, 100% 50%, 85% 75%, 0% 100%, 0 100%, 0% 0%); */
+  /* clip-path: polygon(0 0, 55% 25%, 55% 80%, 0% 100%); */
+}
+.experiencesSection > div:nth-child(odd) {
+  align-items: flex-end;
+  /* clip-path: ellipse(55% 50% at 93% 50%); */
+  clip-path: ellipse(30% 77% at 80% 50%);
+  /* clip-path: polygon(100% 0, 100% 0%, 100% 100%, 15% 67%, 0 50%, 15% 27%); */
+  /* clip-path: polygon(45% 20%, 100% 0, 100% 100%, 45% 80%); */
+}
+
+.experiencesSection /* > div:nth-child(odd) */ h3 {
   text-shadow: 0px 0px 1px #dfdfdf;
   border-image: linear-gradient(to right, rgba(0, 0, 0, 0), #afafaf 20% 80%, rgba(0, 0, 0, 0)) 0 0
     1%;
@@ -69,10 +66,15 @@
   .experiencesSection > div:nth-child(odd) {
     flex-direction: column;
     align-items: center;
-    margin: 5vh 0;
+  }
+  .experiencesSection > div:not(:first-of-type) {
+    margin-top: -17%;
   }
   .experiencesSection > div:nth-child(odd) {
     min-height: 80vh;
     clip-path: ellipse(215% 49% at 140% 50%);
+  }
+  .experiencesSection > div:nth-child(even) {
+    clip-path: ellipse(182% 43% at -31% 50%);
   }
 }

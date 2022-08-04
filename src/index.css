@@ -38,6 +38,8 @@ p {
   --global-text-shadow-semi-dark: 0px 0px 2.5px #919191;
   --global-text-shadow-dark: 0px 0px 3.5px #3a3a3a;
   --global-box-shadow-light: 2px 3px 6px rgb(175, 175, 175);
+  --global-filter: drop-shadow(0 0 1px rgba(0, 0, 0, 0.582)) drop-shadow(10px 10px 2px #00000022)
+    invert(15%) contrast(150%);
 }
 html::-webkit-scrollbar {
   display: none;
@@ -77,7 +79,7 @@ code {
 }
 @media (min-width: 1200px) {
   :root {
-    --global-font-small: 1rem;
+    --global-font-small: 0.82rem;
     --global-font-medium: 1.3rem;
     --global-font-large: 1.75rem;
   }

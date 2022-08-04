@@ -4,6 +4,7 @@
   align-items: center;
   flex-shrink: 0;
   height: 100%;
+  scroll-snap-align: start;
 }
 .techImageContainer {
   display: flex;
