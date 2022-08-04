@@ -6,6 +6,7 @@ import {Edit} from 'components/close-icon/CloseAndEdit';
 import DropDownIcon from 'components/drop-down-icon/DropDownIcon';
 import LoginModal from 'components/login-modal/LoginModal';
 import styles from './NavBar.module.css';
+import stylesMobile from './NavBarMobile.module.css';
 
 export default function NavBar() {
   const {setLoggedIn} = useContext(loginContext);
@@ -18,20 +19,18 @@ export default function NavBar() {
   return (
     <>
       <LoginModalBackground showLoginModal={showLoginModal} setShowLoginModal={setShowLoginModal} />
-      <nav>
-        <MobileNavBar
-          setShowLoginModal={setShowLoginModal}
-          logout={logout}
-          editLinks={editLinks}
-          setEditLinks={setEditLinks}
-        />
-        <DesktopNavBar
-          setShowLoginModal={setShowLoginModal}
-          logout={logout}
-          editLinks={editLinks}
-          setEditLinks={setEditLinks}
-        />
-      </nav>
+      <DesktopNavBar
+        setShowLoginModal={setShowLoginModal}
+        logout={logout}
+        editLinks={editLinks}
+        setEditLinks={setEditLinks}
+      />
+      <MobileNavBar
+        setShowLoginModal={setShowLoginModal}
+        logout={logout}
+        editLinks={editLinks}
+        setEditLinks={setEditLinks}
+      />
     </>
   );
 }
@@ -51,7 +50,7 @@ function DesktopNavBar({setShowLoginModal, logout, editLinks, setEditLinks}) {
   }
 
   return (
-    <div className={styles.desktop}>
+    <nav className={styles.nav}>
       <h2>Guido Glielmi</h2>
       <div>
         {loggedIn && <Edit toggleEdit={handleToggle} />}
@@ -75,7 +74,7 @@ function DesktopNavBar({setShowLoginModal, logout, editLinks, setEditLinks}) {
           <Button>{loggedIn ? 'Log out' : 'Log in'}</Button>
         </div>
       </div>
-    </div>
+    </nav>
   );
 }
 
@@ -119,8 +118,9 @@ function MobileNavBar({setShowLoginModal, logout, editLinks, setEditLinks}) {
   }
 
   return (
-    <div className={styles.mobile}>
-      <div className={!dropDownDisplayed && styles.cellElementsTransition}>
+    <nav className={stylesMobile.nav}>
+      <div className={dropDownDisplayed && stylesMobile.navHidden}>
+        <h2>Guido Glielmi</h2>
         <div style={{display: 'flex', alignItems: 'center'}}>
           {loggedIn && <Edit toggleEdit={handleToggle} />}
           {loadingUser ||
@@ -134,8 +134,8 @@ function MobileNavBar({setShowLoginModal, logout, editLinks, setEditLinks}) {
                 </a>
               </>
             ) : (
-              <div className={styles.social}>
-                <div /* className={styles.inputLabel} */>
+              <div className={stylesMobile.social}>
+                <div>
                   <label htmlFor='linkedInUrl'>Linkedin Url</label>
                   <input
                     defaultValue={user.linkedInUrl}
@@ -144,7 +144,7 @@ function MobileNavBar({setShowLoginModal, logout, editLinks, setEditLinks}) {
                     id='linkedInUrl'
                   />
                 </div>
-                <div /* className={styles.inputLabel} */>
+                <div>
                   <label htmlFor='githubUrl'>Github Url</label>
                   <input
                     defaultValue={user.githubUrl}
@@ -158,13 +158,15 @@ function MobileNavBar({setShowLoginModal, logout, editLinks, setEditLinks}) {
         </div>
         <div
           onClick={() => (!loggedIn ? setShowLoginModal(ps => !ps) : logout())}
-          className={styles.navButton}
+          className={stylesMobile.navButton}
         >
           <Button>{loggedIn ? 'Log out' : 'Log in'}</Button>
         </div>
       </div>
-      <DropDownIcon onClick={() => setDropDownDisplayed(ps => !ps)} />
-    </div>
+      <div className={!dropDownDisplayed && stylesMobile.movedArrow}>
+        <DropDownIcon onClick={() => setDropDownDisplayed(ps => !ps)} size='xl' />
+      </div>
+    </nav>
   );
 }
 

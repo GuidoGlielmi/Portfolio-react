@@ -42,16 +42,16 @@ export default function EducationItem({
   const toggleEdit = () => setShowForm(ps => !ps);
 
   return (
-    <div>
+    <>
       {loggedIn && <CloseAndEdit toggleEdit={toggleEdit} deleteItem={deleteEducation} />}
       {when(showForm)
         .return(<EducationForm education={education} handleSubmit={updateEducation} />)
         .else(
-          <div className='educationInfo'>
+          <div className={styles.educationItem}>
             <div className={styles.educationImgContainer}>
               <img src={educationImg} alt={`${school} logo`} />
             </div>
-            <div className={styles.educationInfoContainer}>
+            <div className={styles.educationInfo}>
               <h3>{degree}</h3>
               <p>{school}</p>
               <p>{startDate}</p>
@@ -59,6 +59,6 @@ export default function EducationItem({
             </div>
           </div>,
         )}
-    </div>
+    </>
   );
 }

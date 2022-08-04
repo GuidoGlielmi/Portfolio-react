@@ -38,48 +38,41 @@ export default function ProjectItem({
 
   return (
     <div>
-      <div>
-        {loggedIn && (
-          <CloseAndEdit toggleEdit={() => setShowForm(ps => !ps)} deleteItem={deleteProject} />
-        )}
-        <div className={styles.projectImgContainer}>
-          <img src={projectImg} alt={`${title} logo`} />
-        </div>
-        {showForm ? (
-          <ProjectForm project={project} handleSubmit={updateProject} setProjects={setProjects} />
-        ) : (
-          <div className={styles.projectInfoContainer}>
-            <h3>{title}</h3>
-            <p>{description}</p>
-            {deployUrl && (
-              <a href={deployUrl} target='_blank' rel='noreferrer'>
-                {title} live app
-              </a>
-            )}
-            <div className={styles.urls}>
-              {urls.map(u => (
-                <a
-                  /* className={styles.url} */ href={u.url}
-                  target='_blank'
-                  rel='noreferrer'
-                  key={u.id}
-                >
-                  {`${u.name} Repo`}
-                </a>
-              ))}
-            </div>
-            <div className={styles.techs}>
-              {projectTechs.map((t, i) =>
-                i !== projectTechs.length - 1 ? (
-                  <span /* className={styles.tech} */ key={t.id}>{t.name} - </span>
-                ) : (
-                  <span /* className={styles.tech} */ key={t.id}>{t.name}</span>
-                ),
-              )}
-            </div>
-          </div>
-        )}
+      {loggedIn && (
+        <CloseAndEdit toggleEdit={() => setShowForm(ps => !ps)} deleteItem={deleteProject} />
+      )}
+      <div className={styles.projectImgContainer}>
+        <img src={projectImg} alt={`${title} logo`} />
       </div>
+      {showForm ? (
+        <ProjectForm project={project} handleSubmit={updateProject} setProjects={setProjects} />
+      ) : (
+        <div className={styles.projectInfoContainer}>
+          <h3>{title}</h3>
+          <p>{description}</p>
+          {deployUrl && (
+            <a href={deployUrl} target='_blank' rel='noreferrer'>
+              {title} live app
+            </a>
+          )}
+          <div className={styles.urls}>
+            {urls.map(u => (
+              <a href={u.url} target='_blank' rel='noreferrer' key={u.id}>
+                {`${u.name} Repo`}
+              </a>
+            ))}
+          </div>
+          <div className={styles.techs}>
+            {projectTechs.map((t, i) =>
+              i !== projectTechs.length - 1 ? (
+                <span key={t.id}>{t.name} - </span>
+              ) : (
+                <span key={t.id}>{t.name}</span>
+              ),
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

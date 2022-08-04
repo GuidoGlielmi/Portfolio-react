@@ -37,7 +37,6 @@
 }
 .sectionLinks {
   display: flex;
-  justify-content: space-around;
   width: 62%;
   box-shadow: 0px 0px 14px -6px #999 inset;
   border-radius: 0 0 40px 0;
@@ -62,18 +61,12 @@
 }
 .clickedSectionLink {
   border-right: 2px solid rgb(48, 54, 62);
-  box-shadow: -12px -4px 14px -17px #6c868c inset;
+  box-shadow: -12px -4px 14px -17px #ffffff inset;
 }
 .sectionsContainer {
   display: flex;
   padding: 22vh 0;
 }
-/* .sectionsContainer > div {
-  display: flex;
-  width: 100%;
-  position: relative;
-  overflow-x: hidden;
-} */
 
 .main > :first-child > * {
   /* previousArrowContainer nextArrowContainer */
@@ -101,37 +94,33 @@
   transform: rotate(180deg);
 }
 
-/* .previousArrowContainer,
-.nextArrowContainer {
-  position: absolute;
-  height: 100%;
-  z-index: 2;
-}
-.nextArrowContainer {
-  right: 0;
-} 
-.nextArrow,
-.previousArrow {
-  position: sticky;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  top: 50%;
-  cursor: pointer;
-  transform: scale(1);
-  transition: transform 200ms ease;
-}
-.flip {
-  transform: rotate(180deg);
-}*/
 @media (max-width: 650px) {
   .bottomPart {
-    padding-top: min(50vw, 17.5vh);
+    padding-top: 23vh;
   }
-  .sectionLinks > *ionLinks {
-    flex-direction: column;
+  .sectionsContainer {
+    padding: 13vh 0;
+  }
+  .sectionLinks {
+    position: relative;
+    border-bottom-left-radius: 40px;
+    box-shadow: 0px 11px 22px #18363924;
+    border: 2px solid rgb(17, 51, 62);
     margin: auto;
-    width: 50%;
+    background: linear-gradient(145deg, rgb(216, 225, 226), rgb(141, 150, 151));
+    flex-direction: column;
+    padding: 0 11%;
+  }
+  .sectionLinks::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 0 0 40px 40px;
+    /* box-shadow: -20px -7px 25px #0000003a inset; */
+  }
+  .sectionLinks > * {
+    z-index: 5;
   }
   .main > :first-child > * {
     display: none;

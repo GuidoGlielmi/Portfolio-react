@@ -10,7 +10,7 @@
   align-items: center;
   position: relative;
   width: 50%;
-  margin: 0 0 20vh 3vw;
+  margin: 0 0 min(25vw, 20vh) 3vw;
 }
 .personalInfo > h2 {
   margin-bottom: 20px;

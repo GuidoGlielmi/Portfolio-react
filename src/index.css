@@ -31,12 +31,9 @@ p {
   --global-secondary-font: Comfortaa;
   --global-primary-font-color: rgb(236, 236, 236);
   --global-secondary-font-color: rgb(19, 19, 19);
-  --global-font-small: 0.5rem;
-  --global-font-medium: 0.75rem;
-  --global-font-large: 1.25rem;
-  --global-font-doubleSmall: 1.5rem;
-  --global-font-doubleMedium: 2rem;
-  --global-font-doubleLarge: 2.5rem;
+  --global-font-small: 0.85rem;
+  --global-font-medium: 1.2rem;
+  --global-font-large: 1.65rem;
   --global-text-shadow-light: 0px 0px 3.5px rgb(189, 189, 189);
   --global-text-shadow-semi-dark: 0px 0px 2.5px #919191;
   --global-text-shadow-dark: 0px 0px 3.5px #3a3a3a;
@@ -73,21 +70,15 @@ code {
 
 @media (max-width: 768px) {
   :root {
-    --global-font-small: 0.35rem;
-    --global-font-medium: 0.55rem;
-    --global-font-large: 1rem;
-    --global-font-doubleSmall: 1rem;
-    --global-font-doubleMedium: 1.5rem;
-    --global-font-doubleLarge: 2rem;
+    --global-font-small: 0.7rem;
+    --global-font-medium: 1.1rem;
+    --global-font-large: 1.5rem;
   }
 }
 @media (min-width: 1200px) {
   :root {
-    --global-font-small: 0.75rem;
-    --global-font-medium: 1rem;
+    --global-font-small: 1rem;
+    --global-font-medium: 1.3rem;
     --global-font-large: 1.75rem;
-    --global-font-doubleSmall: 2rem;
-    --global-font-doubleMedium: 2.6rem;
-    --global-font-doubleLarge: 3.5rem;
   }
 }

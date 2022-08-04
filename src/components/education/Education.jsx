@@ -38,10 +38,8 @@ export default function Education() {
 
   return (
     <section className={styles.educationSection}>
-      <div /* className={styles.titleContainer} */>
-        <p className={styles.title}>My studies</p>
-      </div>
-      <div className={styles.education}>
+      <p>My studies</p>
+      <div className={styles.educations}>
         {loading ||
           educations.map((e, i) => (
             <EducationItem education={e} i={i} key={e.id} setEducations={setEducations} />

@@ -3,22 +3,18 @@
   flex-direction: column;
   flex-shrink: 0;
   width: 100%;
+  padding: 0 5vw;
 }
-.educationSection > :first-child {
-  display: flex;
-  justify-content: flex-end;
-}
-.educationSection > :first-child * {
-  /*title*/
+.educationSection > p {
+  align-self: flex-end;
   position: relative;
   width: 55%;
   margin: 0 30px 30px 0;
-  text-align: left;
   margin-bottom: 20px;
   padding-top: 1vh;
-  font-size: x-large;
+  font-size: var(--global-font-large);
 }
-.title::before {
+.educationSection > p::before {
   content: '';
   position: absolute;
   width: 97%;
@@ -26,25 +22,17 @@
   top: 0;
   border-top: 2px solid #2a2a2a;
 }
-.education {
+.educations {
   display: flex;
   flex-direction: column;
 }
 
-.education > * {
-  position: relative;
-  display: flex;
-  width: 70%;
-  padding-bottom: 30px;
-  margin: 10vh 0;
-}
-
-.education > :nth-child(even) {
-  /* educationContainerRight */
+.educations > :nth-child(even) {
+  /* educationItemRight */
   align-self: flex-end;
-  margin-right: 7%;
+  flex-direction: row-reverse;
 }
-.education > :nth-child(even)::before {
+.educations > :nth-child(even)::before {
   content: '';
   position: absolute;
   right: 2vw;
@@ -53,13 +41,11 @@
   border-bottom: 2px solid #363636;
   border-image: linear-gradient(to left, #202020, rgba(0, 0, 0, 0)) 0 0 1%;
 }
-.education > :nth-child(odd) {
-  /* educationContainerLeft */
+.educations > :nth-child(odd) {
+  /* educationItemLeft */
   align-self: flex-start;
-  justify-content: flex-start;
-  margin-left: 7%;
 }
-.education > :nth-child(odd)::before {
+.educations > :nth-child(odd)::before {
   content: '';
   position: absolute;
   left: 2vw;
@@ -68,19 +54,22 @@
   border-bottom: 2px solid #363636;
   border-image: linear-gradient(to right, #202020, rgba(0, 0, 0, 0)) 0 0 1%;
 }
-.education > * > div:last-child {
-  /* educationRight, educationLeft */
-  display: flex;
-  align-items: center;
-  position: relative;
-}
-
-.education > :nth-child(even) {
-  /* educationRight */
-  flex-direction: row-reverse;
-}
-
 .addButton {
   align-self: center;
   margin: 20px 0;
+}
+
+@media (max-width: 768px) {
+  .educations {
+    align-items: center;
+  }
+  .educations > :nth-child(even),
+  .educations > :nth-child(odd) {
+    /* education item */
+    flex-direction: column;
+    width: 90%;
+    margin-right: 0;
+    margin-left: 0;
+    align-self: unset;
+  }
 }

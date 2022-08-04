@@ -14,7 +14,7 @@ header {
 }
 .infoContainer {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: flex-start;
   position: relative;
   top: min(52.5vw, 21.25vh); /* (profileImg + fullName)/2 */
@@ -42,7 +42,7 @@ header {
   justify-content: space-around;
   align-items: center;
   position: relative;
-  margin-right: 33px;
+  margin-right: 5vw;
   z-index: 1;
 }
 .profileImgContainer {
@@ -51,7 +51,7 @@ header {
   align-items: center;
 }
 .profileImgContainer img {
-  height: min(80vw, 30vh);
+  height: min(65vw, 30vh);
   margin-top: 15px;
   border-radius: 50%;
   box-shadow: 0 0 5px #08001e;

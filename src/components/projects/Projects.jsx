@@ -33,7 +33,7 @@ export default function Projects() {
 
   return (
     <section className={styles.projectsSection}>
-      <p /* className={`${styles.title} textShadowLight`} */>Projects i&apos;ve worked on</p>
+      <p>Projects i&apos;ve worked on</p>
       <div className={styles.projects}>
         {loading ||
           projects.map(p => <ProjectItem project={p} key={p.id} setProjects={setProjects} />)}

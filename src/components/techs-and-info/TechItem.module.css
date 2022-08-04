@@ -19,7 +19,7 @@
   height: 8.55vw;
 }
 @media (max-width: 650px) {
-  .techImg {
-    height: 41.55vw;
+  .techImageContainer img {
+    height: 25vw;
   }
 }

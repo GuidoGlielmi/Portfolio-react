@@ -38,31 +38,29 @@ export default function ExperienceItem({experience, setExperiences}) {
   }
 
   return (
-    <div className={styles.projectContainer}>
+    <div className={styles.experienceContainer}>
       {loggedIn && (
         <CloseAndEdit toggleEdit={() => setShowForm(ps => !ps)} deleteItem={deleteExperience} />
       )}
-      <div>
-        <div className={styles.experienceImgContainer}>
-          <img src={experience.experienceImg} alt={`${experience.title} logo`} />
-        </div>
-        {!showForm ? (
-          <div className={styles.experienceInfo}>
-            <h3>{experience.title}</h3>
-            <span>
-              {experience.startDate} - {experience.endDate}
-            </span>
-            <p>{experience.description}</p>
-            {experience.certificate && (
-              <a href={experience.certificate} target='_blank' rel='noreferrer'>
-                Certificate
-              </a>
-            )}
-          </div>
-        ) : (
-          <ExperienceForm experience={experience} handleSubmit={updateExperience} />
-        )}
+      <div className={styles.experienceImgContainer}>
+        <img src={experience.experienceImg} alt={`${experience.title} logo`} />
       </div>
+      {!showForm ? (
+        <div className={styles.experienceInfo}>
+          <h3>{experience.title}</h3>
+          <span>
+            {experience.startDate} - {experience.endDate}
+          </span>
+          <p>{experience.description}</p>
+          {experience.certificate && (
+            <a href={experience.certificate} target='_blank' rel='noreferrer'>
+              Certificate
+            </a>
+          )}
+        </div>
+      ) : (
+        <ExperienceForm experience={experience} handleSubmit={updateExperience} />
+      )}
     </div>
   );
 }

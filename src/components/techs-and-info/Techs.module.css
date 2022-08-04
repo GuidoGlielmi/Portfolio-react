@@ -34,8 +34,8 @@
   overscroll-behavior-y: none;
   scroll-snap-type: x proximity;
   margin: 0 2vw 5vh 2vw;
-  border-left: 2px solid black;
-  border-right: 2px solid black;
+  border-left: 2px solid rgb(46, 46, 46);
+  border-right: 2px solid rgb(46, 46, 46);
 }
 .techsContainer > div:last-child {
   display: flex;

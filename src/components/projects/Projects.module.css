@@ -33,8 +33,10 @@
 
 .projects > * {
   /* projectContainer */
+  display: flex;
+  align-items: center;
   position: relative;
-  width: 70%;
+  max-width: 70%;
   padding-bottom: 30px;
   margin: 10vh 0;
 }
@@ -43,6 +45,7 @@
   /* projectContainerRight */
   align-self: flex-end;
   display: flex;
+  flex-direction: row-reverse;
   justify-content: flex-end;
   margin-right: 7%;
 }
@@ -72,20 +75,16 @@
   border-bottom: 2px solid #363636;
   border-image: linear-gradient(to right, #202020, rgba(0, 0, 0, 0)) 0 0 1%;
 }
-.projects > * > * {
-  /* projectRight projectLeft */
-  display: flex;
-  align-items: center;
-  position: relative;
-}
-
-.projects > :nth-child(odd) > * {
-  /* projectRight */
-  flex-direction: row-reverse;
-}
 
 @media (max-width: 650px) {
   .projects {
     align-items: center;
+  }
+  .projects > :nth-child(even),
+  .projects > :nth-child(odd) {
+    align-self: unset;
+    flex-direction: column;
+    max-width: 80%;
+    margin: 5vh 0;
   }
 }
