@@ -51,7 +51,7 @@ header {
   align-items: center;
 }
 .profileImgContainer img {
-  height: min(65vw, 30vh);
+  height: min(60vw, 33vh);
   margin-top: 15px;
   border-radius: 50%;
   box-shadow: 0 0 5px #08001e;

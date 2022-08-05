@@ -8,7 +8,7 @@ import TechItem from './TechItem';
 import styles from './Techs.module.css';
 
 export default function Techs() {
-  const {techs, setTechs, loadingTechs} = useContext(userContext);
+  const {techs, setTechs, loadingTechs: loading} = useContext(userContext);
   const {loggedIn} = useContext(loginContext);
   const {makeRequest} = useContext(userFeedbackContext);
   const [showNewForm, setShowNewForm] = useState(false);
@@ -80,7 +80,7 @@ export default function Techs() {
   return (
     <div className={styles.techsSection}>
       <h3>Some technologies i&apos;m familiar with</h3>
-      {loadingTechs || (
+      {loading || (
         <div ref={techsContainer} onWheel={onWheel} className={styles.techsContainer}>
           {techs.map((t, i) => (
             <TechItem tech={t} index={i} key={t.id} ref={techImg} />
@@ -99,5 +99,3 @@ export default function Techs() {
     </div>
   );
 }
-
-// <div  style={{scrollSnapAlign: 'start'}}>

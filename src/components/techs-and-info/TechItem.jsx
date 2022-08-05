@@ -41,10 +41,10 @@ const TechItem = forwardRef(({tech}, ref) => {
         {loggedIn && (
           <CloseAndEdit toggleEdit={() => setShowForm(ps => !ps)} deleteItem={deleteTech} />
         )}
-        {!showForm ? (
-          <img src={tech.techImg} alt={`${tech.techName} logo`} title={tech.name} ref={ref} />
-        ) : (
+        {showForm ? (
           <TechForm tech={tech} handleSubmit={updateTech} />
+        ) : (
+          <img src={tech.techImg} alt={`${tech.techName} logo`} title={tech.name} ref={ref} />
         )}
       </div>
     </div>

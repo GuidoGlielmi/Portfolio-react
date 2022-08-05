@@ -1,5 +1,4 @@
 import {useState, createContext, useEffect, useCallback, useContext, useMemo} from 'react';
-import LoadingIcon from 'components/loading-icon/LoadingIcon';
 import GlobalLoading from 'components/loading-icon/GlobalLoading';
 import fetch from 'services/Fetch';
 import {loginContext} from '../login/LoginContext';

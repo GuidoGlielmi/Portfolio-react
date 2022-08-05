@@ -5,7 +5,7 @@ const Footer = ({sections, setLinkIndex}) => (
   <footer>
     <ul className={styles.linkList}>
       {sections.map((s, i) => (
-        <li onClick={() => setLinkIndex(i)} key={s} /* className={styles.link} */>
+        <li onClick={() => setLinkIndex(i)} key={s}>
           {s}
         </li>
       ))}

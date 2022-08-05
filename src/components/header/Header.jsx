@@ -36,18 +36,16 @@ export default function Header() {
       <div className={styles.infoAndTitle}>
         {loadingUser || (
           <div className={styles.infoContainer}>
-            <h2 /* className={styles.headerTitle} */>Welcome to my personal page!</h2>
-            <div /* className={styles.userInfo} */>
+            <h2>Welcome to my personal page!</h2>
+            <div>
               {loggedIn && <CloseAndEdit toggleEdit={handleToggle} />}
               <div className={styles.profileImgContainer}>
                 {editUserInfo ? (
                   <UserForm firstName={firstName} lastName={lastName} profileImg={profileImg} />
                 ) : (
                   <>
-                    <img /* className={styles.profileImg} */ src={user.profileImg} alt='profile' />
-                    <h1 /* className={`${`${styles.fullName} textShadowLight`} darkFont`} */>
-                      {`${user.firstName} ${user.lastName}`}
-                    </h1>
+                    <img src={user.profileImg} alt='profile' />
+                    <h1>{`${user.firstName} ${user.lastName}`}</h1>
                   </>
                 )}
               </div>

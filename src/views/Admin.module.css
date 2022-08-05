@@ -104,7 +104,7 @@
   transform: rotate(180deg);
 }
 
-@media (max-width: 650px) {
+@media (max-width: 1200px) {
   .bottomPart {
     padding-top: 23vh;
   }

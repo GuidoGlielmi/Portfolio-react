@@ -29,7 +29,7 @@
   justify-content: center;
   align-items: center;
   padding: 2vw 8vw;
-  min-height: 100vh;
+  min-height: 100vh !important;
   background: linear-gradient(170deg, rgba(51, 11, 83, 0.8), rgba(17, 4, 27, 0.8));
   color: whitesmoke;
 }
@@ -58,6 +58,19 @@
   border-image: linear-gradient(to right, rgba(0, 0, 0, 0), #afafaf 20% 80%, rgba(0, 0, 0, 0)) 0 0
     1%;
 }
+@media (max-width: 1200px) {
+  .experiencesSection > div:nth-child(even),
+  .experiencesSection > div:nth-child(odd) {
+    min-height: 70vh;
+    padding: 2vw 5vw;
+  }
+  .experiencesSection > div:nth-child(odd) {
+    clip-path: ellipse(38% 77% at 75% 50%);
+  }
+  .experiencesSection > div:nth-child(even) {
+    clip-path: ellipse(40% 77% at 20% 50%);
+  }
+}
 @media (max-width: 650px) {
   .projects {
     align-items: center;
@@ -71,7 +84,6 @@
     margin-top: -17%;
   }
   .experiencesSection > div:nth-child(odd) {
-    min-height: 80vh;
     clip-path: ellipse(215% 49% at 140% 50%);
   }
   .experiencesSection > div:nth-child(even) {

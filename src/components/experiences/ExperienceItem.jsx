@@ -42,7 +42,7 @@ export default function ExperienceItem({experience, setExperiences}) {
       {loggedIn && (
         <CloseAndEdit toggleEdit={() => setShowForm(ps => !ps)} deleteItem={deleteExperience} />
       )}
-      <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+      <div>
         <div className={styles.experienceImgContainer}>
           <img src={experience.experienceImg} alt={`${experience.title} logo`} />
         </div>

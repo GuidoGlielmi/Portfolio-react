@@ -27,22 +27,18 @@ export default function TechsAndInfo() {
     <section className={styles.techsAndInfoSection}>
       <div className={styles.personalInfo}>
         <h2>I&apos;m a web developer</h2>
-        {loadingUser ||
-          when(!loggedIn)
-            .return(<p>{user.aboutMe}</p>)
-            .else(
-              <>
-                <CloseAndEdit toggleEdit={handleToggle} />
-                {when(!editAboutMe)
-                  .return(<p>{user.aboutMe}</p>)
-                  .else(
-                    <textarea
-                      defaultValue={user.aboutMe}
-                      onChange={e => setUser(pu => ({...pu, aboutMe: e.target.value}))}
-                    />,
-                  )}
-              </>,
+        {loggedIn && <CloseAndEdit toggleEdit={handleToggle} />}
+        {loadingUser || (
+          <>
+            <p>{user.aboutMe}</p>
+            {editAboutMe && (
+              <textarea
+                defaultValue={user.aboutMe}
+                onChange={e => setUser(pu => ({...pu, aboutMe: e.target.value}))}
+              />
             )}
+          </>
+        )}
       </div>
       <Techs />
     </section>

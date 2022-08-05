@@ -3,6 +3,8 @@
   align-items: center;
   align-self: center;
   margin: 5px;
+  text-shadow: 0 0 2px #00000034;
+  filter: drop-shadow(5px 5px 1px #ff000028);
 }
 .loadingContainer > span {
   margin-right: 5px;
