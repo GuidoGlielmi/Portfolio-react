@@ -39,6 +39,12 @@ export default function TechsAndInfo() {
             )}
           </>
         )}
+        <a href='./assets/Guido-Glielmi-RESUME.pdf' download>
+          Download my CV
+        </a>
+        <a href='./assets/Guido-Glielmi-RESUME(es).pdf' download>
+          Download my CV (es)
+        </a>
       </div>
       <Techs />
     </section>
