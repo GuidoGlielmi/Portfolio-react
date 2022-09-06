@@ -1,12 +1,27 @@
+.headerShadowContainer {
+  height: 60vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  filter: drop-shadow(-20px -31px 10px #00000036);
+}
+.headerShadow {
+  clip-path: ellipse(91% 120% at 4% 99%);
+  /* clip-path: ellipse(91% 120% at 9% 99%); */
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom right, #a9abd0, rgb(10, 10, 10));
+}
 header {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
   height: 60vh;
-  background-size: 100% 200%;
-  background-image: linear-gradient(to top, transparent 50%, rgba(255, 255, 255, 0.3) 100%),
-    url('../../../public/assets/img/banner3.jpg');
-  box-shadow: 0 0 10px 1px #363636;
+  /* background: linear-gradient(to bottom right, #a9abd0, black); */
+  /* clip-path: ellipse(100% 100% at 9% 99%); */
+  /* clip-path: ellipse(91% 120% at 9% 99%); */
+  /* box-shadow: 0 0 10px 1px #363636; */
   font-size: var(--global-font-large);
 }
 .infoAndTitle {
@@ -61,6 +76,9 @@ header {
   text-shadow: 0.5px 0.5px 3px #9e9e9e;
 }
 @media (max-width: 650px) {
+  .headerShadow {
+    clip-path: ellipse(137% 66% at 16% 99%);
+  }
   .infoContainer h2 {
     margin-bottom: 15px;
     margin-left: 0;

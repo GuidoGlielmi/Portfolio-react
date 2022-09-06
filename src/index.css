@@ -20,12 +20,7 @@ p {
 :root {
   --global-primary-color: #ff452b;
   --global-bg-color-soft: #fafafa;
-  --global-form-color: linear-gradient(
-    to bottom right,
-    rgb(13, 25, 36),
-    rgb(52, 59, 66),
-    rgb(20, 20, 20)
-  );
+  --global-form-color: linear-gradient(to bottom right, rgb(13, 25, 36), rgb(52, 59, 66), rgb(20, 20, 20));
   --global-radius: 5px;
   --global-border: 1px solid #e9e9e9;
   --global-secondary-font: Comfortaa;
@@ -38,8 +33,8 @@ p {
   --global-text-shadow-semi-dark: 0px 0px 2.5px #919191;
   --global-text-shadow-dark: 0px 0px 3.5px #3a3a3a;
   --global-box-shadow-light: 2px 3px 6px rgb(175, 175, 175);
-  --global-filter: drop-shadow(0 0 1px rgba(0, 0, 0, 0.582)) drop-shadow(10px 10px 2px #00000022)
-    invert(15%) contrast(150%);
+  --global-filter: drop-shadow(0 0 1px rgba(0, 0, 0, 0.582)) drop-shadow(10px 10px 2px #00000022) invert(15%)
+    contrast(150%);
 }
 html::-webkit-scrollbar {
   display: none;
@@ -53,6 +48,12 @@ html {
 body {
   margin: 0;
   position: relative;
+  background-image: url('../public/assets/img/banner3.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: 120% 200%;
+  background-color: #c1bdbd;
+  background-blend-mode: difference;
 }
 a {
   color: rgb(15, 66, 151);

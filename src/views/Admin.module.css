@@ -32,16 +32,14 @@
 .main {
   position: relative;
 }
-.bottomPart {
-  background-image: linear-gradient(rgba(44, 33, 45, 0.17), 90%, rgba(44, 33, 45, 0.51));
-}
+
 .sectionLinks {
   display: flex;
   width: 62%;
-  box-shadow: 0px 0px 14px -6px #999 inset;
+  box-shadow: 0px 0px 14px -6px #444 inset;
   border-radius: 0 0 40px 0;
   font-size: var(--global-font-small);
-  border-bottom: 1px #3d4e4f44 solid;
+  border-bottom: 2px #3e3e3e solid;
 }
 
 .sectionLinks > * {
@@ -59,11 +57,10 @@
   font-size: 1.25em;
   color: rgb(59, 20, 75);
   text-shadow: 0 0 0.5px rgb(59, 20, 75);
-  box-shadow: -7px 0px 14px -12px #999 inset;
+  box-shadow: -7px 0px 14px -12px rgb(54, 54, 54) inset;
 }
 .clickedSectionLink {
-  border-right: 2px solid rgb(48, 54, 62);
-  box-shadow: -12px -4px 14px -17px #ffffff inset;
+  border-right: 5px solid rgb(48, 54, 62);
 }
 
 .sectionsContainer {

@@ -32,27 +32,32 @@ export default function Header() {
   }
 
   return (
-    <header>
-      <div className={styles.infoAndTitle}>
-        {loadingUser || (
-          <div className={styles.infoContainer}>
-            <h2>Welcome to my personal page!</h2>
-            <div>
-              {loggedIn && <CloseAndEdit toggleEdit={handleToggle} />}
-              <div className={styles.profileImgContainer}>
-                {editUserInfo ? (
-                  <UserForm firstName={firstName} lastName={lastName} profileImg={profileImg} />
-                ) : (
-                  <>
-                    <img src={user.profileImg} alt='profile' />
-                    <h1>{`${user.firstName} ${user.lastName}`}</h1>
-                  </>
-                )}
+    <>
+      <div className={styles.headerShadowContainer}>
+        <div className={styles.headerShadow} />
+      </div>
+      <header>
+        <div className={styles.infoAndTitle}>
+          {loadingUser || (
+            <div className={styles.infoContainer}>
+              <h2>Welcome to my personal page!</h2>
+              <div>
+                {loggedIn && <CloseAndEdit toggleEdit={handleToggle} />}
+                <div className={styles.profileImgContainer}>
+                  {editUserInfo ? (
+                    <UserForm firstName={firstName} lastName={lastName} profileImg={profileImg} />
+                  ) : (
+                    <>
+                      <img src={user.profileImg} alt='profile' />
+                      <h1>{`${user.firstName} ${user.lastName}`}</h1>
+                    </>
+                  )}
+                </div>
               </div>
             </div>
-          </div>
-        )}
-      </div>
-    </header>
+          )}
+        </div>
+      </header>
+    </>
   );
 }

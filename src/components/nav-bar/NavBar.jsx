@@ -3,10 +3,8 @@ import {loginContext} from 'components/contexts/login/LoginContext';
 import {userContext} from 'components/contexts/user/UserContext';
 import Button from 'components/button/Button';
 import {Edit} from 'components/close-icon/CloseAndEdit';
-import DropDownIcon from 'components/drop-down-icon/DropDownIcon';
 import LoginModal from 'components/login-modal/LoginModal';
 import styles from './NavBar.module.css';
-import stylesMobile from './NavBarMobile.module.css';
 
 export default function NavBar() {
   const {setLoggedIn} = useContext(loginContext);
@@ -20,12 +18,6 @@ export default function NavBar() {
     <>
       <LoginModalBackground showLoginModal={showLoginModal} setShowLoginModal={setShowLoginModal} />
       <DesktopNavBar
-        setShowLoginModal={setShowLoginModal}
-        logout={logout}
-        editLinks={editLinks}
-        setEditLinks={setEditLinks}
-      />
-      <MobileNavBar
         setShowLoginModal={setShowLoginModal}
         logout={logout}
         editLinks={editLinks}
@@ -51,28 +43,22 @@ function DesktopNavBar({setShowLoginModal, logout, editLinks, setEditLinks}) {
 
   return (
     <nav className={styles.nav}>
-      <h2>Guido Glielmi</h2>
-      <div>
-        {loggedIn && <Edit toggleEdit={handleToggle} />}
-        {loadingUser ||
-          (editLinks ? (
-            <UserForm />
-          ) : (
-            <div className={styles.social}>
-              <a href={user.linkedInUrl} target='_blank' rel='noreferrer'>
-                <img src='./assets/logos/GitHub-Mark-64px.png' alt='LinkedIn external link' />
-              </a>
-              <a href={user.githubUrl} target='_blank' rel='noreferrer'>
-                <img src='./assets/logos/linkedin.png' alt='Github external link' />
-              </a>
-            </div>
-          ))}
-        <div
-          onClick={() => (!loggedIn ? setShowLoginModal(ps => !ps) : logout())}
-          className={styles.navButton}
-        >
-          <Button>{loggedIn ? 'Log out' : 'Log in'}</Button>
-        </div>
+      {loggedIn && <Edit toggleEdit={handleToggle} />}
+      {loadingUser ||
+        (editLinks ? (
+          <UserForm />
+        ) : (
+          <div className={styles.social}>
+            <a href={user.linkedInUrl} target='_blank' rel='noreferrer'>
+              <img src='./assets/logos/GitHub-Mark-64px.png' alt='LinkedIn external link' />
+            </a>
+            <a href={user.githubUrl} target='_blank' rel='noreferrer'>
+              <img src='./assets/logos/linkedin.png' alt='Github external link' />
+            </a>
+          </div>
+        ))}
+      <div onClick={() => (!loggedIn ? setShowLoginModal(ps => !ps) : logout())} className={styles.navButton}>
+        <Button>{loggedIn ? 'Log out' : 'Log in'}</Button>
       </div>
     </nav>
   );
@@ -104,71 +90,6 @@ const UserForm = () => {
     </div>
   );
 };
-
-function MobileNavBar({setShowLoginModal, logout, editLinks, setEditLinks}) {
-  const {loadingUser, user, setUser, saveUser} = useContext(userContext);
-  const {loggedIn} = useContext(loginContext);
-
-  const [dropDownDisplayed, setDropDownDisplayed] = useState(false);
-  useEffect(() => !loggedIn && setEditLinks(false), [loggedIn, setEditLinks]);
-
-  function handleToggle() {
-    if (editLinks) saveUser();
-    setEditLinks(ps => !ps);
-  }
-
-  return (
-    <nav className={stylesMobile.nav}>
-      <div className={dropDownDisplayed && stylesMobile.navHidden}>
-        <h2>Guido Glielmi</h2>
-        <div style={{display: 'flex', alignItems: 'center'}}>
-          {loggedIn && <Edit toggleEdit={handleToggle} />}
-          {loadingUser ||
-            (!editLinks ? (
-              <>
-                <a href={user.linkedInUrl} target='_blank' rel='noreferrer'>
-                  <img src='./assets/logos/GitHub-Mark-64px.png' alt='LinkedIn external link' />
-                </a>
-                <a href={user.githubUrl} target='_blank' rel='noreferrer'>
-                  <img src='./assets/logos/linkedin.png' alt='Github external link' />
-                </a>
-              </>
-            ) : (
-              <div className={stylesMobile.social}>
-                <div>
-                  <label htmlFor='linkedInUrl'>Linkedin Url</label>
-                  <input
-                    defaultValue={user.linkedInUrl}
-                    onChange={e => setUser(pu => ({...pu, linkedInUrl: e.target.value}))}
-                    name='linkedInUrl'
-                    id='linkedInUrl'
-                  />
-                </div>
-                <div>
-                  <label htmlFor='githubUrl'>Github Url</label>
-                  <input
-                    defaultValue={user.githubUrl}
-                    onChange={e => setUser(pu => ({...pu, githubUrl: e.target.value}))}
-                    name='githubUrl'
-                    id='githubUrl'
-                  />
-                </div>
-              </div>
-            ))}
-        </div>
-        <div
-          onClick={() => (!loggedIn ? setShowLoginModal(ps => !ps) : logout())}
-          className={stylesMobile.navButton}
-        >
-          <Button>{loggedIn ? 'Log out' : 'Log in'}</Button>
-        </div>
-      </div>
-      <div className={!dropDownDisplayed && stylesMobile.movedArrow}>
-        <DropDownIcon onClick={() => setDropDownDisplayed(ps => !ps)} size='xl' />
-      </div>
-    </nav>
-  );
-}
 
 function LoginModalBackground({showLoginModal, setShowLoginModal}) {
   const modalBackground = useRef();
