@@ -1,9 +1,9 @@
-/* there are two section shown at the same time
-
+/*
+there are two sections shown at the same time
 when going to the next section, the current adquires previous-exit's classes (and goes left)
 when going to the previous section, the current adquires next-exit's classes (and goes right)
 */
-.next-enter {
+/* .next-enter {
   opacity: 0;
   transform: translate(-100%);
 }
@@ -39,4 +39,48 @@ when going to the previous section, the current adquires next-exit's classes (an
   transform: translate(-100%);
   opacity: 0;
   transition: opacity 650ms, transform 650ms ease;
+} */
+
+/* when changing direction the element needs to have a combination on next and previous */
+/* 
+.next-enter {
+  opacity: 0;
+  transform: translateX(-100%);
+}
+.next-enter-active {
+  opacity: 1;
+  transform: translateX(0%);
+}
+.next-exit {
+  opacity: 1;
+  transform: translateX(0%);
+}
+.next-exit-active {
+  opacity: 0;
+  transform: translateX(100%);
+}
+.next-enter-active,
+.next-exit-active {
+  transition: opacity 500ms, transform 500ms;
+} */
+
+.fade-enter {
+  opacity: 0;
+  transform: translateX(100%);
+}
+.fade-enter-active {
+  opacity: 1;
+  transform: translateX(0%);
+}
+.fade-exit {
+  opacity: 1;
+  transform: translateX(0%);
+}
+.fade-exit-active {
+  opacity: 0;
+  transform: translateX(-100%);
+}
+.fade-enter-active,
+.fade-exit-active {
+  transition: opacity 500ms ease, transform 500ms cubic-bezier(0.64, -0.41, 0.26, 1.27);
 }

@@ -1,10 +1,5 @@
 .educationSection {
-  display: flex;
-  flex-direction: column;
-  flex-shrink: 0;
   position: relative;
-  width: calc(100% - 10vw);
-  margin: 0 5vw;
 }
 .educationSection > h2 {
   text-align: center;
@@ -14,8 +9,8 @@
 .educationSection > h2::before {
   content: '';
   position: absolute;
-  width: 54%; /* 50% ends at half of "My studies"  */
-  right: 0;
+  width: 54%;
+  right: 5vw; /* educationSection's padding */
   top: 0;
   border-top: 2px solid #2a2a2a;
 }

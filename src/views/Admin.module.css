@@ -60,22 +60,37 @@
   box-shadow: -7px 0px 14px -12px rgb(54, 54, 54) inset;
 }
 .clickedSectionLink {
+  border-bottom-right-radius: 40px;
   border-right: 5px solid rgb(48, 54, 62);
+}
+.clickedSectionLink::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  border-bottom-right-radius: 40px;
+  border-right: 5px solid rgb(48, 54, 62);
+  box-shadow: 4px -1px 5px 0 rgba(0, 0, 0, 0.267);
+  transition: all 0.3s ease;
+}
+
+.clickedSectionLink:hover::before {
+  box-shadow: none;
 }
 
 .sectionsContainer {
   display: flex;
   padding: 22vh 0;
+  position: relative;
+  transition: all 0.8s cubic-bezier(0.97, -0.38, 0.07, 1.3);
 }
-.sectionsContainerMobile {
+.sectionsContainer > * {
   display: flex;
-  padding: 22vh 0;
-  overscroll-behavior-x: contain;
-  overflow-x: scroll;
-  scroll-snap-type: x mandatory;
-}
-.sectionsContainerMobile > * {
-  scroll-snap-align: start;
+  flex-direction: column;
+  flex-shrink: 0;
+  width: 100%;
+  padding: 0 3.5vw;
 }
 .arrowTrack {
   /* previousArrowContainer nextArrowContainer */
@@ -129,12 +144,7 @@
     z-index: 5;
   }
   .clickedSectionLink::before {
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 100%;
     box-shadow: 8px 3px 0px #0000000f;
-    left: 0;
     border-radius: 0 0 40px 40px;
   }
 }

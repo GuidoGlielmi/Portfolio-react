@@ -1,17 +1,16 @@
 .experiencesSection {
-  display: flex;
+  /*   display: flex;
   flex-direction: column;
   flex-shrink: 0;
-  width: 100%;
+  width: 100%; */
+  padding: 0 !important;
 }
 .experiencesSection > h2 {
   position: relative;
   width: 40%;
-  top: 4%;
   text-align: left;
-  margin: 0 2% 20px auto;
+  margin: 0 2% 0 auto;
   padding-top: 1vh;
-  font-size: x-large;
 }
 .experiencesSection > h2::before {
   content: '';
@@ -28,8 +27,8 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 2vw 8vw;
-  min-height: 100vh !important;
+  padding: 0 5vw;
+  min-height: 100vh;
   background: linear-gradient(170deg, rgba(51, 11, 83, 0.8), rgba(17, 4, 27, 0.8));
   color: whitesmoke;
 }

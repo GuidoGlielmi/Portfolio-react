@@ -1,6 +1,5 @@
-/* eslint-disable react/no-array-index-key */
-import {useEffect, useRef, useState} from 'react';
-import {CSSTransition} from 'react-transition-group';
+import {useRef, useState} from 'react';
+import {CSSTransition, SwitchTransition} from 'react-transition-group';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {solid} from '@fortawesome/fontawesome-svg-core/import.macro';
 import Header from 'components/header/Header';
@@ -20,19 +19,21 @@ const sections = [<TechsAndInfo />, <Projects />, <Experiences />, <Education />
 
 export default function Admin() {
   const [index, setIndex] = useState(0);
+  const [state, setState] = useState(true);
 
   const section = useRef('');
-  const previousIndex = useRef(0);
 
   function scrollIntoView(i) {
     section.current.scrollIntoView();
+    triggerAnimation(i);
+  }
+  function triggerAnimation(i) {
+    if (index === i) return;
+    setState(ps => !ps);
     setIndex(i);
   }
-
-  const previousSection = () => setIndex(pi => (!pi ? sections.length - 1 : pi - 1));
-  const nextSection = () => setIndex(pi => (pi === sections.length - 1 ? 0 : pi + 1));
-
-  useEffect(() => (previousIndex.current = index), [index]);
+  const previousSection = () => triggerAnimation(!index ? sections.length - 1 : index - 1);
+  const nextSection = () => triggerAnimation(index === sections.length - 1 ? 0 : index + 1);
 
   return (
     <>
@@ -44,8 +45,8 @@ export default function Admin() {
           <Arrow action={nextSection} />
         </div>
         <div className={styles.bottomPart}>
-          <SectionLinks index={index} setIndex={setIndex} />
-          <Sections section={section} index={index} previousIndex={previousIndex} />
+          <SectionLinks index={index} triggerAnimation={triggerAnimation} />
+          <Sections section={section} state={state} index={index} />
         </div>
         <Footer sections={sectionsNames} setLinkIndex={scrollIntoView} />
       </main>
@@ -63,13 +64,13 @@ const Arrow = ({action}) => (
   </div>
 );
 
-const SectionLinks = ({index, setIndex}) => (
+const SectionLinks = ({index, triggerAnimation}) => (
   <div className={styles.sectionLinks}>
     {sectionsNames.map((sn, i) => (
       <span
         key={sn}
-        onClick={() => setIndex(i)}
-        className={index === i && styles.clickedSectionLink}
+        onClick={() => triggerAnimation(i)}
+        className={index === i ? styles.clickedSectionLink : undefined}
       >
         {sn}
       </span>
@@ -77,18 +78,18 @@ const SectionLinks = ({index, setIndex}) => (
   </div>
 );
 
-const Sections = ({index, previousIndex, section}) => (
+const Sections = ({index, section, state}) => (
   <div ref={section} className={styles.sectionsContainer}>
-    {sections.map((s, i) => (
+    <SwitchTransition>
       <CSSTransition
-        key={i}
-        in={index === i}
-        timeout={650}
-        classNames={previousIndex.current > index ? 'next' : 'previous'}
-        unmountOnExit
+        key={state}
+        addEndListener={(node, done) => {
+          node.addEventListener('transitionend', done, false);
+        }}
+        classNames='fade'
       >
-        {s}
+        {sections[index]}
       </CSSTransition>
-    ))}
+    </SwitchTransition>
   </div>
 );

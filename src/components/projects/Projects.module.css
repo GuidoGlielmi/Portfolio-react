@@ -1,10 +1,5 @@
 .projectsSection {
-  display: flex;
-  flex-direction: column;
-  flex-shrink: 0;
   position: relative;
-  width: calc(100% - 8vw);
-  margin: 4vw;
   font-size: var(--global-font-medium);
 }
 .projectsSection > h2 {
@@ -13,11 +8,11 @@
   font-size: 1.5em;
   text-align: center;
 }
-.projectsSection > ::before {
+.projectsSection > h2::before {
   content: '';
   position: absolute;
-  width: 60%;
-  right: 0;
+  width: 55%;
+  right: 4vw; /* projectsSection's padding */
   top: 0;
   border-top: 2px solid #2a2a2a;
 }
