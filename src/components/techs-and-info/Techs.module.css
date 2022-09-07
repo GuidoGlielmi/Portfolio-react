@@ -10,7 +10,7 @@
   text-align: left;
   margin-bottom: 20px;
   padding-top: 1vh;
-  font-size: x-large;
+  font-size: 1.5em;
 }
 .techsSection > h3::before {
   content: '';
@@ -33,7 +33,6 @@
   overscroll-behavior-x: contain;
   overscroll-behavior-y: none;
   scroll-snap-type: x proximity;
-  margin: 0 2vw 5vh 2vw;
   border-left: 2px solid rgb(46, 46, 46);
   border-right: 2px solid rgb(46, 46, 46);
 }
@@ -46,7 +45,14 @@
 }
 @media (max-width: 650px) {
   .techsSection > h3 {
-    width: 75%;
+    align-self: stretch;
+    margin: 0 5vw;
+    width: 90%;
+    text-align: center;
+  }
+  .techsSection > h3::before {
+    width: 86%;
+    left: 7%;
   }
   .techsContainer > div:last-child {
     display: none;

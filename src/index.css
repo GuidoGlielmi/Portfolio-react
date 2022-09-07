@@ -7,6 +7,14 @@
   font-family: Raleway, sans-serif;
 }
 h1,
+h4,
+h5,
+h6,
+span,
+p {
+  font-size: inherit;
+}
+h1,
 h2,
 h3,
 h4,
@@ -14,8 +22,12 @@ h5,
 h6,
 span,
 p {
-  font-size: inherit;
   font-weight: 400;
+}
+h2,
+h3 {
+  text-shadow: 4px 4px 2px rgba(170, 57, 57, 0.3);
+  font-size: calc(var(--global-font-large) + 0.5em);
 }
 :root {
   --global-primary-color: #ff452b;
@@ -33,8 +45,9 @@ p {
   --global-text-shadow-semi-dark: 0px 0px 2.5px #919191;
   --global-text-shadow-dark: 0px 0px 3.5px #3a3a3a;
   --global-box-shadow-light: 2px 3px 6px rgb(175, 175, 175);
-  --global-filter: drop-shadow(0 0 1px rgba(0, 0, 0, 0.582)) drop-shadow(10px 10px 2px #00000022) invert(15%)
-    contrast(150%);
+  --global-filter: drop-shadow(0 0 1px rgba(0, 0, 0, 0.582)) invert(15%) contrast(150%);
+  --global-left-shadow: drop-shadow(10px 5px 0 #c42f2f20);
+  --global-right-shadow: drop-shadow(-10px 5px 0 #c42f2f20);
 }
 html::-webkit-scrollbar {
   display: none;

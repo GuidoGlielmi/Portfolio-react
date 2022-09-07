@@ -2,22 +2,21 @@
   display: flex;
   flex-direction: column;
   flex-shrink: 0;
-  width: 100%;
+  position: relative;
+  width: calc(100% - 8vw);
+  margin: 4vw;
   font-size: var(--global-font-medium);
 }
-.projectsSection > p {
-  position: relative;
-  width: 55%;
-  margin: 0 30px 30px auto;
-  text-align: left;
+.projectsSection > h2 {
   margin-bottom: 20px;
   padding-top: 1vh;
   font-size: 1.5em;
+  text-align: center;
 }
-.projectsSection > p::before {
+.projectsSection > ::before {
   content: '';
   position: absolute;
-  width: 97%;
+  width: 60%;
   right: 0;
   top: 0;
   border-top: 2px solid #2a2a2a;
@@ -47,7 +46,7 @@
   display: flex;
   flex-direction: row-reverse;
   justify-content: flex-end;
-  margin-right: 7%;
+  filter: var(--global-right-shadow);
 }
 .projects > :nth-child(odd)::before {
   content: '';
@@ -64,7 +63,7 @@
   align-self: flex-start;
   display: flex;
   justify-content: flex-start;
-  margin-left: 7%;
+  filter: var(--global-left-shadow);
 }
 .projects > :nth-child(even)::before {
   content: '';
@@ -80,6 +79,15 @@
   .projects {
     align-items: center;
   }
+  .projectsSection > h2 {
+    position: relative;
+    align-self: center;
+  }
+  .projectsSection > ::before {
+    width: 90%;
+    left: 5%;
+  }
+
   .projects > :nth-child(even),
   .projects > :nth-child(odd) {
     align-self: unset;

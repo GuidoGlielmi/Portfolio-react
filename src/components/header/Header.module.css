@@ -34,7 +34,7 @@ header {
   position: relative;
   top: min(52.5vw, 21.25vh); /* (profileImg + fullName)/2 */
 }
-.infoContainer h2 {
+.infoContainer h3 {
   position: relative;
   margin-left: 8%;
   padding-top: 2vh;
@@ -43,11 +43,11 @@ header {
   text-shadow: 0.8px 0.8px rgb(0, 0, 0);
   color: rgb(200, 200, 200);
 }
-.infoContainer h2::before {
+.infoContainer h3::before {
   content: '';
   position: absolute;
-  width: 117%;
-  right: 5%;
+  width: 108%; /* 100% + margin */
+  right: 4%; /* margin / 2 */
   top: 0;
   border-top: 3px solid rgb(200, 200, 200);
 }
@@ -77,16 +77,16 @@ header {
 }
 @media (max-width: 650px) {
   .headerShadow {
-    clip-path: ellipse(137% 66% at 16% 99%);
+    clip-path: ellipse(137% 66% at 16% 90%);
   }
-  .infoContainer h2 {
+  .infoContainer h3 {
     margin-bottom: 15px;
     margin-left: 0;
     text-align: center;
   }
-  .infoContainer h2::before {
-    width: 78%;
-    right: 18%;
+  .infoContainer h3::before {
+    width: 84%;
+    right: 8%;
   }
   .infoContainer {
     flex-direction: column;

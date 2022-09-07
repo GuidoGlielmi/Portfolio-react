@@ -4,15 +4,14 @@
   justify-content: center;
   position: relative;
   margin: 10px;
+  filter: drop-shadow(5px 5px 3px rgba(68, 8, 8, 0.39));
 }
 .circleBox > p {
   position: absolute;
-  font-size: max(2vw, 2vh);
 }
 .circleBox svg {
   transform: rotate(-90deg) scale(1, -1);
   border-radius: 50%;
-  box-shadow: 0px 0px 5px 0px #08001e;
 }
 .circle {
   stroke: #90abd5;

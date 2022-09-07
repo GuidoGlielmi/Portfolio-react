@@ -38,12 +38,10 @@ export default function Education() {
 
   return (
     <section className={styles.educationSection}>
-      <p>My studies</p>
+      <h2>My studies</h2>
       <div className={styles.educations}>
         {loading ||
-          educations.map((e, i) => (
-            <EducationItem education={e} i={i} key={e.id} setEducations={setEducations} />
-          ))}
+          educations.map((e, i) => <EducationItem education={e} i={i} key={e.id} setEducations={setEducations} />)}
       </div>
       {showNewForm && <EducationForm handleSubmit={addEducation} />}
       {loggedIn && (

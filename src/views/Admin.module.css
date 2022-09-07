@@ -110,11 +110,11 @@
   }
   .sectionLinks {
     position: relative;
-    border-bottom-left-radius: 40px;
-    box-shadow: 0px 11px 22px #18363924;
+    border-radius: 3px 3px 40px 40px;
+    box-shadow: 6px 7px 3px #0000004f;
     border: 2px solid rgb(17, 51, 62);
     margin: auto;
-    background: linear-gradient(145deg, rgb(216, 225, 226), rgb(141, 150, 151));
+    background: linear-gradient(145deg, #0000 40%, #00000035);
     flex-direction: column;
     padding: 0 11%;
   }

@@ -40,7 +40,7 @@ export default function Header() {
         <div className={styles.infoAndTitle}>
           {loadingUser || (
             <div className={styles.infoContainer}>
-              <h2>Welcome to my personal page!</h2>
+              <h3>Welcome to my personal page!</h3>
               <div>
                 {loggedIn && <CloseAndEdit toggleEdit={handleToggle} />}
                 <div className={styles.profileImgContainer}>

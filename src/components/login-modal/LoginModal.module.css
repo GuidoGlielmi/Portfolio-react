@@ -12,7 +12,7 @@
   box-shadow: 2px 2px 10px 1px rgb(17, 17, 17);
   text-shadow: 0px 0px 1px #111;
 }
-.modal > p {
+.modal > h2 {
   width: 50%;
   height: 15%;
   text-align: center;
@@ -58,7 +58,7 @@
     align-items: initial;
     padding: max(15px, 3vh);
   }
-  .modal > p {
+  .modal > h2 {
     align-self: center;
   }
   .modal label {

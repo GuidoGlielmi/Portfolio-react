@@ -4,7 +4,7 @@
   flex-shrink: 0;
   width: 100%;
 }
-.experiencesSection > p {
+.experiencesSection > h2 {
   position: relative;
   width: 40%;
   top: 4%;
@@ -13,7 +13,7 @@
   padding-top: 1vh;
   font-size: x-large;
 }
-.experiencesSection > p::before {
+.experiencesSection > h2::before {
   content: '';
   position: absolute;
   width: 97%;
@@ -55,8 +55,7 @@
 
 .experiencesSection /* > div:nth-child(odd) */ h3 {
   text-shadow: 0px 0px 1px #dfdfdf;
-  border-image: linear-gradient(to right, rgba(0, 0, 0, 0), #afafaf 20% 80%, rgba(0, 0, 0, 0)) 0 0
-    1%;
+  border-image: linear-gradient(to right, rgba(0, 0, 0, 0), #afafaf 20% 80%, rgba(0, 0, 0, 0)) 0 0 1%;
 }
 @media (max-width: 1200px) {
   .experiencesSection > div:nth-child(even),
@@ -74,6 +73,9 @@
 @media (max-width: 650px) {
   .projects {
     align-items: center;
+  }
+  .experiencesSection > h2 {
+    width: 60%;
   }
   .experiencesSection > div:nth-child(even),
   .experiencesSection > div:nth-child(odd) {

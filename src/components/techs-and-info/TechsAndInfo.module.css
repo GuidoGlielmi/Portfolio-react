@@ -2,36 +2,34 @@
   display: flex;
   flex-direction: column;
   flex-shrink: 0;
-  width: 100%;
+  width: calc(100% - 6vw);
+  margin: 0 3vw;
   font-size: var(--global-font-medium);
 }
 .personalInfo {
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 15px;
   position: relative;
   width: 50%;
-  margin: 0 0 min(25vw, 20vh) 3vw;
+  margin-bottom: min(25vw, 20vh);
 }
 .personalInfo > h2 {
-  margin-bottom: 20px;
+  width: 90%;
   padding-top: 1vh;
-  font-size: x-large;
+  font-size: 1.5em;
   font-weight: 500;
+  text-align: end;
 }
 .personalInfo > h2::before {
   content: '';
   position: absolute;
-  width: 60%;
-  left: 0;
+  width: 80%;
+  left: 10%;
   top: 0;
   border-top: 2px solid #2a2a2a;
 }
-.personalInfo > p {
-  width: 90%;
-  text-align: justify;
-}
-
 .personalInfo textarea {
   height: 80px;
   width: 100%;
@@ -43,8 +41,14 @@
 @media (max-width: 650px) {
   .personalInfo {
     width: 90%;
+    margin: 0 auto min(25vw, 20vh);
+  }
+  .personalInfo h2 {
+    position: relative;
+    text-align: center;
   }
   .personalInfo > h2::before {
-    width: 82%;
+    width: 90%;
+    left: 5%;
   }
 }

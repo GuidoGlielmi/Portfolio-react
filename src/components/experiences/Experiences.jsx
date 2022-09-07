@@ -35,11 +35,8 @@ export default function Experiences() {
 
   return (
     <section className={styles.experiencesSection}>
-      <p>My Experiences</p>
-      {loading ||
-        experiences.map(e => (
-          <ExperienceItem key={e.id} experience={e} setExperiences={setExperiences} />
-        ))}
+      <h2>My Experiences</h2>
+      {loading || experiences.map(e => <ExperienceItem key={e.id} experience={e} setExperiences={setExperiences} />)}
       {showNewForm && <ExperienceForm handleSubmit={addExperience} />}
       {loggedIn && (
         <span onClick={toggleNewForm} className={styles.addButton}>

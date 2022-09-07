@@ -33,10 +33,9 @@ export default function Projects() {
 
   return (
     <section className={styles.projectsSection}>
-      <p>Projects i&apos;ve worked on</p>
+      <h2>Projects I&apos;ve worked on</h2>
       <div className={styles.projects}>
-        {loading ||
-          projects.map(p => <ProjectItem project={p} key={p.id} setProjects={setProjects} />)}
+        {loading || projects.map(p => <ProjectItem project={p} key={p.id} setProjects={setProjects} />)}
       </div>
       {showNewForm && <ProjectForm handleSubmit={addProject} setProjects={setProjects} />}
       {loggedIn && (
